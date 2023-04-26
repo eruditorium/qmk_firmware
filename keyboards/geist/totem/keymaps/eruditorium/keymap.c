@@ -5,19 +5,15 @@
                                               ▀▀▀   █   ▀▀▀   █   ▀▀▀   ▀   ▀▀▀
                                                     █      ▄▄▄█▄▄▄    █   █
                                                     ▀      █  █  █     █▄█
-                                                  ▀▀▀▀▀    █  █  █      ▀   ┌─┐┌─╴╷┌──┬─
-                                                           ▀  ▀  ▀          │ ┐├─╴│└─┐│
-                                                                            └─┘└─╴╵╶─┘╵
+                                                  ▀▀▀▀▀    █  █  █      ▀
+                                                           ▀  ▀  ▀  E R U D I T O R I U M
+
 ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
 */
 
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 #include "totem.h"
-
-#include "oneshot.h"
-#include "swapper.h"
-
 
 // ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 // │ D E F I N I T I O N S                                                                                                  │
@@ -28,44 +24,63 @@
 // │ d e f i n e   l a y e r s                       │
 // └─────────────────────────────────────────────────┘
 
-enum layers {
-    DEF,
-    SYM,
-    NAV,
-    NUM,
-    QWERTY
+enum totem_layers {
+    _QWERTY,
+    _LOWER,
+    _RAISE,
+    _ADJUST,
 };
 
 // ┌─────────────────────────────────────────────────┐
 // │ d e f i n e   k e y c o d e s                   │
 // └─────────────────────────────────────────────────┘
 
-enum keycodes {
-    // Custom oneshot mod implementation with no timers.
-    OS_SHFT = SAFE_RANGE,
-    OS_CTRL,
-    OS_ALT,
-    OS_CMD,
-
-    SW_WIN,  // Switch to next window         (cmd-tab)
-    SW_LANG, // Switch to next input language (ctl-spc)
+enum custom_keycodes {
+    QWERTY = SAFE_RANGE,
+    LOWER,
+    RAISE,
+    ADJUST,
+    SNAP,
 };
+
+// ┌─────────────────────────────────────────────────┐
+// │ d e f i n e   c o m b o   n a m e s             │
+// └─────────────────────────────────────────────────┘
+
+enum combos {
+    COMBO_ESC,
+    COMBO_BSPC,
+    COMBO_FD,
+    COMBO_JK,
+    COMBO_LENGTH // nifty trick to avoid manually specifying how many combos you have
+};
+
+uint16_t COMBO_LEN = COMBO_LENGTH; // nifty trick continued
 
 // ┌─────────────────────────────────────────────────┐
 // │ d e f i n e   m a c r o n a m e s               │
 // └─────────────────────────────────────────────────┘
 
-// CALLUM
-#define HOME G(KC_LEFT)
-#define END G(KC_RGHT)
-#define FWD G(KC_RBRC)
-#define BACK G(KC_LBRC)
-#define TABL G(S(KC_LBRC))
-#define TABR G(S(KC_RBRC))
-#define SPCL A(G(KC_LEFT))
-#define SPC_R A(G(KC_RGHT))
-#define LA_SYM MO(SYM)
-#define LA_NAV MO(NAV)
+// LEFT HAND HOME ROW MODS QWERTY ├──────────────────
+// #define GUI_A MT(MOD_LGUI, KC_A)
+// #define ALT_S MT(MOD_LALT, KC_S)
+#define SHT_Z MT(MOD_LSFT, KC_Z)
+// #define CTL_D MT(MOD_LCTL, KC_D)
+#define SHT_F MT(MOD_LSFT, KC_F)
+
+// RIGHT HAND HOME ROW MODS QWERTY ├─────────────────┐
+#define SHT_J MT(MOD_RSFT, KC_J)
+// #define CTL_K MT(MOD_LCTL, KC_K)
+// #define ALT_L MT(MOD_LALT, KC_L)
+// #define GUI_S MT(MOD_LGUI, KC_SCLN)
+#define SHT_SLSH MT(MOD_RSFT, KC_SLSH)
+
+#define DEL_ALTGR MT(MOD_RALT, KC_DEL)
+#define BSPC_ALT MT(MOD_LALT, KC_BACKSPACE)
+
+#define LOWER LT(_LOWER, KC_ESC)
+#define RAISE LT(_RAISE, KC_TAB)
+#define ADJUST MO(_ADJUST)
 
 
 // ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -75,30 +90,7 @@ enum keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/*
-   ┌─────────────────────────────────────────────────┐
-   │ c o l e m a k _ d h                             │      ╭╮╭╮╭╮╭╮
-   └─────────────────────────────────────────────────┘      │╰╯╰╯╰╯│
-             ┌─────────┬─────────┬─────────┬─────────┬──────╨──┐┌──╨──────┬─────────┬─────────┬─────────┬─────────┐
-     ╌┄┈┈───═╡    Q    │    W    │    F    │    P    │    B    ││    J    │    L    │    U    │    Y    │    ;    │
-             ├─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┤
-             │    A    │    R    │    S    │    T    │    G    ││    M    │    N    │    E    │    I    │    O    │
-   ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
-   │    Q    │    Z    │    X    │    C    │    D    │    V    ││    K    │    H    │    ,    │    .    │    /    │    \    │
-   └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
-                                 │   DEL   │  LOWER  │  SPACE  ││  ENTER  │  RAISE  │  BSPC   │
-                                 └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘*/
-
-   [DEF] = LAYOUT(
- //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
-              KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,      KC_J,     KC_L,     KC_U,     KC_Y,     KC_SCLN,
-              KC_A,     KC_R,     KC_S,     KC_T,     KC_G,      KC_M,     KC_N,     KC_E,     KC_I,     KC_O,
-    KC_ESC,   KC_Z,     KC_X,     KC_C,     KC_D,     KC_V,      KC_K,     KC_H,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_ENTER,
-                                  KC_BSPC,  LA_NAV,   KC_TAB,    LA_SYM,   KC_SPC,   KC_DEL
- ),
-
-  /* ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
-
+ /*
    ┌─────────────────────────────────────────────────┐
    │ q w e r t y                                     │      ╭╮╭╮╭╮╭╮
    └─────────────────────────────────────────────────┘      │╰╯╰╯╰╯│
@@ -107,86 +99,93 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              ├─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┤
              │    A    │    S    │    D    │    F    │    G    ││    H    │    J    │    K    │    L    │    ;    │
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
-   │  SHIFT  │    Z    │    X    │    C    │    V    │    B    ││    N    │    M    │    ,    │    .    │    /    │    \    │
+   │  GUI    │ SHIFT/Z │    X    │    C    │    V    │    B    ││    N    │    M    │    ,    │    .    │SHIFT/ / │    '    │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
-                                 │  CTRL   │  LOWER  │  SPACE  ││  ENTER  │  RAISE  │  BSPC   │
+                                 │BSPC/ALT │RAISE/TAB│  ENTER  ││  SPACE  │LOWER/ESC│DEL/AltGr│
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘*/
 
-   [QWERTY] = LAYOUT(
+   [_QWERTY] = LAYOUT(
  //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
               KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,      KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,
-              KC_A,     KC_R,     KC_S,     KC_T,     KC_D,      KC_H,     KC_N,     KC_E,     KC_I,     KC_O,
-    KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,      KC_K,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_BSLS,
-                                  KC_LCTL,  LA_NAV,    KC_SPC,    KC_ENT,   LA_SYM,    KC_BSPC
+              KC_A,     KC_S,     KC_D,     SHT_F,    KC_G,      KC_H,     SHT_J,    KC_K,     KC_L,     KC_SCLN,
+    KC_LGUI,  SHT_Z,    KC_X,     KC_C,     KC_V,     KC_B,      KC_N,     KC_M,     KC_COMM,  KC_DOT,   SHT_SLSH,  KC_QUOT,
+                                  BSPC_ALT, RAISE,    KC_ENT,    KC_SPC,   LOWER,    DEL_ALTGR
  ),
+
+
  /*
    ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 
    ┌─────────────────────────────────────────────────┐
-   │ s y m                                           │      ╭╮╭╮╭╮╭╮
+   │ l o w e r                                       │      ╭╮╭╮╭╮╭╮
    └─────────────────────────────────────────────────┘      │╰╯╰╯╰╯│
              ┌─────────┬─────────┬─────────┬─────────┬──────╨──┐┌──╨──────┬─────────┬─────────┬─────────┬─────────┐
-     ╌┄┈┈───═╡ CAPSLCK │ NUMLCK  │    ↑    │    =    │    {    ││    }    │    7    │    8    │    9    │    +    │
+     ╌┄┈┈───═╡    .    │   HOME  │    ↑    │   PG↑   │    {    ││    }    │    7    │    8    │    9    │    +    │
              ├─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┤
-             │  HOME   │    ←    │    ↓    │    →    │    [    ││    ]    │    4    │    5    │    6    │    -    │
+             │    ,    │    ←    │    ↓    │    →    │    [    ││    ]    │    4    │    5    │    6    │    -    │
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
-   │ SCRNSHT │   END   │   PG↑   │  SAVE   │   PG↓   │    (    ││    )    │    1    │    2    │    3    │    *    │    ▼    │
+   │         │         │   END   │         │   PG↓   │    (    ││    )    │    1    │    2    │    3    │    *    │    =    │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
                                  │    ▼    │    ▼    │    ▼    ││    ▼    │ ADJUST  │    0    │
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘ */
 
-   [SYM] = LAYOUT(
+   [_LOWER] = LAYOUT(
  //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
-              KC_ESC,   KC_LBRC,  KC_LCBR,  KC_LPRN,  KC_TILD,   KC_CIRC,  KC_RPRN,  KC_RCBR,  KC_RBRC,  KC_GRV,
-              KC_MINS,  KC_ASTR,  KC_EQL,   KC_UNDS,  KC_DLR,    KC_HASH,  OS_CMD,   OS_ALT,   OS_CTRL,  OS_SHFT,
-    _______,  KC_PLUS,  KC_PIPE,  KC_AT,    KC_BSLS,  KC_PERC,   XXXXXXX,  KC_AMPR,  KC_SCLN,  KC_COLN,  KC_EXLM,  _______,
-                                  _______,  _______,  _______,   _______,  _______,   _______
-    ),
+              KC_DOT,   KC_HOME,  KC_UP,    KC_PGUP,  KC_LCBR,   KC_RCBR,  KC_7,     KC_8,     KC_9,     KC_PPLS,
+              KC_COMM,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_LBRC,   KC_RBRC,  KC_4,     KC_5,     KC_6,     KC_MINS,
+    _______,  XXXXXXX,  KC_END,   XXXXXXX,  KC_PGDN,  KC_LPRN,   KC_RPRN,  KC_1,     KC_2,     KC_3,     KC_PAST,  KC_EQL,
+                                  _______,  _______,  _______,   _______,  ADJUST,   KC_0
+ ),
+
+
  /*
    ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 
    ┌─────────────────────────────────────────────────┐
-   │ n a v                                           │      ╭╮╭╮╭╮╭╮
+   │ r a i s e                                       │      ╭╮╭╮╭╮╭╮
    └─────────────────────────────────────────────────┘      │╰╯╰╯╰╯│
              ┌─────────┬─────────┬─────────┬─────────┬──────╨──┐┌──╨──────┬─────────┬─────────┬─────────┬─────────┐
-     ╌┄┈┈───═╡    !    │    @    │    #    │    $    │    %    ││    ^    │    &    │    Ü    │    °    │    /    │
+     ╌┄┈┈───═╡    !    │    @    │    ↑    │    $    │    %    ││   PG↑   │   F7    │   F8    │   F9    │   F12   │
              ├─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┤
-             │    Ä    │    è    │    SZ   │    é    │         ││         │    ¥    │    €    │    £    │    Ö    │
+             │  VOL↑   │    ←    │    ↓    │    →    │    \    ││   PG↓   │   F4    │   F5    │   F6    │   F11   │
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
-   │   WEB   │    `    │    ~    │   CUE   │         │         ││         │         │         │ DM REC1 │ DM STOP │ DM PLY1 │
+   │ PAUSE   │  VOL↓   │         │    #    │    ^    │    `    ││    &    │   F1    │   F2    │   F3    │   F10   │         │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
-                                 │  GIPHY  │ ADJUST  │    ▼    ││    ▼    │    ▼    │    ▼    │
+                                 │    ▼    │ ADJUST  │    ▼    ││    ▼    │    ▼    │    ▼    │
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘ */
 
-   [NAV] = LAYOUT(
- //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
-              KC_TAB,   SW_WIN,   TABL,     TABR,     KC_VOLU,   _______,    HOME,     KC_UP,    END,      KC_DEL,
-              OS_SHFT,  OS_CTRL,  OS_ALT,   OS_CMD,   KC_VOLD,   KC_CAPS,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_BSPC,
-   _______,   SPCL,     SPC_R,    BACK,     FWD,      KC_MPLY,   XXXXXXX,  KC_PGDN,  KC_PGUP,  SW_LANG,  KC_ENT,   _______,
-                                    _______,  _______,  _______,   _______,  _______,   _______
+   [_RAISE] = LAYOUT(
+//╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
+              KC_EXLM, KC_AT,    KC_UP,    KC_DLR,   KC_PERC,   KC_PGUP,  KC_F7,    KC_F8,    KC_F9,    KC_F12,
+              KC_VOLU, KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_BSLS,   KC_PGDN,  KC_F4,    KC_F5,    KC_F6,    KC_F11,
+    KC_PAUS,  KC_VOLD, XXXXXXX,  KC_HASH,  KC_CIRC,  KC_GRV,    KC_AMPR,  KC_F1,    KC_F2,    KC_F3,    KC_F10,   _______,
+                                  _______, ADJUST,   _______,   _______,  _______,  _______
  ),
+
+
  /*
    ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 
    ┌─────────────────────────────────────────────────┐
-   │ n u m                                           │      ╭╮╭╮╭╮╭╮
+   │ a d j u s t                                     │      ╭╮╭╮╭╮╭╮
    └─────────────────────────────────────────────────┘      │╰╯╰╯╰╯│
              ┌─────────┬─────────┬─────────┬─────────┬──────╨──┐┌──╨──────┬─────────┬─────────┬─────────┬─────────┐
-     ╌┄┈┈───═╡  RESET  │         │         │         │         ││         │   F7    │   F8    │   F9    │   F12   │
+     ╌┄┈┈───═╡  RESET  │         │         │         │         ││         │         │         │         │         │
              ├─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┤
-             │ DEBUG   │ QWERTY  │         │         │         ││         │   F4    │   F5    │   F6    │   F11   │
+             │         │         │         │         │         ││         │         │         │         │         │
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
-   │  MAKE   │ OS SWAP │ COLEMAK │         │         │         ││         │   F1    │   F2    │   F3    │   F10   │   F13   │
+   │         │         │         │         │         │         ││         │         │         │         │         │         │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
                                  │    ▼    │    ▼    │    ▼    ││    ▼    │    ▼    │    ▼    │
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘ */
 
-   [NUM] = LAYOUT(
+   [_ADJUST] = LAYOUT(
  //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
-              KC_1,     KC_2,     KC_3,     KC_4,     KC_5,      KC_6,     KC_7,     KC_8,     KC_9,     KC_0,
-              OS_SHFT,  OS_CTRL,  OS_ALT,   OS_CMD,   KC_F11,    KC_F10,   OS_CMD,   OS_ALT,   OS_CTRL,  OS_SHFT,
-    _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,     KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   _______,
+              QK_BOOT,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+              XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX,   _______,
                                   _______,  _______,  _______,   _______,  _______,  _______
+
  )
 /*
    ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
@@ -216,72 +215,84 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
-bool is_oneshot_cancel_key(uint16_t keycode) {
-    switch (keycode) {
-    case LA_SYM:
-    case LA_NAV:
-        return true;
-    default:
-        return false;
-    }
-}
+// ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+// │ M A C R O S                                                                                                            │
+// └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+// ▝▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▘
 
-bool is_oneshot_ignored_key(uint16_t keycode) {
-    switch (keycode) {
-    case LA_SYM:
-    case LA_NAV:
-    case KC_LSFT:
-    case OS_SHFT:
-    case OS_CTRL:
-    case OS_ALT:
-    case OS_CMD:
-        return true;
-    default:
-        return false;
-    }
-}
-
-bool sw_win_active = false;
-bool sw_lang_active = false;
-
-oneshot_state os_shft_state = os_up_unqueued;
-oneshot_state os_ctrl_state = os_up_unqueued;
-oneshot_state os_alt_state = os_up_unqueued;
-oneshot_state os_cmd_state = os_up_unqueued;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    update_swapper(
-        &sw_win_active, KC_LGUI, KC_TAB, SW_WIN,
-        keycode, record
-    );
-    update_swapper(
-        &sw_lang_active, KC_LCTL, KC_SPC, SW_LANG,
-        keycode, record
-    );
+    switch (keycode) {
 
-    update_oneshot(
-        &os_shft_state, KC_LSFT, OS_SHFT,
-        keycode, record
-    );
-    update_oneshot(
-        &os_ctrl_state, KC_LCTL, OS_CTRL,
-        keycode, record
-    );
-    update_oneshot(
-        &os_alt_state, KC_LALT, OS_ALT,
-        keycode, record
-    );
-    update_oneshot(
-        &os_cmd_state, KC_LCMD, OS_CMD,
-        keycode, record
-    );
+// ┌─────────────────────────────────────────────────┐
+// │ l a y e r                                       │
+// └─────────────────────────────────────────────────┘
 
+        case QWERTY:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_QWERTY);
+            }
+            return false;
+
+// ┌─────────────────────────────────────────────────┐
+// │ q m k                                           │
+// └─────────────────────────────────────────────────┘
+
+// ┌─────────────────────────────────────────────────┐
+// │ p r o d u c t i v i t y                         │
+// └─────────────────────────────────────────────────┘
+
+      case SNAP:
+          if (record->event.pressed) {
+              SEND_STRING(SS_LSFT(SS_LWIN("S")));           //WIN
+          }
+          break;
+    }
     return true;
 }
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-    return update_tri_layer_state(state, SYM, NAV, NUM);
+// ┌─────────────────────────────────────────────────┐
+// │ t a p p i n g t e r m                           │
+// └─────────────────────────────────────────────────┘
+
+#ifdef TAPPING_TERM_PER_KEY
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        // case GUI_A:
+        // case GUI_S:
+        // case ALT_S:
+        // case ALT_L:
+        //     return TAPPING_TERM + 50;
+        // case CTL_D:
+        // case CTL_K:
+        //     return TAPPING_TERM - 50;
+        case SHT_F:
+        case SHT_J:
+        case SHT_Z:
+        case SHT_SLSH:
+            return TAPPING_TERM - 80;
+        default:
+            return TAPPING_TERM;
+    }
 }
+#endif
+
+// ┌─────────────────────────────────────────────────┐
+// │ c o m b o s                                     │
+// └─────────────────────────────────────────────────┘
+// define keys that make up combos
+const uint16_t PROGMEM qa_combo[] = {KC_Q, KC_A, COMBO_END};
+const uint16_t PROGMEM ps_combo[] = {KC_P, KC_SCLN, COMBO_END};
+const uint16_t PROGMEM fd_combo[] = {KC_F, KC_D, COMBO_END};
+const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
+
+// map combo names to their keys and the key they trigger
+combo_t key_combos[] = {
+    [COMBO_ESC] = COMBO(qa_combo, KC_ESC),
+    [COMBO_BSPC] = COMBO(ps_combo, KC_BSPC),
+    [COMBO_LCTL] = COMBO(fd_combo, KC_LCTL),
+    [COMBO_RCTL] = COMBO(jk_combo, KC_RCTL),
+};
 
 /*
   ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸

@@ -5,8 +5,8 @@ see https://docs.qmk.fm/#/feature_split_keyboard?id=setting-handedness
 for more options.
 */
 
-//#define MASTER_LEFT
-#define MASTER_RIGHT
+#define MASTER_LEFT
+// #define MASTER_RIGHT
 
 
 //#define TAPPING_TERM 170
@@ -26,7 +26,19 @@ for more options.
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
 #define NO_ACTION_ONESHOT
-//#define NO_ACTION_TAPPING
-//#define NO_MUSIC_MODE
 
-#define COMBO_COUNT 1
+#define TAPPING_TERM_PER_KEY
+
+// https://precondition.github.io/home-row-mods
+#define TAPPING_FORCE_HOLD  // make tap-then-hold _not_ do key auto repeat
+#define TAPPING_FORCE_HOLD_PER_KEY  // ... but do it for some!
+#define HOLD_ON_OTHER_KEY_PRESS  // obsolete my LT_NUM_BSPC
+#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY  // ... but not for mod-taps!
+#define IGNORE_MOD_TAP_INTERRUPT
+#define PERMISSIVE_HOLD  // I don't think this works for me, hence I rolled my own implementation.
+
+
+// source: https://jasoncarloscox.com/blog/combo-mods/
+#define COMBO_TERM 25        // how quickly all combo keys must be pressed in succession to trigger
+#define COMBO_MUST_HOLD_MODS // if a combo triggers a modifier, only trigger when the combo is held
+#define COMBO_HOLD_TERM 175  // how long at least one of the combo keys must be held to trigger
