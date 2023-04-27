@@ -50,6 +50,8 @@ enum custom_keycodes {
 enum combos {
     COMBO_ESC,
     COMBO_BSPC,
+    COMBO_DEL,
+    COMBO_WORDEL,
     COMBO_LCTL,
     COMBO_RCTL,
     COMBO_LENGTH // nifty trick to avoid manually specifying how many combos you have
@@ -287,13 +289,17 @@ const uint16_t PROGMEM qa_combo[] = {KC_Q, KC_A, COMBO_END};
 const uint16_t PROGMEM ps_combo[] = {KC_P, KC_SCLN, COMBO_END};
 const uint16_t PROGMEM fd_combo[] = {KC_F, KC_D, COMBO_END};
 const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM kl_combo[] = {KC_K, KC_L, COMBO_END};
+const uint16_t PROGMEM jkl_combo[] = {KC_J, KC_K, KC_L, COMBO_END};
+
 
 // map combo names to their keys and the key they trigger
 combo_t key_combos[] = {
     [COMBO_ESC] = COMBO(qa_combo, KC_ESC),
-    [COMBO_BSPC] = COMBO(ps_combo, KC_BSPC),
     [COMBO_LCTL] = COMBO(fd_combo, KC_LCTL),
-    [COMBO_RCTL] = COMBO(jk_combo, KC_RCTL),
+    [COMBO_BSPC] = COMBO(jk_combo, KC_BSPC),
+    [COMBO_DEL] = COMBO(kl_combo, KC_DEL),
+    [COMBO_WORDEL] = COMBO(jkl_combo, LCTL(KC_BSPC))
 };
 
 /*
