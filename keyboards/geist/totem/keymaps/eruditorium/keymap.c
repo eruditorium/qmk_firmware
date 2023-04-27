@@ -50,8 +50,8 @@ enum custom_keycodes {
 enum combos {
     COMBO_ESC,
     COMBO_BSPC,
-    COMBO_FD,
-    COMBO_JK,
+    COMBO_LCTL,
+    COMBO_RCTL,
     COMBO_LENGTH // nifty trick to avoid manually specifying how many combos you have
 };
 
@@ -66,10 +66,10 @@ uint16_t COMBO_LEN = COMBO_LENGTH; // nifty trick continued
 // #define ALT_S MT(MOD_LALT, KC_S)
 #define SHT_Z MT(MOD_LSFT, KC_Z)
 // #define CTL_D MT(MOD_LCTL, KC_D)
-#define SHT_F MT(MOD_LSFT, KC_F)
+// #define SHT_F MT(MOD_LSFT, KC_F)
 
 // RIGHT HAND HOME ROW MODS QWERTY ├─────────────────┐
-#define SHT_J MT(MOD_RSFT, KC_J)
+// #define SHT_J MT(MOD_RSFT, KC_J)
 // #define CTL_K MT(MOD_LCTL, KC_K)
 // #define ALT_L MT(MOD_LALT, KC_L)
 // #define GUI_S MT(MOD_LGUI, KC_SCLN)
@@ -77,6 +77,7 @@ uint16_t COMBO_LEN = COMBO_LENGTH; // nifty trick continued
 
 #define DEL_ALTGR MT(MOD_RALT, KC_DEL)
 #define BSPC_ALT MT(MOD_LALT, KC_BACKSPACE)
+#define ENTER_CTL(MOD_LCTL, KC_ENTER)
 
 #define LOWER LT(_LOWER, KC_ESC)
 #define RAISE LT(_RAISE, KC_TAB)
@@ -101,15 +102,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
    │  GUI    │ SHIFT/Z │    X    │    C    │    V    │    B    ││    N    │    M    │    ,    │    .    │SHIFT/ / │    '    │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
-                                 │BSPC/ALT │RAISE/TAB│  ENTER  ││  SPACE  │LOWER/ESC│DEL/AltGr│
+                                 │BSPC/ALT │RAISE/TAB│ENTR/Ctl ││  SPACE  │LOWER/ESC│DEL/AltGr│
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘*/
 
    [_QWERTY] = LAYOUT(
  //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
               KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,      KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,
-              KC_A,     KC_S,     KC_D,     SHT_F,    KC_G,      KC_H,     SHT_J,    KC_K,     KC_L,     KC_SCLN,
+              KC_A,     KC_S,     KC_D,     KC_F,     KC_G,      KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,
     KC_LGUI,  SHT_Z,    KC_X,     KC_C,     KC_V,     KC_B,      KC_N,     KC_M,     KC_COMM,  KC_DOT,   SHT_SLSH,  KC_QUOT,
-                                  BSPC_ALT, RAISE,    KC_ENT,    KC_SPC,   LOWER,    DEL_ALTGR
+                                  BSPC_ALT, RAISE,    ENTER_CTL, KC_SPC,   LOWER,    DEL_ALTGR
  ),
 
 
@@ -126,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
    │         │         │   END   │         │   PG↓   │    (    ││    )    │    1    │    2    │    3    │    *    │    =    │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
-                                 │    ▼    │    ▼    │    ▼    ││    ▼    │ ADJUST  │    0    │
+                                 │    ▼    │ ADJUST  │    ▼    ││    ▼    │    ▼    │    0    │
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘ */
 
    [_LOWER] = LAYOUT(
@@ -134,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
               KC_DOT,   KC_HOME,  KC_UP,    KC_PGUP,  KC_LCBR,   KC_RCBR,  KC_7,     KC_8,     KC_9,     KC_PPLS,
               KC_COMM,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_LBRC,   KC_RBRC,  KC_4,     KC_5,     KC_6,     KC_MINS,
     _______,  XXXXXXX,  KC_END,   XXXXXXX,  KC_PGDN,  KC_LPRN,   KC_RPRN,  KC_1,     KC_2,     KC_3,     KC_PAST,  KC_EQL,
-                                  _______,  _______,  _______,   _______,  ADJUST,   KC_0
+                                  _______,  ADJUST,  _______,   _______,  _______,   KC_0
  ),
 
 
@@ -151,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
    │ PAUSE   │  VOL↓   │         │    #    │    ^    │    `    ││    &    │   F1    │   F2    │   F3    │   F10   │         │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
-                                 │    ▼    │ ADJUST  │    ▼    ││    ▼    │    ▼    │    ▼    │
+                                 │    ▼    │    ▼    │    ▼    ││    ▼    │  ADJUST │    ▼    │
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘ */
 
    [_RAISE] = LAYOUT(
@@ -159,7 +160,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
               KC_EXLM, KC_AT,    KC_UP,    KC_DLR,   KC_PERC,   KC_PGUP,  KC_F7,    KC_F8,    KC_F9,    KC_F12,
               KC_VOLU, KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_BSLS,   KC_PGDN,  KC_F4,    KC_F5,    KC_F6,    KC_F11,
     KC_PAUS,  KC_VOLD, XXXXXXX,  KC_HASH,  KC_CIRC,  KC_GRV,    KC_AMPR,  KC_F1,    KC_F2,    KC_F3,    KC_F10,   _______,
-                                  _______, ADJUST,   _______,   _______,  _______,  _______
+                                 _______,  _______,   _______,   _______,  ADJUST,  _______
  ),
 
 
@@ -265,9 +266,10 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         //     return TAPPING_TERM + 50;
         // case CTL_D:
         // case CTL_K:
-        //     return TAPPING_TERM - 50;
-        case SHT_F:
-        case SHT_J:
+        case ENTER_CTL:
+            return TAPPING_TERM - 50;
+        // case SHT_F:
+        // case SHT_J:
         case SHT_Z:
         case SHT_SLSH:
             return TAPPING_TERM - 80;
