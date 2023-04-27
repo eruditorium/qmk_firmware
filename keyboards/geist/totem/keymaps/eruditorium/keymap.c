@@ -77,7 +77,7 @@ uint16_t COMBO_LEN = COMBO_LENGTH; // nifty trick continued
 
 #define DEL_ALTGR MT(MOD_RALT, KC_DEL)
 #define BSPC_ALT MT(MOD_LALT, KC_BACKSPACE)
-#define ENTER_CTL(MOD_LCTL, KC_ENTER)
+#define ENTER_CTL MT(MOD_LCTL, KC_ENTER)
 
 #define LOWER LT(_LOWER, KC_ESC)
 #define RAISE LT(_RAISE, KC_TAB)
