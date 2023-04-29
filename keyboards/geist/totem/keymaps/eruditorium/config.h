@@ -8,9 +8,7 @@ for more options.
 #define MASTER_LEFT
 // #define MASTER_RIGHT
 
-
-//#define TAPPING_TERM 170
-#define TAPPING_TERM 200
+#define TAPPING_TERM 250
 
 // Prevent normal rollover on alphas from accidentally triggering mods.
 #define IGNORE_MOD_TAP_INTERRUPT
@@ -32,11 +30,9 @@ for more options.
 // https://precondition.github.io/home-row-mods
 #define TAPPING_FORCE_HOLD  // make tap-then-hold _not_ do key auto repeat
 #define TAPPING_FORCE_HOLD_PER_KEY  // ... but do it for some!
+
 #define HOLD_ON_OTHER_KEY_PRESS  // obsolete my LT_NUM_BSPC
 #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY  // ... but not for mod-taps!
-#define IGNORE_MOD_TAP_INTERRUPT
-#define PERMISSIVE_HOLD  // I don't think this works for me, hence I rolled my own implementation.
-
 
 // source: https://jasoncarloscox.com/blog/combo-mods/
 #define COMBO_TERM 25        // how quickly all combo keys must be pressed in succession to trigger
