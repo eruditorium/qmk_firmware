@@ -66,16 +66,20 @@ uint16_t COMBO_LEN = COMBO_LENGTH; // nifty trick continued
 // LEFT HAND HOME ROW MODS QWERTY ├──────────────────
 // #define GUI_A MT(MOD_LGUI, KC_A)
 // #define ALT_S MT(MOD_LALT, KC_S)
-#define SHT_Z MT(MOD_LSFT, KC_Z)
+//#define SHT_Z MT(MOD_LSFT, KC_Z)
+#define SHT_X MT(MOD_LSFT, KC_X)
 // #define CTL_D MT(MOD_LCTL, KC_D)
+#define CTL_Z MT(MOD_LCTL, KC_Z)
 // #define SHT_F MT(MOD_LSFT, KC_F)
 
 // RIGHT HAND HOME ROW MODS QWERTY ├─────────────────┐
 // #define SHT_J MT(MOD_RSFT, KC_J)
 // #define CTL_K MT(MOD_LCTL, KC_K)
+#define CTL_SLSH MT(MOD_LCTL, KC_SLSH)
 // #define ALT_L MT(MOD_LALT, KC_L)
 // #define GUI_S MT(MOD_LGUI, KC_SCLN)
-#define SHT_SLSH MT(MOD_RSFT, KC_SLSH)
+//#define SHT_SLSH MT(MOD_RSFT, KC_SLSH)
+#define SHT_DOT MT(MOD_RSFT, KC_DOT)
 
 #define DEL_ALTGR MT(MOD_RALT, KC_DEL)
 #define BSPC_ALT MT(MOD_LALT, KC_BACKSPACE)
@@ -102,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              ├─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┤
              │    A    │    S    │    D    │    F    │    G    ││    H    │    J    │    K    │    L    │    ;    │
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
-   │  GUI    │ SHIFT/Z │    X    │    C    │    V    │    B    ││    N    │    M    │    ,    │    .    │SHIFT/ / │    '    │
+   │  GUI    │  CTL/Z  │ SHIFT/X │    C    │    V    │    B    ││    N    │    M    │    ,    │ SHIFT/. │ CTL / / │    '    │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
                                  │BSPC/ALT │RAISE/TAB│ENTR/Ctl ││  SPACE  │LOWER/ESC│DEL/AltGr│
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘*/
@@ -111,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
               KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,      KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,
               KC_A,     KC_S,     KC_D,     KC_F,     KC_G,      KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,
-    KC_LGUI,  SHT_Z,    KC_X,     KC_C,     KC_V,     KC_B,      KC_N,     KC_M,     KC_COMM,  KC_DOT,   SHT_SLSH,  KC_QUOT,
+    KC_LGUI,  CTL_Z,    SHT_X,    KC_C,     KC_V,     KC_B,      KC_N,     KC_M,     KC_COMM,  SHT_DOT,  CTL_SLSH, KC_QUOT,
                                   BSPC_ALT, RAISE,    ENTER_CTL, KC_SPC,   LOWER,    DEL_ALTGR
  ),
 
@@ -123,20 +127,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    │ l o w e r                                       │      ╭╮╭╮╭╮╭╮
    └─────────────────────────────────────────────────┘      │╰╯╰╯╰╯│
              ┌─────────┬─────────┬─────────┬─────────┬──────╨──┐┌──╨──────┬─────────┬─────────┬─────────┬─────────┐
-     ╌┄┈┈───═╡    .    │   HOME  │    ↑    │   PG↑   │    {    ││    }    │    7    │    8    │    9    │    +    │
+     ╌┄┈┈───═╡   HOME  │         |    ↑    │   PG↑   │    {    ││    }    │    7    │    8    │    9    │    +    │
              ├─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┤
-             │    ,    │    ←    │    ↓    │    →    │    [    ││    ]    │    4    │    5    │    6    │    -    │
+             │   END   │    ←    │    ↓    │    →    │    [    ││    ]    │    4    │    5    │    6    │    -    │
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
-   │         │         │   END   │         │   PG↓   │    (    ││    )    │    1    │    2    │    3    │    *    │    =    │
+   │         │  CTRL   │  SHIFT  │         │   PG↓   │    (    ││    )    │    1    │    2    │    3    │    *    │    =    │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
                                  │    ▼    │ ADJUST  │    ▼    ││    ▼    │    ▼    │    0    │
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘ */
 
    [_LOWER] = LAYOUT(
  //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
-              KC_DOT,   KC_HOME,  KC_UP,    KC_PGUP,  KC_LCBR,   KC_RCBR,  KC_7,     KC_8,     KC_9,     KC_PPLS,
-              KC_COMM,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_LBRC,   KC_RBRC,  KC_4,     KC_5,     KC_6,     KC_MINS,
-    _______,  XXXXXXX,  KC_END,   XXXXXXX,  KC_PGDN,  KC_LPRN,   KC_RPRN,  KC_1,     KC_2,     KC_3,     KC_PAST,  KC_EQL,
+              KC_HOME,  XXXXXXX,   KC_UP,    KC_PGUP,  KC_LCBR,   KC_RCBR,  KC_7,     KC_8,     KC_9,     KC_PPLS,
+              KC_END,   KC_LEFT,   KC_DOWN,  KC_RGHT,  KC_LBRC,   KC_RBRC,  KC_4,     KC_5,     KC_6,     KC_MINS,
+    _______,  KC_LCTL,  KC_LSFT,   XXXXXXX,  KC_PGDN,  KC_LPRN,   KC_RPRN,  KC_1,     KC_2,     KC_3,     KC_PAST,  KC_EQL,
                                   _______,  ADJUST,  _______,   _______,  _______,   KC_0
  ),
 
@@ -186,7 +190,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
               QK_BOOT,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
               XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX,   _______,
+    _______,  KC_LCTL,  KC_LSFT,  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_RSFT,  KC_RCTL,   _______,
                                   _______,  _______,  _______,   _______,  _______,  _______
 
  )
@@ -266,14 +270,14 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         // case ALT_S:
         // case ALT_L:
         //     return TAPPING_TERM + 50;
-        // case CTL_D:
-        // case CTL_K:
+        case CTL_Z:
+        case CTL_SLSH:
         case ENTER_CTL:
             return TAPPING_TERM - 30;
         // case SHT_F:
         // case SHT_J:
-        case SHT_Z:
-        case SHT_SLSH:
+        case SHT_DOT:
+        case SHT_X:
             return TAPPING_TERM - 50;
         default:
             return TAPPING_TERM;
