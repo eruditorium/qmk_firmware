@@ -70,10 +70,10 @@ uint16_t COMBO_LEN = COMBO_LENGTH; // nifty trick continued
 #define SHT_X MT(MOD_LSFT, KC_X)
 // #define CTL_D MT(MOD_LCTL, KC_D)
 #define CTL_Z MT(MOD_LCTL, KC_Z)
-// #define SHT_F MT(MOD_LSFT, KC_F)
+#define SHT_F MT(MOD_LSFT, KC_F)
 
 // RIGHT HAND HOME ROW MODS QWERTY ├─────────────────┐
-// #define SHT_J MT(MOD_RSFT, KC_J)
+#define SHT_J MT(MOD_RSFT, KC_J)
 // #define CTL_K MT(MOD_LCTL, KC_K)
 #define CTL_SLSH MT(MOD_LCTL, KC_SLSH)
 // #define ALT_L MT(MOD_LALT, KC_L)
@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              ┌─────────┬─────────┬─────────┬─────────┬──────╨──┐┌──╨──────┬─────────┬─────────┬─────────┬─────────┐
      ╌┄┈┈───═╡    Q    │    W    │    E    │    R    │    T    ││    Y    │    U    │    I    │    O    │    P    │
              ├─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┤
-             │    A    │    S    │    D    │    F    │    G    ││    H    │    J    │    K    │    L    │    ;    │
+             │    A    │    S    │    D    │ SHIFT/F │    G    ││    H    │ SHIFT/J │    K    │    L    │    ;    │
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
    │  GUI    │  CTL/Z  │ SHIFT/X │    C    │    V    │    B    ││    N    │    M    │    ,    │ SHIFT/. │ CTL / / │    '    │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
@@ -114,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    [_QWERTY] = LAYOUT(
  //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
               KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,      KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,
-              KC_A,     KC_S,     KC_D,     KC_F,     KC_G,      KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,
+              KC_A,     KC_S,     KC_D,     SHT_F,    KC_G,      KC_H,     SHT_J,     KC_K,     KC_L,     KC_SCLN,
     KC_LGUI,  CTL_Z,    SHT_X,    KC_C,     KC_V,     KC_B,      KC_N,     KC_M,     KC_COMM,  SHT_DOT,  CTL_SLSH, KC_QUOT,
                                   BSPC_ALT, RAISE,    ENTER_CTL, KC_SPC,   LOWER,    DEL_ALTGR
  ),
@@ -274,8 +274,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case CTL_SLSH:
         case ENTER_CTL:
             return TAPPING_TERM + 20;
-        // case SHT_F:
-        // case SHT_J:
+        case SHT_F:
+        case SHT_J:
         case SHT_DOT:
         case SHT_X:
             return TAPPING_TERM;
