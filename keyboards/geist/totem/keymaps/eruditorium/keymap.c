@@ -48,12 +48,10 @@ enum custom_keycodes {
 // └─────────────────────────────────────────────────┘
 
 enum combos {
-    COMBO_ESC,
-    COMBO_BSPC,
-    COMBO_DEL,
-    COMBO_WORDEL,
-    COMBO_LCTL,
-    COMBO_RCTL,
+    COMBO_HOME,
+    COMBO_ENDE,
+    COMBO_WORDBSPC,
+    COMBO_WORDDEL,
     COMBO_LENGTH // nifty trick to avoid manually specifying how many combos you have
 };
 
@@ -64,22 +62,10 @@ uint16_t COMBO_LEN = COMBO_LENGTH; // nifty trick continued
 // └─────────────────────────────────────────────────┘
 
 // LEFT HAND HOME ROW MODS QWERTY ├──────────────────
-// #define GUI_A MT(MOD_LGUI, KC_A)
-// #define ALT_S MT(MOD_LALT, KC_S)
-//#define SHT_Z MT(MOD_LSFT, KC_Z)
-#define SHT_X MT(MOD_LSFT, KC_X)
-// #define CTL_D MT(MOD_LCTL, KC_D)
-#define CTL_Z MT(MOD_LCTL, KC_Z)
-// #define SHT_F MT(MOD_LSFT, KC_F)
+#define SHT_F MT(MOD_LSFT, KC_F)
 
 // RIGHT HAND HOME ROW MODS QWERTY ├─────────────────┐
-// #define SHT_J MT(MOD_RSFT, KC_J)
-// #define CTL_K MT(MOD_LCTL, KC_K)
-#define CTL_SLSH MT(MOD_LCTL, KC_SLSH)
-// #define ALT_L MT(MOD_LALT, KC_L)
-// #define GUI_S MT(MOD_LGUI, KC_SCLN)
-//#define SHT_SLSH MT(MOD_RSFT, KC_SLSH)
-#define SHT_DOT MT(MOD_RSFT, KC_DOT)
+#define SHT_J MT(MOD_RSFT, KC_J)
 
 #define DEL_ALTGR MT(MOD_RALT, KC_DEL)
 #define BSPC_ALT MT(MOD_LALT, KC_BACKSPACE)
@@ -106,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              ├─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┤
              │    A    │    S    │    D    │    F    │    G    ││    H    │    J    │    K    │    L    │    ;    │
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
-   │  GUI    │  CTL/Z  │ SHIFT/X │    C    │    V    │    B    ││    N    │    M    │    ,    │ SHIFT/. │ CTL / / │    '    │
+   │  GUI    │    Z    │    X    │    C    │    V    │    B    ││    N    │    M    │    ,    │    .    │    /    │    '    │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
                                  │BSPC/ALT │RAISE/TAB│ENTR/Ctl ││  SPACE  │LOWER/ESC│DEL/AltGr│
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘*/
@@ -114,8 +100,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    [_QWERTY] = LAYOUT(
  //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
               KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,      KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,
-              KC_A,     KC_S,     KC_D,     KC_F,     KC_G,      KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,
-    KC_LGUI,  CTL_Z,    SHT_X,    KC_C,     KC_V,     KC_B,      KC_N,     KC_M,     KC_COMM,  SHT_DOT,  CTL_SLSH, KC_QUOT,
+              KC_A,     KC_S,     KC_D,     SHT_F,    KC_G,      KC_H,     SHT_J,    KC_K,     KC_L,     KC_SCLN,
+    KC_LGUI,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,      KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_QUOT,
                                   BSPC_ALT, RAISE,    ENTER_CTL, KC_SPC,   LOWER,    DEL_ALTGR
  ),
 
@@ -141,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
               KC_HOME,  XXXXXXX,   KC_UP,    KC_PGUP,  KC_LCBR,   KC_RCBR,  KC_7,     KC_8,     KC_9,     KC_PPLS,
               KC_END,   KC_LEFT,   KC_DOWN,  KC_RGHT,  KC_LBRC,   KC_RBRC,  KC_4,     KC_5,     KC_6,     KC_MINS,
     _______,  KC_LCTL,  KC_LSFT,   XXXXXXX,  KC_PGDN,  KC_LPRN,   KC_RPRN,  KC_1,     KC_2,     KC_3,     KC_PAST,  KC_EQL,
-                                  _______,  ADJUST,  _______,   _______,  _______,   KC_0
+                                   _______,  ADJUST,   _______,   _______,  _______,  KC_0
  ),
 
 
@@ -166,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
               KC_EXLM, KC_AT,    KC_UP,    KC_DLR,   KC_PERC,   KC_PGUP,  KC_F7,    KC_F8,    KC_F9,    KC_F12,
               KC_VOLU, KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_BSLS,   KC_PGDN,  KC_F4,    KC_F5,    KC_F6,    KC_F11,
     KC_PAUS,  KC_VOLD, XXXXXXX,  KC_HASH,  KC_CIRC,  KC_GRV,    KC_AMPR,  KC_F1,    KC_F2,    KC_F3,    KC_F10,   _______,
-                                 _______,  _______,   _______,   _______,  ADJUST,  _______
+                                 _______,  _______,   _______,  _______,  ADJUST,   _______
  ),
 
 
@@ -220,8 +206,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 };
 
-
-
 // ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 // │ M A C R O S                                                                                                            │
 // └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
@@ -242,48 +226,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
 
 // ┌─────────────────────────────────────────────────┐
-// │ q m k                                           │
-// └─────────────────────────────────────────────────┘
-
-// ┌─────────────────────────────────────────────────┐
 // │ p r o d u c t i v i t y                         │
 // └─────────────────────────────────────────────────┘
 
       case SNAP:
           if (record->event.pressed) {
-              SEND_STRING(SS_LSFT(SS_LWIN("S")));           //WIN
+            SEND_STRING(SS_LSFT(SS_LWIN("S")));           //WIN
           }
           break;
     }
     return true;
 }
 
-// ┌─────────────────────────────────────────────────┐
-// │ t a p p i n g t e r m                           │
-// └─────────────────────────────────────────────────┘
-
-#ifdef TAPPING_TERM_PER_KEY
-uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        // case GUI_A:
-        // case GUI_S:
-        // case ALT_S:
-        // case ALT_L:
-        //     return TAPPING_TERM + 50;
-        case CTL_Z:
-        case CTL_SLSH:
-        case ENTER_CTL:
-            return TAPPING_TERM + 20;
-        // case SHT_F:
-        // case SHT_J:
-        case SHT_DOT:
-        case SHT_X:
-            return TAPPING_TERM;
-        default:
-            return TAPPING_TERM;
-    }
-}
-#endif
 
 // ┌─────────────────────────────────────────────────┐
 // │ c o m b o s                                     │
@@ -291,19 +245,16 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 // define keys that make up combos
 const uint16_t PROGMEM qa_combo[] = {KC_Q, KC_A, COMBO_END};
 const uint16_t PROGMEM ps_combo[] = {KC_P, KC_SCLN, COMBO_END};
-const uint16_t PROGMEM fd_combo[] = {KC_F, KC_D, COMBO_END};
 const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
-const uint16_t PROGMEM kl_combo[] = {KC_K, KC_L, COMBO_END};
-const uint16_t PROGMEM jkl_combo[] = {KC_J, KC_K, KC_L, COMBO_END};
+const uint16_t PROGMEM fd_combo[] = {KC_F, KC_D, COMBO_END};
 
 
 // map combo names to their keys and the key they trigger
 combo_t key_combos[] = {
-    [COMBO_ESC] = COMBO(qa_combo, KC_ESC),
-    [COMBO_LCTL] = COMBO(fd_combo, KC_LCTL),
-    [COMBO_BSPC] = COMBO(jk_combo, KC_BSPC),
-    [COMBO_DEL] = COMBO(kl_combo, KC_DEL),
-    [COMBO_WORDEL] = COMBO(jkl_combo, LCTL(KC_BSPC))
+    [COMBO_HOME] = COMBO(qa_combo, KC_HOME),
+    [COMBO_ENDE] = COMBO(ps_combo, KC_END),
+    [COMBO_WORDDEL] = COMBO(fd_combo, LCTL(KC_BSPC)),
+    [COMBO_WORDBSPC] = COMBO(jk_combo, LCTL(KC_DEL)),
 };
 
 /*
