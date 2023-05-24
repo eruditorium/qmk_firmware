@@ -245,8 +245,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // define keys that make up combos
 const uint16_t PROGMEM qa_combo[] = {KC_Q, KC_A, COMBO_END};
 const uint16_t PROGMEM ps_combo[] = {KC_P, KC_SCLN, COMBO_END};
-const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
-const uint16_t PROGMEM fd_combo[] = {KC_F, KC_D, COMBO_END};
+const uint16_t PROGMEM jk_combo[] = {KC_K, KC_L, COMBO_END};
+const uint16_t PROGMEM fd_combo[] = {KC_S, KC_D, COMBO_END};
 
 
 // map combo names to their keys and the key they trigger
