@@ -124,9 +124,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
    [_LOWER] = LAYOUT(
  //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
-              KC_HOME,  XXXXXXX,   KC_UP,    KC_PGUP,  KC_LCBR,   KC_RCBR,  KC_7,     KC_8,     KC_9,     KC_PPLS,
-              KC_END,   KC_LEFT,   KC_DOWN,  KC_RGHT,  KC_LBRC,   KC_RBRC,  KC_4,     KC_5,     KC_6,     KC_MINS,
-    _______,  KC_LCTL,  KC_LSFT,   XXXXXXX,  KC_PGDN,  KC_LPRN,   KC_RPRN,  KC_1,     KC_2,     KC_3,     KC_PAST,  KC_EQL,
+              XXXXXXX,  KC_HOME,   KC_UP,    KC_PGUP,  KC_LCBR,   KC_RCBR,  KC_7,     KC_8,     KC_9,     KC_PPLS,
+              XXXXXXX,  KC_LEFT,   KC_DOWN,  KC_RGHT,  KC_LBRC,   KC_RBRC,  KC_4,     KC_5,     KC_6,     KC_MINS,
+    _______,  KC_LCTL,  KC_END,    XXXXXXX,  KC_PGDN,  KC_LPRN,   KC_RPRN,  KC_1,     KC_2,     KC_3,     KC_PAST,  KC_EQL,
                                    _______,  ADJUST,   _______,   _______,  _______,  KC_0
  ),
 
@@ -142,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              ├─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┤
              │  VOL↑   │    ←    │    ↓    │    →    │    \    ││   PG↓   │   F4    │   F5    │   F6    │   F11   │
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
-   │ PAUSE   │  VOL↓   │         │    #    │    ^    │    `    ││    &    │   F1    │   F2    │   F3    │   F10   │         │
+   │ PAUSE   │  VOL↓   │    &    │    #    │    ^    │    `    ││         │   F1    │   F2    │   F3    │   F10   │         │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
                                  │    ▼    │    ▼    │    ▼    ││    ▼    │  ADJUST │    ▼    │
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘ */
@@ -151,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
               KC_EXLM, KC_AT,    KC_UP,    KC_DLR,   KC_PERC,   KC_PGUP,  KC_F7,    KC_F8,    KC_F9,    KC_F12,
               KC_VOLU, KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_BSLS,   KC_PGDN,  KC_F4,    KC_F5,    KC_F6,    KC_F11,
-    KC_PAUS,  KC_VOLD, XXXXXXX,  KC_HASH,  KC_CIRC,  KC_GRV,    KC_AMPR,  KC_F1,    KC_F2,    KC_F3,    KC_F10,   _______,
+    KC_PAUS,  KC_VOLD, KC_AMPR,  KC_HASH,  KC_CIRC,  KC_GRV,    XXXXXXX,  KC_F1,    KC_F2,    KC_F3,    KC_F10,   _______,
                                  _______,  _______,   _______,  _______,  ADJUST,   _______
  ),
 
