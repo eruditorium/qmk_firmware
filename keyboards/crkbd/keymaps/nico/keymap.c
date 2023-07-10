@@ -253,6 +253,12 @@ static const char* space_frames[] = {
     space_1, space_2, space_3, space_4, space_5,
 };
 
+#define FRAME_TIME 350
+
+uint8_t         current_frame     = -1;
+static uint32_t frame_timer       = 0;
+static uint32_t animation_timeout = 0;
+
 static void render_animation(const char** frames, size_t frame_size, const uint8_t frames_length, const uint8_t col, const uint8_t line) {
     if (timer_elapsed32(animation_timeout) > OLED_TIMEOUT) {
         // Stop animating so display can go to sleep
