@@ -259,6 +259,19 @@ uint8_t         current_frame     = -1;
 static uint32_t frame_timer       = 0;
 static uint32_t animation_timeout = 0;
 
+#ifdef OLED_ENABLE
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    if (!is_keyboard_master()) {
+        return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
+    }
+    else
+    {
+        return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
+    }
+
+    return rotation;
+}
+
 static void render_animation(const char** frames, size_t frame_size, const uint8_t frames_length, const uint8_t col, const uint8_t line) {
     if (timer_elapsed32(animation_timeout) > OLED_TIMEOUT) {
         // Stop animating so display can go to sleep
