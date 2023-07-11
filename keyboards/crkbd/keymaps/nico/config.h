@@ -45,6 +45,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
 
+
+// from pichfl
 #define SPLIT_LAYER_STATE_ENABLE
 #define SPLIT_LED_STATE_ENABLE
 #define SPLIT_MODS_ENABLE
@@ -64,3 +66,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_FONT_WIDTH 8
 #define OLED_FONT_HEIGHT 8
 #define OLED_FONT_END 0x9F
+
+// Add these flags to your rules.mk file:
+// This enables Link Time Optimization, saving a significant amount of space. Because the Macro and Function features are incompatible with Link Time Optimization, disable those features in config.h:
+// #define NO_ACTION_MACRO
+// #define NO_ACTION_FUNCTION
+// Drashna, on QMK issue 3224, paraphrased
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
+

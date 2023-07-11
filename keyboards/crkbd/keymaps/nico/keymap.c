@@ -40,7 +40,7 @@ enum crkbd_layers {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_split_3x6_3(
     KC_ESC,   KC_Q,    KC_W,    KC_E,    KC_R,     KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-    LSFTAB,   KC_A,    KC_S,    KC_D,    KC_F,     KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+    SFTAB,    KC_A,    KC_S,    KC_D,    KC_F,     KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
     KC_LCTL,  KC_Z,    KC_X,    KC_C,    KC_V,     KC_B,                      KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
                                          GUIEI,    LOWER,   KC_ENT,  KC_SPC,  RAISE,   ALTKN
   ),
@@ -73,7 +73,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
-
+// this part is from pichfl great animation for the aurora lily58
+// https://github.com/pichfl/qmk_firmware/tree/lily58-mission-control
 #ifdef OLED_ENABLE
 static const char PROGMEM shuttle[] = {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 112, 12, 2, 1, 1, 2, 12, 112, 128, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 192, 112, 176, 79, 128, 64, 32, 16, 16, 32, 64, 128, 79, 176, 112, 192, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 85, 170, 253, 3, 248, 222, 205, 205, 222, 248, 3, 253, 170, 85, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 85, 10, 193, 0, 255, 255, 255, 255, 255, 255, 0, 193, 10, 85, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 64, 160, 208, 239, 248, 254, 255, 0, 127, 127, 255, 255, 127, 127, 0, 255, 254, 248, 239, 208, 160, 64, 128, 0, 0, 0, 0,
@@ -304,16 +305,21 @@ static const char PROGMEM layer_play[] = {
     0, 224, 240, 224, 8, 28, 28, 28, 28, 28, 28, 8, 224, 240, 224, 0, 0, 224, 240, 224, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 199, 239, 199, 16, 56, 56, 56, 56, 56, 56, 16, 7, 15, 7, 0, 0, 199, 239, 199, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 31, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 31, 15, 32, 112, 112, 112, 112, 112, 112, 32, 0, 0, 0, 0,
 };
 
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    return OLED_ROTATION_270;
+}
+
+
 void fp_render_layer_state(void) {
     oled_set_cursor(0, 11);
 
-    if (layer_state_is(_FP_GAMING)) {
+    if (layer_state_is(_ADJUST)) {
         oled_write_raw_P(layer_play, sizeof(layer_play));
-    } else if (layer_state_is(_FP_ADJUST)) {
+    } else if (layer_state_is(_ADJUST)) {
         oled_write_raw_P(layer_adjust, sizeof(layer_adjust));
-    } else if (layer_state_is(_FP_LOWER)) {
+    } else if (layer_state_is(_LOWER)) {
         oled_write_raw_P(layer_lower, sizeof(layer_lower));
-    } else if (layer_state_is(_FP_RAISE)) {
+    } else if (layer_state_is(_RAISE)) {
         oled_write_raw_P(layer_raise, sizeof(layer_raise));
     } else {
         oled_write_raw_P(layer_default, sizeof(layer_default));
