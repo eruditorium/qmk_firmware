@@ -17,8 +17,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
+#include <stdio.h> // ??
 
+// ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+// │ D E F I N I T I O N S                                                                                                  │
+// └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+// ▝▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▘
 
+// ┌─────────────────────────────────────────────────┐
+// │ d e f i n e   l a y e r s                       │
+// └─────────────────────────────────────────────────┘
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -30,50 +38,149 @@ enum crkbd_layers {
     _ADJUST,
 };
 
+// ┌─────────────────────────────────────────────────┐
+// │ d e f i n e   k e y c o d e s                   │
+// └─────────────────────────────────────────────────┘
+enum custom_keycodes {
+    QWERTY = SAFE_RANGE,
+    LOWER,
+    RAISE,
+    ADJUST,
+    SNAP,
+};
 
-#define RAISE MO(_RAISE)
-#define LOWER MO(_LOWER)
+// ┌─────────────────────────────────────────────────┐
+// │ d e f i n e   c o m b o   n a m e s             │
+// └─────────────────────────────────────────────────┘
+
+enum combos {
+    COMBO_HOME,
+    COMBO_ENDE,
+    COMBO_WORDBSPC,
+    COMBO_WORDDEL,
+    COMBO_LENGTH // nifty trick to avoid manually specifying how many combos you have
+};
+
+uint16_t COMBO_LEN = COMBO_LENGTH; // nifty trick continued
+
+// ┌─────────────────────────────────────────────────┐
+// │ d e f i n e   m a c r o n a m e s               │
+// └─────────────────────────────────────────────────┘
+
+// LEFT HAND HOME ROW MODS QWERTY ├──────────────────
+#define SHT_F MT(MOD_LSFT, KC_F)
+
+// RIGHT HAND HOME ROW MODS QWERTY ├─────────────────┐
+#define SHT_J MT(MOD_RSFT, KC_J)
+
+#define DEL_ALTGR MT(MOD_RALT, KC_DEL)
+#define BSPC_ALT MT(MOD_LALT, KC_BACKSPACE)
+#define ENTER_CTL MT(MOD_LCTL, KC_ENTER)
+
+#define LOWER LT(_LOWER, KC_ESC)
+#define RAISE LT(_RAISE, KC_TAB)
+#define ADJUST MO(_ADJUST)
+
+//#define RAISE MO(_RAISE)
+//#define LOWER MO(_LOWER)
 #define SFTAB LSFT_T(KC_TAB)
 #define GUIEI LGUI_T(KC_PGUP)
 #define ALTKN RALT_T(KC_PGDN)
 
+// ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+// │ K E Y M A P S                                                                                                          │
+// └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+// ▝▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▘
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_split_3x6_3(
-    KC_ESC,   KC_Q,    KC_W,    KC_E,    KC_R,     KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-    SFTAB,    KC_A,    KC_S,    KC_D,    KC_F,     KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+    KC_ESC,   KC_Q,    KC_W,    KC_E,    KC_R,     KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_DEL,
+    SFTAB,    KC_A,    KC_S,    KC_D,    SHT_F,    KC_G,                      KC_H,    SHT_J,   KC_K,    KC_L,    KC_SCLN, KC_QUOT,
     KC_LCTL,  KC_Z,    KC_X,    KC_C,    KC_V,     KC_B,                      KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-                                         GUIEI,    LOWER,   KC_ENT,  KC_SPC,  RAISE,   ALTKN
+                                         GUIEI,    RAISE,   KC_ENT,  KC_SPC,  LOWER,   ALTKN
   ),
 
+/*
+   ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+   ┌─────────────────────────────────────────────────┐
+   │ l o w e r                                       │
+   └─────────────────────────────────────────────────┘
+*/
   [_LOWER] = LAYOUT_split_3x6_3(
-    KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,     KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-    SFTAB,   KC_F1,   KC_F2,   KC_F3,   KC_F4,    KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  XXXXXXX,
-    KC_LCTL, KC_F11,  KC_F12,  KC_F13,  KC_F14,   KC_F15,                    KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  XXXXXXX,
-                                        GUIEI,    LOWER,   KC_ENT,  KC_SPC,  RAISE,   ALTKN
+    KC_ESC,  XXXXXXX  KC_HOME, KC_UP,   KC_PGUP,  KC_LCBR,                   KC_RCBR,   KC_7,   KC_8,   KC_9,   KC_PPLS,  KC_BSPC,
+    SFTAB,   XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT,  KC_LBRC,                   KC_RBRC,   KC_4,   KC_5,   KC_6,   KC_MINS,  XXXXXXX,
+    KC_LCTL, XXXXXXX, KC_END,  XXXXXXX, KC_PGDN,  KC_LPRN,                   KC_RPRN,   KC_1,   KC_2,   KC_3,   KC_PAST,  KC_EQL,
+                                        _______,  ADJUST, _______,  _______, _______,   KC_0
   ),
 
+/*
+   ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+   ┌─────────────────────────────────────────────────┐
+   │ r a i s e                                       │
+   └─────────────────────────────────────────────────┘
+   */
   [_RAISE] = LAYOUT_split_3x6_3(
-    KC_ESC,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
-    SFTAB,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   KC_MINS, KC_EQL,  KC_LCBR, KC_RCBR, KC_PIPE, KC_GRV,
-    KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC, KC_BSLS, KC_TILD,
-                                        GUIEI,   LOWER,   KC_ENT,  KC_SPC,  RAISE,   ALTKN
+    _______, KC_EXLM, KC_AT,   KC_UP,   KC_DLR,  KC_PERC,                   XXXXXXX, KC_F7,   KC_F8,   KC_F9,   KC_F12,  KC_BSPC,
+    _______, KC_VOLU, KC_LEFT, KC_DOWN, KC_RGHT, KC_BSLS,                   XXXXXXX, KC_F4,   KC_F5,   KC_F6,   KC_F11,  XXXXXXX,
+    _______, KC_VOLD, KC_AMPR, KC_HASH, KC_CIRC, KC_GRV,                    XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F10,  XXXXXXX,
+                                        _______, _______, _______, _______, ADJUST,  _______
 
   ),
 
+/*
+   ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+   ┌─────────────────────────────────────────────────┐
+   │ a d j u s t                                     │
+   └─────────────────────────────────────────────────┘
+   */
   [_ADJUST] = LAYOUT_split_3x6_3(
-    QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
     RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                                        GUIEI,   LOWER,   KC_ENT,  KC_SPC,  RAISE,   ALTKN
+                                        _______, _______, _______, _______, _______, _______
   )
 };
+/*
+   ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸*/
+
+// ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+// │ M A C R O S                                                                                                            │
+// └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+// ▝▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▘
+
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
     return state;
 }
 
-// this part is from pichfl great animation for the aurora lily58
+// ┌─────────────────────────────────────────────────┐
+// │ c o m b o s                                     │
+// └─────────────────────────────────────────────────┘
+// define keys that make up combos
+const uint16_t PROGMEM qa_combo[] = {KC_Q, KC_A, COMBO_END};
+const uint16_t PROGMEM ps_combo[] = {KC_P, KC_SCLN, COMBO_END};
+const uint16_t PROGMEM jk_combo[] = {KC_K, KC_L, COMBO_END};
+const uint16_t PROGMEM fd_combo[] = {KC_S, KC_D, COMBO_END};
+
+
+// map combo names to their keys and the key they trigger
+combo_t key_combos[] = {
+    [COMBO_HOME] = COMBO(qa_combo, KC_HOME),
+    [COMBO_ENDE] = COMBO(ps_combo, KC_END),
+    [COMBO_WORDDEL] = COMBO(fd_combo, LCTL(KC_BSPC)),
+    [COMBO_WORDBSPC] = COMBO(jk_combo, LCTL(KC_DEL)),
+};
+
+/*
+  ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸*/
+
+// ┌─────────────────────────────────────────────────┐
+// │ o l e d                                         │
+// └─────────────────────────────────────────────────┘
+// this part is from pichfl's great animation for the aurora lily58
 // https://github.com/pichfl/qmk_firmware/tree/lily58-mission-control
 #ifdef OLED_ENABLE
 static const char PROGMEM shuttle[] = {
@@ -404,3 +511,5 @@ bool should_process_keypress(void) {
 // };
 
 #endif
+/*
+  ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸*/

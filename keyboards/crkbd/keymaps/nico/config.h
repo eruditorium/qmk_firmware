@@ -26,7 +26,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define EE_HANDS
 
 #define QUICK_TAP_TERM 0
-#define TAPPING_TERM 100
+#define TAPPING_TERM 250 // 100
+
+// Prevent normal rollover on alphas from accidentally triggering mods.
+#define IGNORE_MOD_TAP_INTERRUPT
+
+// Auto Shift
+#define NO_AUTO_SHIFT_ALPHA
+#define AUTO_SHIFT_TIMEOUT TAPPING_TERM
+#define AUTO_SHIFT_NO_SETUP
+
+#undef LOCKING_SUPPORT_ENABLE
+#undef LOCKING_RESYNC_ENABLE
+#define NO_ACTION_ONESHOT
+
+#define TAPPING_TERM_PER_KEY
+
+// https://precondition.github.io/home-row-mods
+// Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
+#define TAPPING_FORCE_HOLD  // make tap-then-hold _not_ do key auto repeat
+#define TAPPING_FORCE_HOLD_PER_KEY  // ... but do it for some!
+
+#define HOLD_ON_OTHER_KEY_PRESS  // obsolete my LT_NUM_BSPC
+#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY  // ... but not for mod-taps!
+
+// source: https://jasoncarloscox.com/blog/combo-mods/
+#define COMBO_TERM 25        // how quickly all combo keys must be pressed in succession to trigger
+#define COMBO_MUST_HOLD_MODS // if a combo triggers a modifier, only trigger when the combo is held
+#define COMBO_HOLD_TERM 175  // how long at least one of the combo keys must be held to trigger
+
 
 #undef RGBLED_NUM
 #define RGBLIGHT_EFFECT_BREATHING
@@ -74,4 +102,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Drashna, on QMK issue 3224, paraphrased
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
-

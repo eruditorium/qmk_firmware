@@ -16,3 +16,5 @@ MOUSEKEY_ENABLE = no        # Mouse keys
 // Add these flags to your rules.mk file: EXTRAFLAGS += -flto
 // Drashna, on QMK issue 3224, paraphrased
 EXTRAFLAGS += -flto
+
+COMBO_ENABLE = yes
