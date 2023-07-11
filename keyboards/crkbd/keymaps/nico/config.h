@@ -15,9 +15,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-
-
 #pragma once
 
 //#define USE_MATRIX_I2C
@@ -47,6 +44,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
+
+#define SPLIT_LAYER_STATE_ENABLE
+#define SPLIT_LED_STATE_ENABLE
+#define SPLIT_MODS_ENABLE
+#define SPLIT_TRANSACTION_IDS_ENABLE
+#define SPLIT_OLED_ENABLE
+#define SPLIT_TRANSPORT_MIRROR
+
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 //#define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
 #undef OLED_FONT_H
