@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include <stdio.h> // ??
 
 // ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 // │ D E F I N I T I O N S                                                                                                  │
@@ -53,15 +52,15 @@ enum custom_keycodes {
 // │ d e f i n e   c o m b o   n a m e s             │
 // └─────────────────────────────────────────────────┘
 
-enum combos {
-    COMBO_HOME,
-    COMBO_ENDE,
-    COMBO_WORDBSPC,
-    COMBO_WORDDEL,
-    COMBO_LENGTH // nifty trick to avoid manually specifying how many combos you have
-};
+// enum combos {
+//     COMBO_HOME,
+//     COMBO_ENDE,
+//     COMBO_WORDBSPC,
+//     COMBO_WORDDEL,
+//     COMBO_LENGTH // nifty trick to avoid manually specifying how many combos you have
+// };
 
-uint16_t COMBO_LEN = COMBO_LENGTH; // nifty trick continued
+// uint16_t COMBO_LEN = COMBO_LENGTH; // nifty trick continued
 
 // ┌─────────────────────────────────────────────────┐
 // │ d e f i n e   m a c r o n a m e s               │
@@ -73,16 +72,14 @@ uint16_t COMBO_LEN = COMBO_LENGTH; // nifty trick continued
 // RIGHT HAND HOME ROW MODS QWERTY ├─────────────────┐
 #define SHT_J MT(MOD_RSFT, KC_J)
 
-#define DEL_ALTGR MT(MOD_RALT, KC_DEL)
-#define BSPC_ALT MT(MOD_LALT, KC_BACKSPACE)
-#define ENTER_CTL MT(MOD_LCTL, KC_ENTER)
+// #define DEL_ALTGR MT(MOD_RALT, KC_DEL)
+// #define BSPC_ALT MT(MOD_LALT, KC_BACKSPACE)
+// #define ENTER_CTL MT(MOD_LCTL, KC_ENTER)
 
-#define LOWER LT(_LOWER, KC_ESC)
-#define RAISE LT(_RAISE, KC_TAB)
+#define RAISE MO(_RAISE)
+#define LOWER MO(_LOWER)
 #define ADJUST MO(_ADJUST)
 
-//#define RAISE MO(_RAISE)
-//#define LOWER MO(_LOWER)
 #define SFTAB LSFT_T(KC_TAB)
 #define GUIEI LGUI_T(KC_PGUP)
 #define ALTKN RALT_T(KC_PGDN)
@@ -93,7 +90,7 @@ uint16_t COMBO_LEN = COMBO_LENGTH; // nifty trick continued
 // ▝▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▘
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_split_3x6_3(
-    KC_ESC,   KC_Q,    KC_W,    KC_E,    KC_R,     KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_DEL,
+    KC_ESC,   KC_Q,    KC_W,    KC_E,    KC_R,     KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     SFTAB,    KC_A,    KC_S,    KC_D,    SHT_F,    KC_G,                      KC_H,    SHT_J,   KC_K,    KC_L,    KC_SCLN, KC_QUOT,
     KC_LCTL,  KC_Z,    KC_X,    KC_C,    KC_V,     KC_B,                      KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
                                          GUIEI,    RAISE,   KC_ENT,  KC_SPC,  LOWER,   ALTKN
@@ -107,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    └─────────────────────────────────────────────────┘
 */
   [_LOWER] = LAYOUT_split_3x6_3(
-    KC_ESC,  XXXXXXX  KC_HOME, KC_UP,   KC_PGUP,  KC_LCBR,                   KC_RCBR,   KC_7,   KC_8,   KC_9,   KC_PPLS,  KC_BSPC,
+    KC_ESC,  XXXXXXX,  KC_HOME, KC_UP,   KC_PGUP,  KC_LCBR,                  KC_RCBR,   KC_7,   KC_8,   KC_9,   KC_PPLS,  KC_DEL,
     SFTAB,   XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT,  KC_LBRC,                   KC_RBRC,   KC_4,   KC_5,   KC_6,   KC_MINS,  XXXXXXX,
     KC_LCTL, XXXXXXX, KC_END,  XXXXXXX, KC_PGDN,  KC_LPRN,                   KC_RPRN,   KC_1,   KC_2,   KC_3,   KC_PAST,  KC_EQL,
                                         _______,  ADJUST, _______,  _______, _______,   KC_0
@@ -121,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    └─────────────────────────────────────────────────┘
    */
   [_RAISE] = LAYOUT_split_3x6_3(
-    _______, KC_EXLM, KC_AT,   KC_UP,   KC_DLR,  KC_PERC,                   XXXXXXX, KC_F7,   KC_F8,   KC_F9,   KC_F12,  KC_BSPC,
+    _______, KC_EXLM, KC_AT,   KC_UP,   KC_DLR,  KC_PERC,                   XXXXXXX, KC_F7,   KC_F8,   KC_F9,   KC_F12,  KC_DEL,
     _______, KC_VOLU, KC_LEFT, KC_DOWN, KC_RGHT, KC_BSLS,                   XXXXXXX, KC_F4,   KC_F5,   KC_F6,   KC_F11,  XXXXXXX,
     _______, KC_VOLD, KC_AMPR, KC_HASH, KC_CIRC, KC_GRV,                    XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F10,  XXXXXXX,
                                         _______, _______, _______, _______, ADJUST,  _______
@@ -151,28 +148,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ▝▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▘
 
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-    state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
-    return state;
-}
+// layer_state_t layer_state_set_user(layer_state_t state) {
+//     state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
+//     return state;
+// }
 
 // ┌─────────────────────────────────────────────────┐
 // │ c o m b o s                                     │
 // └─────────────────────────────────────────────────┘
 // define keys that make up combos
-const uint16_t PROGMEM qa_combo[] = {KC_Q, KC_A, COMBO_END};
-const uint16_t PROGMEM ps_combo[] = {KC_P, KC_SCLN, COMBO_END};
-const uint16_t PROGMEM jk_combo[] = {KC_K, KC_L, COMBO_END};
-const uint16_t PROGMEM fd_combo[] = {KC_S, KC_D, COMBO_END};
+// const uint16_t PROGMEM qa_combo[] = {KC_Q, KC_A, COMBO_END};
+// const uint16_t PROGMEM ps_combo[] = {KC_P, KC_SCLN, COMBO_END};
+// const uint16_t PROGMEM jk_combo[] = {KC_K, KC_L, COMBO_END};
+// const uint16_t PROGMEM fd_combo[] = {KC_S, KC_D, COMBO_END};
 
 
-// map combo names to their keys and the key they trigger
-combo_t key_combos[] = {
-    [COMBO_HOME] = COMBO(qa_combo, KC_HOME),
-    [COMBO_ENDE] = COMBO(ps_combo, KC_END),
-    [COMBO_WORDDEL] = COMBO(fd_combo, LCTL(KC_BSPC)),
-    [COMBO_WORDBSPC] = COMBO(jk_combo, LCTL(KC_DEL)),
-};
+// // map combo names to their keys and the key they trigger
+// combo_t key_combos[] = {
+//     [COMBO_HOME] = COMBO(qa_combo, KC_HOME),
+//     [COMBO_ENDE] = COMBO(ps_combo, KC_END),
+//     [COMBO_WORDDEL] = COMBO(fd_combo, LCTL(KC_BSPC)),
+//     [COMBO_WORDBSPC] = COMBO(jk_combo, LCTL(KC_DEL)),
+// };
 
 /*
   ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸*/
