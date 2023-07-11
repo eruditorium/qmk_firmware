@@ -446,9 +446,9 @@ void fp_render_modifier_state(void) {
     // oled_write_char(command, modifiers & MOD_MASK_GUI);
 
     oled_write_P(PSTR("C"), modifiers & MOD_MASK_CTRL);
-    oled_write_P(PSTR("O"), modifiers & MOD_MASK_ALT);
+    oled_write_P(PSTR("A"), modifiers & MOD_MASK_ALT);
     oled_write_P(PSTR("S"), modifiers & MOD_MASK_SHIFT);
-    oled_write_P(PSTR("M"), modifiers & MOD_MASK_GUI);
+    oled_write_P(PSTR("W"), modifiers & MOD_MASK_GUI);
 }
 
 #define FRAME_TIME 350
