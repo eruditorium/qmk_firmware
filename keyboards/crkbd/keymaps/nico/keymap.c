@@ -76,13 +76,15 @@ enum custom_keycodes {
 // #define BSPC_ALT MT(MOD_LALT, KC_BACKSPACE)
 // #define ENTER_CTL MT(MOD_LCTL, KC_ENTER)
 
-#define RAISE MO(_RAISE)
-#define LOWER MO(_LOWER)
+//#define RAISE MO(_RAISE)
+#define RAISE LT(_RAISE, KC_PGUP)
+//#define LOWER MO(_LOWER)
+#define LOWER LT(_LOWER, KC_PGDN)
 #define ADJUST MO(_ADJUST)
 
 #define SFTAB LSFT_T(KC_TAB)
-#define GUIEI LGUI_T(KC_PGUP)
-#define ALTKN RALT_T(KC_PGDN)
+#define GUIEI LGUI_T(KC_BSPC)
+#define ALTKN RALT_T(KC_DEL)
 
 // ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 // │ K E Y M A P S                                                                                                          │
