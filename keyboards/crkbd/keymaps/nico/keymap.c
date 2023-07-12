@@ -74,7 +74,7 @@ enum custom_keycodes {
 
 // #define DEL_ALTGR MT(MOD_RALT, KC_DEL)
 // #define BSPC_ALT MT(MOD_LALT, KC_BACKSPACE)
-// #define ENTER_CTL MT(MOD_LCTL, KC_ENTER)
+#define ENTALT MT(MOD_LALT, KC_ENTER)
 
 //#define RAISE MO(_RAISE)
 #define RAISE LT(_RAISE, KC_PGUP)
@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC,   KC_Q,    KC_W,    KC_E,    KC_R,     KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     SFTAB,    KC_A,    KC_S,    KC_D,    SHT_F,    KC_G,                      KC_H,    SHT_J,   KC_K,    KC_L,    KC_SCLN, KC_QUOT,
     KC_LCTL,  KC_Z,    KC_X,    KC_C,    KC_V,     KC_B,                      KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-                                         GUIEI,    RAISE,   KC_ENT,  KC_SPC,  LOWER,   ALTKN
+                                         GUIEI,    RAISE,   ENTALT,  KC_SPC,  LOWER,   ALTKN
   ),
 
 /*
