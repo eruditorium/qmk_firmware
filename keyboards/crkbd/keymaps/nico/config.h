@@ -26,10 +26,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define EE_HANDS
 
 #define QUICK_TAP_TERM 0
-#define TAPPING_TERM 250 // 100
+#define TAPPING_TERM 200 // 250 // 100
 
-// Prevent normal rollover on alphas from accidentally triggering mods.
-#define IGNORE_MOD_TAP_INTERRUPT
+#define PERMISSIVE_HOLD
 
 // Auto Shift
 // #define NO_AUTO_SHIFT_ALPHA
@@ -40,15 +39,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef LOCKING_RESYNC_ENABLE
 // #define NO_ACTION_ONESHOT
 
-#define TAPPING_TERM_PER_KEY
+//#define TAPPING_TERM_PER_KEY
 
 // https://precondition.github.io/home-row-mods
 // Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
-#define TAPPING_FORCE_HOLD  // make tap-then-hold _not_ do key auto repeat
-#define TAPPING_FORCE_HOLD_PER_KEY  // ... but do it for some!
+//#define TAPPING_FORCE_HOLD  // make tap-then-hold _not_ do key auto repeat
+//#define TAPPING_FORCE_HOLD_PER_KEY  // ... but do it for some!
 
-#define HOLD_ON_OTHER_KEY_PRESS  // obsolete my LT_NUM_BSPC
-#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY  // ... but not for mod-taps!
+//#define HOLD_ON_OTHER_KEY_PRESS  // obsolete my LT_NUM_BSPC
+//#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY  // ... but not for mod-taps!
+
 
 // source: https://jasoncarloscox.com/blog/combo-mods/
 #define COMBO_TERM 25        // how quickly all combo keys must be pressed in succession to trigger
@@ -99,12 +99,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #undef ENABLE_RGB_MATRIX_CYCLE_PINWHEEL
     #undef ENABLE_RGB_MATRIX_CYCLE_SPIRAL
     #undef ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
-    #define ENABLE_RGB_MATRIX_DUAL_BEACON
-    // #undef ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
-    // #undef ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
-    // #undef ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS
-    // #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE
-    // #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
+    #undef ENABLE_RGB_MATRIX_DUAL_BEACON
+    #undef ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
+    #undef ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
+    #undef ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS
+    #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE
+    #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
@@ -117,14 +117,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
-    // #undef ENABLE_RGB_MATRIX_SOLID_SPLASH
-    // #undef ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-    // #undef ENABLE_RGB_MATRIX_SOLID_SPLASH
-    // #undef ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-    // #undef ENABLE_RGB_MATRIX_SPLASH
-    // #undef ENABLE_RGB_MATRIX_MULTISPLASH
-    // #undef ENABLE_RGB_MATRIX_SPLASH
-    // #undef ENABLE_RGB_MATRIX_MULTISPLASH
+    #undef ENABLE_RGB_MATRIX_SOLID_SPLASH
+    #undef ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
+    #undef ENABLE_RGB_MATRIX_SOLID_SPLASH
+    #undef ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
+    #undef ENABLE_RGB_MATRIX_SPLASH
+    #undef ENABLE_RGB_MATRIX_MULTISPLASH
+    #undef ENABLE_RGB_MATRIX_SPLASH
+    #undef ENABLE_RGB_MATRIX_MULTISPLASH
 #endif
 
 //#define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
@@ -145,3 +145,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Drashna, on QMK issue 3224, paraphrased
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
+
+// Activate CAPS WORD by pressing Left Shift + Right Shift
+// https://docs.qmk.fm/#/feature_caps_word
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+// Activate by double tapping Left Shift:
+// alternative: #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
+

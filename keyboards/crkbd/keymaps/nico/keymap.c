@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
+#include "features/select_word.h"
 
 // ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 // │ D E F I N I T I O N S                                                                                                  │
@@ -46,6 +47,7 @@ enum custom_keycodes {
     RAISE,
     ADJUST,
     SNAP,
+    SELWORD,
 };
 
 // ┌─────────────────────────────────────────────────┐
@@ -106,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    └─────────────────────────────────────────────────┘
 */
   [_LOWER] = LAYOUT_split_3x6_3(
-    KC_ESC,  XXXXXXX,  KC_HOME, KC_UP,   KC_PGUP,  KC_LCBR,                  KC_RCBR,   KC_7,   KC_8,   KC_9,   KC_PPLS,  KC_DEL,
+    KC_ESC,  XXXXXXX,  KC_HOME, KC_UP,   KC_PGUP,  KC_LCBR,                  KC_RCBR,   KC_7,   KC_8,   KC_9,   KC_PPLS,  SELWORD,
     SFTAB,   XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT,  KC_LBRC,                   KC_RBRC,   KC_4,   KC_5,   KC_6,   KC_MINS,  XXXXXXX,
     KC_LCTL, XXXXXXX, KC_END,  XXXXXXX, KC_PGDN,  KC_LPRN,                   KC_RPRN,   KC_1,   KC_2,   KC_3,   KC_PAST,  KC_EQL,
                                         _______,  ADJUST, _______,  _______, _______,   KC_0
@@ -120,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    └─────────────────────────────────────────────────┘
    */
   [_RAISE] = LAYOUT_split_3x6_3(
-    _______, KC_EXLM, KC_AT,   KC_UP,   KC_DLR,  KC_PERC,                   XXXXXXX, KC_F7,   KC_F8,   KC_F9,   KC_F12,  KC_DEL,
+    _______, KC_EXLM, KC_AT,   KC_UP,   KC_DLR,  KC_PERC,                   XXXXXXX, KC_F7,   KC_F8,   KC_F9,   KC_F12,  SELWORD,
     _______, KC_VOLU, KC_LEFT, KC_DOWN, KC_RGHT, KC_BSLS,                   XXXXXXX, KC_F4,   KC_F5,   KC_F6,   KC_F11,  XXXXXXX,
     _______, KC_VOLD, KC_AMPR, KC_HASH, KC_CIRC, KC_GRV,                    XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F10,  XXXXXXX,
                                         _______, _______, _______, _______, ADJUST,  _______
@@ -479,7 +481,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         animation_timeout = timer_read32();
         frame_timer       = timer_read32();
         oled_on();
-    }
+    }  
+
+    if (!process_select_word(keycode, record, SELWORD)) { return false; }
 
     return true;
 }

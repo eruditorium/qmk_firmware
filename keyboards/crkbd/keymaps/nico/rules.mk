@@ -3,7 +3,6 @@
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
-RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
 KEY_OVERRIDE_ENABLE = yes
@@ -14,6 +13,7 @@ COMMAND_ENABLE = no         # Commands for debug and configuration
 MIDI_ENABLE = no            # MIDI controls
 AUDIO_ENABLE = no           # Audio output on port C6
 
+RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
 RGB_MATRIX_ENABLE = yes
 
 # to reduce size of firmware
@@ -25,3 +25,9 @@ EXTRAFLAGS += -flto
 DYNAMIC_MACRO_ENABLE = yes
 COMBO_ENABLE = no
 EXTRAKEY_ENABLE = yes
+
+# https://docs.qmk.fm/#/feature_caps_word
+# make sure COMMAN_ENABLE = no
+CAPS_WORD_ENABLE = yes
+
+SRC += features/select_word.c
