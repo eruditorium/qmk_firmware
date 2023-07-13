@@ -85,8 +85,10 @@ enum custom_keycodes {
 #define ADJUST MO(_ADJUST)
 
 #define SFTAB LSFT_T(KC_TAB)
-#define GUIEI LGUI_T(KC_BSPC)
-#define ALTKN RALT_T(KC_DEL)
+#define SFTUND RSFT_T(KC_UNDERSCORE)
+
+#define GUIBSPC LGUI_T(KC_BSPC)
+#define ALTDEL RALT_T(KC_DEL)
 
 // ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 // │ K E Y M A P S                                                                                                          │
@@ -96,8 +98,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_split_3x6_3(
     KC_ESC,   KC_Q,    KC_W,    KC_E,    KC_R,     KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     SFTAB,    KC_A,    KC_S,    KC_D,    SHT_F,    KC_G,                      KC_H,    SHT_J,   KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-    KC_LCTL,  KC_Z,    KC_X,    KC_C,    KC_V,     KC_B,                      KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-                                         GUIEI,    RAISE,   ENTALT,  KC_SPC,  LOWER,   ALTKN
+    KC_LCTL,  KC_Z,    KC_X,    KC_C,    KC_V,     KC_B,                      KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFTUND,
+                                         GUIBSPC,  RAISE,   ENTALT,  KC_SPC,  LOWER,   ALTDEL
   ),
 
 /*
@@ -108,11 +110,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    └─────────────────────────────────────────────────┘
 */
   [_LOWER] = LAYOUT_split_3x6_3(
-    KC_ESC,  XXXXXXX,  KC_HOME, KC_UP,   KC_PGUP,  KC_LCBR,                  KC_RCBR,   KC_7,   KC_8,   KC_9,   KC_PPLS,  SELWORD,
-    SFTAB,   XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT,  KC_LBRC,                   KC_RBRC,   KC_4,   KC_5,   KC_6,   KC_MINS,  XXXXXXX,
-    KC_LCTL, XXXXXXX, KC_END,  XXXXXXX, KC_PGDN,  KC_LPRN,                   KC_RPRN,   KC_1,   KC_2,   KC_3,   KC_PAST,  KC_EQL,
+    _______, KC_MUTE, KC_HOME, KC_UP,   KC_PGUP,  KC_MNXT,                   KC_PSLS,   KC_7,   KC_8,   KC_9,   KC_PPLS,  SELWORD,
+    _______, KC_VOLU, KC_LEFT, KC_DOWN, KC_RGHT,  KC_MPRV,                   KC_PAST,   KC_4,   KC_5,   KC_6,   KC_MINS,  KC_EQL,
+    _______, KC_VOLD, KC_END,  XXXXXXX, KC_PGDN,  KC_MSTP,                   KC_COMM,   KC_1,   KC_2,   KC_3,   KC_DOT,   _______,
                                         _______,  ADJUST, _______,  _______, _______,   KC_0
   ),
+
+/*
+   ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 
 /*
    ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
@@ -122,12 +127,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    └─────────────────────────────────────────────────┘
    */
   [_RAISE] = LAYOUT_split_3x6_3(
-    _______, KC_EXLM, KC_AT,   KC_UP,   KC_DLR,  KC_PERC,                   XXXXXXX, KC_F7,   KC_F8,   KC_F9,   KC_F12,  SELWORD,
-    _______, KC_VOLU, KC_LEFT, KC_DOWN, KC_RGHT, KC_BSLS,                   XXXXXXX, KC_F4,   KC_F5,   KC_F6,   KC_F11,  XXXXXXX,
-    _______, KC_VOLD, KC_AMPR, KC_HASH, KC_CIRC, KC_GRV,                    XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F10,  XXXXXXX,
+    _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_LCBR,                   KC_RCBR, KC_F7,   KC_F8,   KC_F9,   KC_F12,  SELWORD,
+    _______, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LBRC,                   KC_RBRC, KC_F4,   KC_F5,   KC_F6,   KC_F11,  KC_BSLS,
+    _______, KC_MINS, KC_UNDS, KC_GRV,  KC_TILD, KC_LPRN,                   KC_RPRN, KC_F1,   KC_F2,   KC_F3,   KC_F10,  _______,
                                         _______, _______, _______, _______, ADJUST,  _______
-
   ),
+
 
 /*
    ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
@@ -481,7 +486,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         animation_timeout = timer_read32();
         frame_timer       = timer_read32();
         oled_on();
-    }  
+    }
 
     if (!process_select_word(keycode, record, SELWORD)) { return false; }
 
