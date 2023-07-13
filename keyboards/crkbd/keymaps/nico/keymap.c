@@ -69,18 +69,14 @@ enum custom_keycodes {
 // └─────────────────────────────────────────────────┘
 
 // LEFT HAND HOME ROW MODS QWERTY ├──────────────────
-#define SHT_F MT(MOD_LSFT, KC_F)
+#define SHT_F LSFT_T(KC_F)
 
 // RIGHT HAND HOME ROW MODS QWERTY ├─────────────────┐
-#define SHT_J MT(MOD_RSFT, KC_J)
+#define SHT_J RSFT_T(KC_J)
 
-// #define DEL_ALTGR MT(MOD_RALT, KC_DEL)
-// #define BSPC_ALT MT(MOD_LALT, KC_BACKSPACE)
-#define ENTALT MT(MOD_LALT, KC_ENTER)
+#define ENTALT LALT_T(KC_ENTER)
 
-//#define RAISE MO(_RAISE)
 #define RAISE LT(_RAISE, KC_PGUP)
-//#define LOWER MO(_LOWER)
 #define LOWER LT(_LOWER, KC_PGDN)
 #define ADJUST MO(_ADJUST)
 
