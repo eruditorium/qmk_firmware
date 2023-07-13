@@ -14,6 +14,7 @@
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 #include "totem.h"
+#include "features/select_word.h" //
 
 // ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 // │ D E F I N I T I O N S                                                                                                  │
@@ -41,21 +42,8 @@ enum custom_keycodes {
     RAISE,
     ADJUST,
     SNAP,
+    SELWORD,
 };
-
-// ┌─────────────────────────────────────────────────┐
-// │ d e f i n e   c o m b o   n a m e s             │
-// └─────────────────────────────────────────────────┘
-
-enum combos {
-    COMBO_HOME,
-    COMBO_ENDE,
-    COMBO_WORDBSPC,
-    COMBO_WORDDEL,
-    COMBO_LENGTH // nifty trick to avoid manually specifying how many combos you have
-};
-
-uint16_t COMBO_LEN = COMBO_LENGTH; // nifty trick continued
 
 // ┌─────────────────────────────────────────────────┐
 // │ d e f i n e   m a c r o n a m e s               │
@@ -213,7 +201,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
+
+  if (!process_select_word(keycode, record, SELWORD)) {
+    return false;
+  }
+
+  switch (keycode) {
 
 // ┌─────────────────────────────────────────────────┐
 // │ l a y e r                                       │
@@ -223,6 +216,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_QWERTY);
             }
+
             return false;
 
 // ┌─────────────────────────────────────────────────┐
@@ -237,25 +231,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
-
-
-// ┌─────────────────────────────────────────────────┐
-// │ c o m b o s                                     │
-// └─────────────────────────────────────────────────┘
-// define keys that make up combos
-const uint16_t PROGMEM qa_combo[] = {KC_Q, KC_A, COMBO_END};
-const uint16_t PROGMEM ps_combo[] = {KC_P, KC_SCLN, COMBO_END};
-const uint16_t PROGMEM jk_combo[] = {KC_K, KC_L, COMBO_END};
-const uint16_t PROGMEM fd_combo[] = {KC_S, KC_D, COMBO_END};
-
-
-// map combo names to their keys and the key they trigger
-combo_t key_combos[] = {
-    [COMBO_HOME] = COMBO(qa_combo, KC_HOME),
-    [COMBO_ENDE] = COMBO(ps_combo, KC_END),
-    [COMBO_WORDDEL] = COMBO(fd_combo, LCTL(KC_BSPC)),
-    [COMBO_WORDBSPC] = COMBO(jk_combo, LCTL(KC_DEL)),
-};
 
 /*
   ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
