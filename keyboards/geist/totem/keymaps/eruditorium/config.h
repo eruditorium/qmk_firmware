@@ -10,6 +10,7 @@ for more options.
 
 #define QUICK_TAP_TERM 0
 #define TAPPING_TERM 200 // 250 // 100
+#define TAPPING_TERM_PER_KEY
 
 #define PERMISSIVE_HOLD
 

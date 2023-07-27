@@ -49,13 +49,24 @@ enum custom_keycodes {
 // │ d e f i n e   m a c r o n a m e s               │
 // └─────────────────────────────────────────────────┘
 
-// HOME ROW MODS QWERTY ├──────────────────
+// LEFT HAND HOME ROW MODS ├───────────────────────────────────┐
+
+#define GUI_Z LGUI_T(KC_Z)
+#define ALT_X LALT_T(KC_X)
+#define CTL_MINS LCTL_T(KC_MINS)
 #define SHT_F LSFT_T(KC_F)
+
+// RIGHT HAND HOME ROW MODS ├───────────────────────────────────┐
+
 #define SHT_J RSFT_T(KC_J)
+#define CTL_QUOT RCTL_T(KC_QUOT)
+#define ALT_DOT LALT_T(KC_DOT)
+#define GUI_SLSH RGUI_T(KC_SLSH)
+
+// HOME ROW MODS QWERTY ├──────────────────
 #define DEL_ALTGR RALT_T(KC_DEL)
 #define BSPC_ALT LALT_T(KC_BACKSPACE)
 #define ENTER_CTL LCTL_T(KC_ENTER)
-#define Z_GUI LGUI_T(KC_Z)
 
 #define LOWER LT(_LOWER, KC_ESC)
 #define RAISE LT(_RAISE, KC_TAB)
@@ -77,17 +88,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              ├─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┤
              │    A    │    S    │    D    │  F/SFT  │    G    ││    H    │  J/SFT  │    K    │    L    │    ;    │
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
-   │    -    │  Z/GUI  │    X    │    C    │    V    │    B    ││    N    │    M    │    ,    │    .    │    /    │    '    │
+   │  -/CTRL │  Z/GUI  │  X/Alt  │    C    │    V    │    B    ││    N    │    M    │    ,    │  ./ALT  │ / / GUI │ '/CTRL  │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
-                                 │BSPC/ALT │RAISE/TAB│ENTR/Ctl ││  SPACE  │LOWER/ESC│DEL/AltGr│
+                                 │   BSPC  │RAISE/TAB│ ENTR    ││  SPACE  │LOWER/ESC│DEL/AltGr│
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘*/
 
    [_QWERTY] = LAYOUT(
  //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
               KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,      KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,
               KC_A,     KC_S,     KC_D,     SHT_F,    KC_G,      KC_H,     SHT_J,    KC_K,     KC_L,     KC_SCLN,
-    KC_MINS,  Z_GUI,    KC_X,     KC_C,     KC_V,     KC_B,      KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_QUOT,
-                                  BSPC_ALT, RAISE,    ENTER_CTL, KC_SPC,   LOWER,    DEL_ALTGR
+    CTL_MINS, GUI_Z,    ALT_X,    KC_C,     KC_V,     KC_B,      KC_N,     KC_M,     KC_COMM,  ALT_DOT,  GUI_SLSH,  CTL_QUOT,
+                                  KC_BACKSPACE, RAISE,KC_ENTER,  KC_SPC,   LOWER,    DEL_ALTGR
  ),
 
 
@@ -137,7 +148,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
               KC_EXLM, KC_AT,    KC_HASH,  KC_DLR,   KC_LCBR,   KC_RCBR,  KC_F7,    KC_F8,    KC_F9,    KC_F12,
               KC_PERC, KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LBRC,   KC_RBRC,  KC_F4,    KC_F5,    KC_F6,    KC_F11,
     SELWORD,  KC_MINS, KC_UNDS,  KC_GRV,   KC_TILD,  KC_LPRN,   KC_RPRN,  KC_F1,    KC_F2,    KC_F3,    KC_F10,   KC_BSLS,
-                                 _______,  _______,   _______,  _______,  ADJUST,   _______
+                                 _______,  _______,  _______,  _______,  ADJUST,   _______
  ),
 
 
@@ -227,6 +238,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
+
+// ┌─────────────────────────────────────────────────┐
+// │ t a p p i n g t e r m                           │
+// └─────────────────────────────────────────────────┘
+
+#ifdef TAPPING_TERM_PER_KEY
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case GUI_Z:
+        case GUI_SLSH:
+        case ALT_X:
+        case ALT_DOT:
+            return TAPPING_TERM + 100;
+        case CTL_MINS:
+        case CTL_QUOT:
+            return TAPPING_TERM - 50;
+        case SHT_F:
+        case SHT_J:
+        default:
+            return TAPPING_TERM;
+    }
+}
+#endif
 
 /*
   ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
