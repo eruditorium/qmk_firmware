@@ -69,17 +69,23 @@ enum custom_keycodes {
 // └─────────────────────────────────────────────────┘
 
 // LEFT HAND HOME ROW MODS QWERTY ├──────────────────
+#define CTL_Z LCTL_T(KC_Z)
+#define GUI_X LGUI_T(KC_X)
+#define ALT_C LALT_T(KC_C)
 #define SHT_F LSFT_T(KC_F)
+#define SHT_ENTER LSFT_T(KC_ENTER)
 
 // RIGHT HAND HOME ROW MODS QWERTY ├─────────────────┐
 #define SHT_J RSFT_T(KC_J)
+#define SHT_SPC RSFT_T(KC_SPC)
+//#define ALT_COMM RALT_T(KC_COMM)
+#define GUI_DOT RGUI_T(KC_DOT)
+#define CTL_SLSH RCTL_T(KC_SLSH)
 
+#define ALT_DEL RALT_T(KC_DEL)
 #define RAISE LT(_RAISE, KC_PGUP)
 #define LOWER LT(_LOWER, KC_PGDN)
 #define ADJUST MO(_ADJUST)
-
-#define GUI_Z LGUI_T(KC_Z)
-#define ALT_X LALT_T(KC_X)
 
 // ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 // │ K E Y M A P S                                                                                                          │
@@ -87,10 +93,10 @@ enum custom_keycodes {
 // ▝▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▘
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_split_3x6_3(
-    KC_ESC,    KC_Q,    KC_W,    KC_E,    KC_R,     KC_T,                        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_DEL,
-    KC_TAB,    KC_A,    KC_S,    KC_D,    SHT_F,    KC_G,                        KC_H,    SHT_J,   KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-    KC_LCTL,   GUI_Z,   ALT_X,   KC_C,    KC_V,     KC_B,                        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UNDERSCORE,
-                                          KC_BSPC,  RAISE,   KC_ENTER,  KC_SPC,  LOWER,   KC_RALT
+    KC_ESC,    KC_Q,    KC_W,    KC_E,   KC_R,      KC_T,                        KC_Y,    KC_U,    KC_I,     KC_O,    KC_P,     KC_DEL,
+    KC_TAB,    KC_A,    KC_S,    KC_D,   SHT_F,     KC_G,                        KC_H,    SHT_J,   KC_K,     KC_L,    KC_SCLN,  KC_QUOT,
+    KC_LCTL,   CTL_Z,   GUI_X,   ALT_C,  KC_V,      KC_B,                        KC_N,    KC_M,    KC_COMM,  GUI_DOT, CTL_SLSH, KC_ENTER,
+                                          KC_BSPC,  RAISE,   SHT_ENTER,  SHT_SPC,LOWER, ALT_DEL
   ),
 
 /*
@@ -149,6 +155,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //     state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
 //     return state;
 // }
+
+
+// ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+// │ H O M E  R O W  M O D S                                                                                                │
+// └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+// ▝▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▘
+
+#ifdef TAPPING_TERM_PER_KEY                                                                                                                                                              
+    uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case GUI_X:
+        case GUI_DOT:
+        case ALT_C:
+        // case ALT_COMM:
+        case ALT_DEL:
+            return TAPPING_TERM + 50;
+        case CTL_Z:
+        case CTL_SLSH:
+            return TAPPING_TERM - 50;
+        case SHT_F:
+        case SHT_J:
+        case SHT_ENTER:
+        case SHT_SPC:
+            return TAPPING_TERM - 80;
+        default:
+            return TAPPING_TERM;
+    }   
+}       
+#endif  
+
 
 // ┌─────────────────────────────────────────────────┐
 // │ c o m b o s                                     │
