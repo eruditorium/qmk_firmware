@@ -8,11 +8,17 @@ for more options.
 //#define MASTER_LEFT
 #define MASTER_RIGHT
 
+// source: https://www.reddit.com/r/ErgoMechKeyboards/comments/tiejpp/home_row_mods_what_works_for_you
 #define QUICK_TAP_TERM 0
 #define TAPPING_TERM 200 // 250 // 100
 #define TAPPING_TERM_PER_KEY
-
-#define PERMISSIVE_HOLD
+// https://precondition.github.io/home-row-mods
+#define TAPPING_FORCE_HOLD  // make tap-then-hold _not_ do key auto repeat
+#define TAPPING_FORCE_HOLD_PER_KEY  // ... but do it for some!
+#define HOLD_ON_OTHER_KEY_PRESS  // obsolete my LT_NUM_BSPC
+#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY  // ... but not for mod-taps!
+//#define IGNORE_MOD_TAP_INTERRUPT  // obsolete
+#define PERMISSIVE_HOLD  // I don't think this works for me, hence I rolled my own implementation.
 
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE

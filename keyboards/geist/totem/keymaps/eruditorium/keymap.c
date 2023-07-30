@@ -51,25 +51,25 @@ enum custom_keycodes {
 
 // LEFT HAND HOME ROW MODS ├───────────────────────────────────┐
 
-#define GUI_Z LGUI_T(KC_Z)
-#define ALT_X LALT_T(KC_X)
+#define GUI_X LGUI_T(KC_X)
+#define ALT_C LALT_T(KC_C)
 #define CTL_MINS LCTL_T(KC_MINS)
+#define CTL_Z LCTL_T(KC_Z)
 #define SHT_F LSFT_T(KC_F)
 #define SHT_ENTER LSFT_T(KC_ENTER)
 
 // RIGHT HAND HOME ROW MODS ├───────────────────────────────────┐
 
 #define SHT_J RSFT_T(KC_J)
-#define CTL_QUOT RCTL_T(KC_QUOT)
-#define ALT_DOT LALT_T(KC_DOT)
-#define GUI_SLSH RGUI_T(KC_SLSH)
-#define SHT_SPC LSFT_T(KC_SPACE)
+#define CTL_QUOT RCTL_T(KC_QUOT) 
+#define CTL_SLSH RCTL_T(KC_SLSH)
+#define ALT_COMM RALT_T(KC_COMM)
+#define GUI_DOT RGUI_T(KC_DOT)
 
 
 // HOME ROW MODS QWERTY ├──────────────────
-#define DEL_ALTGR RALT_T(KC_DEL)
-#define BSPC_ALT LALT_T(KC_BACKSPACE)
-#define ENTER_CTL LCTL_T(KC_ENTER)
+#define ALT_DEL RALT_T(KC_DEL)
+#define SHT_SPC RSFT_T(KC_SPACE)
 
 #define LOWER LT(_LOWER, KC_ESC)
 #define RAISE LT(_RAISE, KC_TAB)
@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              ├─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┤
              │    A    │    S    │    D    │  F/SFT  │    G    ││    H    │  J/SFT  │    K    │    L    │    ;    │
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
-   │  -/CTRL │  Z/GUI  │  X/Alt  │    C    │    V    │    B    ││    N    │    M    │    ,    │  ./ALT  │ / / GUI │ '/CTRL  │
+   │  -/CTRL │  Z/CTL  │  X/GUI  │  C/ALT  │    V    │    B    ││    N    │    M    │ , / ALT │  ./GUI  │ / / CTL │ '/CTRL  │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
                                  │   BSPC  │RAISE/TAB│ ENTR/SFT││SPACE/SFT│LOWER/ESC│DEL/AltGr│
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘*/
@@ -100,8 +100,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
               KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,      KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,
               KC_A,     KC_S,     KC_D,     SHT_F,    KC_G,      KC_H,     SHT_J,    KC_K,     KC_L,     KC_SCLN,
-    CTL_MINS, GUI_Z,    ALT_X,    KC_C,     KC_V,     KC_B,      KC_N,     KC_M,     KC_COMM,  ALT_DOT,  GUI_SLSH,  CTL_QUOT,
-                                  KC_BACKSPACE, RAISE,SHT_ENTER, SHT_SPC,  LOWER,    DEL_ALTGR
+    CTL_MINS, CTL_Z,    GUI_X,    ALT_C,    KC_V,     KC_B,      KC_N,     KC_M,     ALT_COMM,  GUI_DOT,  CTL_SLSH,  CTL_QUOT,
+                                  KC_BACKSPACE, RAISE,SHT_ENTER, SHT_SPC,  LOWER,    ALT_DEL
  ),
 
 
@@ -249,16 +249,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef TAPPING_TERM_PER_KEY
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case GUI_Z:
-        case GUI_SLSH:
-        case ALT_X:
-        case ALT_DOT:
-            return TAPPING_TERM + 100;
+        case GUI_X:
+        case GUI_DOT:
+        case ALT_C:
+        case ALT_COMM:
+        case ALT_DEL:
+            return TAPPING_TERM + 50;
+        case CTL_Z:
+        case CTL_SLSH:
         case CTL_MINS:
         case CTL_QUOT:
             return TAPPING_TERM - 50;
         case SHT_F:
         case SHT_J:
+        case SHT_ENTER: 
+        case SHT_SPC:
+            return TAPPING_TERM - 80;
         default:
             return TAPPING_TERM;
     }
