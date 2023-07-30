@@ -18,9 +18,9 @@ for more options.
 #undef LOCKING_RESYNC_ENABLE
 
 // source: https://jasoncarloscox.com/blog/combo-mods/
-#define COMBO_TERM 25        // how quickly all combo keys must be pressed in succession to trigger
-#define COMBO_MUST_HOLD_MODS // if a combo triggers a modifier, only trigger when the combo is held
-#define COMBO_HOLD_TERM 175  // how long at least one of the combo keys must be held to trigger
+// #define COMBO_TERM 25        // how quickly all combo keys must be pressed in succession to trigger
+// #define COMBO_MUST_HOLD_MODS // if a combo triggers a modifier, only trigger when the combo is held
+// #define COMBO_HOLD_TERM 175  // how long at least one of the combo keys must be held to trigger
 
 // Add these flags to your rules.mk file:
 // This enables Link Time Optimization, saving a significant amount of space. Because the Macro and Function features are incompatible with Link Time Optimization, disable those features in config.h:
