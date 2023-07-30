@@ -55,6 +55,7 @@ enum custom_keycodes {
 #define ALT_X LALT_T(KC_X)
 #define CTL_MINS LCTL_T(KC_MINS)
 #define SHT_F LSFT_T(KC_F)
+#define SHT_ENTER LSFT_T(KC_ENTER)
 
 // RIGHT HAND HOME ROW MODS ├───────────────────────────────────┐
 
@@ -62,6 +63,8 @@ enum custom_keycodes {
 #define CTL_QUOT RCTL_T(KC_QUOT)
 #define ALT_DOT LALT_T(KC_DOT)
 #define GUI_SLSH RGUI_T(KC_SLSH)
+#define SHT_SPC LSFT_T(KC_SPACE)
+
 
 // HOME ROW MODS QWERTY ├──────────────────
 #define DEL_ALTGR RALT_T(KC_DEL)
@@ -90,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
    │  -/CTRL │  Z/GUI  │  X/Alt  │    C    │    V    │    B    ││    N    │    M    │    ,    │  ./ALT  │ / / GUI │ '/CTRL  │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
-                                 │   BSPC  │RAISE/TAB│ ENTR    ││  SPACE  │LOWER/ESC│DEL/AltGr│
+                                 │   BSPC  │RAISE/TAB│ ENTR/SFT││SPACE/SFT│LOWER/ESC│DEL/AltGr│
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘*/
 
    [_QWERTY] = LAYOUT(
@@ -98,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
               KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,      KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,
               KC_A,     KC_S,     KC_D,     SHT_F,    KC_G,      KC_H,     SHT_J,    KC_K,     KC_L,     KC_SCLN,
     CTL_MINS, GUI_Z,    ALT_X,    KC_C,     KC_V,     KC_B,      KC_N,     KC_M,     KC_COMM,  ALT_DOT,  GUI_SLSH,  CTL_QUOT,
-                                  KC_BACKSPACE, RAISE,KC_ENTER,  KC_SPC,   LOWER,    DEL_ALTGR
+                                  KC_BACKSPACE, RAISE,SHT_ENTER, SHT_SPC,  LOWER,    DEL_ALTGR
  ),
 
 
