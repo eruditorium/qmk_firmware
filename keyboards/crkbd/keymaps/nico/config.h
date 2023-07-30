@@ -25,10 +25,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
+// source: https://www.reddit.com/r/ErgoMechKeyboards/comments/tiejpp/home_row_mods_what_works_for_you
 #define QUICK_TAP_TERM 0
 #define TAPPING_TERM 200 // 250 // 100
+#define TAPPING_TERM_PER_KEY
+// https://precondition.github.io/home-row-mods
+#define TAPPING_FORCE_HOLD  // make tap-then-hold _not_ do key auto repeat
+#define TAPPING_FORCE_HOLD_PER_KEY  // ... but do it for some!
+#define HOLD_ON_OTHER_KEY_PRESS  // obsolete my LT_NUM_BSPC
+#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY  // ... but not for mod-taps!
+//#define IGNORE_MOD_TAP_INTERRUPT  // obsolete
+#define PERMISSIVE_HOLD  // I don't think this works for me, hence I rolled my own implementation.
 
-#define PERMISSIVE_HOLD
 
 // Auto Shift
 // #define NO_AUTO_SHIFT_ALPHA
@@ -51,9 +59,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 // source: https://jasoncarloscox.com/blog/combo-mods/
-#define COMBO_TERM 25        // how quickly all combo keys must be pressed in succession to trigger
-#define COMBO_MUST_HOLD_MODS // if a combo triggers a modifier, only trigger when the combo is held
-#define COMBO_HOLD_TERM 175  // how long at least one of the combo keys must be held to trigger
+// #define COMBO_TERM 25        // how quickly all combo keys must be pressed in succession to trigger
+// #define COMBO_MUST_HOLD_MODS // if a combo triggers a modifier, only trigger when the combo is held
+// #define COMBO_HOLD_TERM 175  // how long at least one of the combo keys must be held to trigger
 
 
 #ifdef RGBLIGHT_ENABLE
@@ -101,7 +109,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #undef ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
     #undef ENABLE_RGB_MATRIX_DUAL_BEACON
     #undef ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
-    #define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
+    #undef ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
     #undef ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
@@ -117,7 +125,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
-    #define ENABLE_RGB_MATRIX_SOLID_SPLASH
+    #undef ENABLE_RGB_MATRIX_SOLID_SPLASH
     #undef ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
     #undef ENABLE_RGB_MATRIX_SOLID_SPLASH
     #undef ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
