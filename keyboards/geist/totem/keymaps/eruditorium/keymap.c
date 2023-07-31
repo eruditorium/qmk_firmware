@@ -69,7 +69,6 @@ enum custom_keycodes {
 
 // HOME ROW MODS QWERTY ├──────────────────
 #define ALT_DEL RALT_T(KC_DEL)
-#define SHT_SPC RSFT_T(KC_SPACE)
 
 #define LOWER LT(_LOWER, KC_ESC)
 #define RAISE LT(_RAISE, KC_TAB)
@@ -93,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
    │  -/CTRL │  Z/CTL  │  X/GUI  │  C/ALT  │    V    │    B    ││    N    │    M    │ , / ALT │  ./GUI  │ / / CTL │ '/CTRL  │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
-                                 │   BSPC  │RAISE/TAB│ ENTR/SFT││SPACE/SFT│LOWER/ESC│DEL/AltGr│
+                                 │   BSPC  │RAISE/TAB│ ENTR/SFT││  SPACE  │LOWER/ENT│DEL/AltGr│
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘*/
 
    [_QWERTY] = LAYOUT(
@@ -101,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
               KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,      KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,
               KC_A,     KC_S,     KC_D,     SHT_F,    KC_G,      KC_H,     SHT_J,    KC_K,     KC_L,     KC_SCLN,
     CTL_MINS, CTL_Z,    GUI_X,    ALT_C,    KC_V,     KC_B,      KC_N,     KC_M,     ALT_COMM,  GUI_DOT,  CTL_SLSH,  CTL_QUOT,
-                                  KC_BACKSPACE, RAISE,SHT_ENTER, SHT_SPC,  LOWER,    ALT_DEL
+                                  KC_BACKSPACE, RAISE,SHT_ENTER, KC_SPACE,  LOWER,    ALT_DEL
  ),
 
 
@@ -112,20 +111,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    │ l o w e r                                       │      ╭╮╭╮╭╮╭╮
    └─────────────────────────────────────────────────┘      │╰╯╰╯╰╯│
              ┌─────────┬─────────┬─────────┬─────────┬──────╨──┐┌──╨──────┬─────────┬─────────┬─────────┬─────────┐
-     ╌┄┈┈───═╡   INS   │  HOME   |    ↑    │   PG↑   │   NUM   ││    /    │    7    │    8    │    9    │    +    │
+     ╌┄┈┈───═╡   ESC   │  HOME   |    ↑    │   PG↑   │   NUM   ││    /    │    7    │    8    │    9    │    +    │
              ├─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┤
              │ WWW Back│    ←    │    ↓    │    →    │ WWW For ││    *    │    4    │    5    │    6    │    -    │
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
-   │         │ WWW Refr│   END   │         │   PG↓   │         ││    ,    │    1    │    2    │    3    │    *    │    =    │
+   │         │ WWW Refr│   END   │         │   PG↓   │   INS   ││    ,    │    1    │    2    │    3    │    *    │    =    │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
                                  │    ▼    │ ADJUST  │    ▼    ││    ▼    │    ▼    │    0    │
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘ */
 
    [_LOWER] = LAYOUT(
  //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
-              KC_INS,   KC_HOME,   KC_UP,    KC_PGUP,  KC_NUM,    KC_PSLS,  KC_7,     KC_8,     KC_9,     KC_PPLS,
+              KC_ESC,   KC_HOME,   KC_UP,    KC_PGUP,  KC_NUM,    KC_PSLS,  KC_7,     KC_8,     KC_9,     KC_PPLS,
               KC_WBAK,  KC_LEFT,   KC_DOWN,  KC_RGHT,  KC_WFWD,   KC_PAST,  KC_4,     KC_5,     KC_6,     KC_MINS,
-    _______,  KC_WREF,  KC_END,    XXXXXXX,  KC_PGDN,  XXXXXXX,   KC_COMM,  KC_1,     KC_2,     KC_3,     KC_DOT,  KC_EQL,
+    _______,  KC_WREF,  KC_END,    XXXXXXX,  KC_PGDN,  KC_INS,    KC_COMM,  KC_1,     KC_2,     KC_3,     KC_DOT,  KC_EQL,
                                    _______,  ADJUST,   _______,   _______,  _______,  KC_0
  ),
 
@@ -263,7 +262,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case SHT_F:
         case SHT_J:
         case SHT_ENTER: 
-        case SHT_SPC:
             return TAPPING_TERM - 80;
         default:
             return TAPPING_TERM;

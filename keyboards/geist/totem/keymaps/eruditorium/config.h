@@ -8,17 +8,35 @@ for more options.
 //#define MASTER_LEFT
 #define MASTER_RIGHT
 
-// source: https://www.reddit.com/r/ErgoMechKeyboards/comments/tiejpp/home_row_mods_what_works_for_you
-#define QUICK_TAP_TERM 0
-#define TAPPING_TERM 200 // 250 // 100
-#define TAPPING_TERM_PER_KEY
-// https://precondition.github.io/home-row-mods
-#define TAPPING_FORCE_HOLD  // make tap-then-hold _not_ do key auto repeat
-#define TAPPING_FORCE_HOLD_PER_KEY  // ... but do it for some!
-#define HOLD_ON_OTHER_KEY_PRESS  // obsolete my LT_NUM_BSPC
-#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY  // ... but not for mod-taps!
-//#define IGNORE_MOD_TAP_INTERRUPT  // obsolete
-#define PERMISSIVE_HOLD  // I don't think this works for me, hence I rolled my own implementation.
+//----------------------------------------------------------------------------
+// home row mods
+//----------------------------------------------------------------------------
+// https://sunaku.github.io/home-row-mods.html
+// https://github.com/manna-harbour/qmk_firmware/pull/56
+// https://github.com/manna-harbour/qmk_firmware/issues/29
+
+/* QMK */
+#define TAPPING_TERM 200
+
+/* Miryoku */
+#define BILATERAL_COMBINATIONS
+#define BILATERAL_COMBINATIONS_LIMIT_CHORD_TO_N_KEYS 4 /* GUI, Alt, Ctrl, Shift */
+#define BILATERAL_COMBINATIONS_DELAY_MODS_THAT_MATCH MOD_MASK_GUI
+#define BILATERAL_COMBINATIONS_DELAY_MATCHED_MODS_BY 120  /* ms */
+#define BILATERAL_COMBINATIONS_ALLOW_CROSSOVER_AFTER 80  /* ms */
+#define BILATERAL_COMBINATIONS_ALLOW_SAMESIDED_AFTER 3000 /* ms */
+#define BILATERAL_COMBINATIONS_TYPING_STREAK_TIMEOUT 160 /* ms */
+#define BILATERAL_COMBINATIONS_TYPING_STREAK_MODMASK (~MOD_MASK_SHIFT)
+
+//----------------------------------------------------------------------------
+// vial
+//----------------------------------------------------------------------------
+#ifdef VIAL_ENABLE
+
+// run `python3 ~/qmk_firmware/util/build_id.py` to generate this
+#define BUILD_ID ((uint32_t)0x000A8B54)
+
+#endif
 
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
@@ -33,6 +51,9 @@ for more options.
 // Drashna, on QMK issue 3224, paraphrased
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
+
+// getreuer
+//----------------------------------------------------------------------------
 
 // Activate CAPS WORD by pressing Left Shift + Right Shift
 // https://docs.qmk.fm/#/feature_caps_word
