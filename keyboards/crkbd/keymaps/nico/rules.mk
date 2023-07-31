@@ -5,7 +5,6 @@
 #
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
-KEY_OVERRIDE_ENABLE = yes
 
 MOUSEKEY_ENABLE = no        # Mouse keys
 CONSOLE_ENABLE = no         # Console for debug
@@ -21,13 +20,34 @@ RGB_MATRIX_ENABLE = yes
 # Add these flags to your rules.mk file: EXTRAFLAGS += -flto
 # Drashna, on QMK issue 3224, paraphrased
 EXTRAFLAGS += -flto
+LTO_ENABLE = yes
 
+QMK_SETTINGS = no
 DYNAMIC_MACRO_ENABLE = yes
 COMBO_ENABLE = no
 EXTRAKEY_ENABLE = yes
+TAP_DANCE_ENABLE = no
+KEY_OVERRIDE_ENABLE = no
+#define DYNAMIC_KEYMAP_LAYER_COUNT 3
 
 # https://docs.qmk.fm/#/feature_caps_word
 # make sure COMMAN_ENABLE = no
 CAPS_WORD_ENABLE = yes
 
+#-----------------------------------------------------------------------------
+# getreuer
+#-----------------------------------------------------------------------------
+# https://github.com/getreuer/qmk-keymap
+
+# SRC += features/achordion.c
+# SRC += features/autocorrection.c
+# SRC += features/custom_shift_keys.c
 SRC += features/select_word.c
+
+
+#-----------------------------------------------------------------------------
+# sunaku
+#-----------------------------------------------------------------------------
+
+# https://docs.qmk.fm/#/custom_quantum_functions?id=deferred-execution
+DEFERRED_EXEC_ENABLE = yes

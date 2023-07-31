@@ -25,17 +25,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
-// source: https://www.reddit.com/r/ErgoMechKeyboards/comments/tiejpp/home_row_mods_what_works_for_you
-#define QUICK_TAP_TERM 0
-#define TAPPING_TERM 200 // 250 // 100
-#define TAPPING_TERM_PER_KEY
-// https://precondition.github.io/home-row-mods
-#define TAPPING_FORCE_HOLD  // make tap-then-hold _not_ do key auto repeat
-#define TAPPING_FORCE_HOLD_PER_KEY  // ... but do it for some!
-#define HOLD_ON_OTHER_KEY_PRESS  // obsolete my LT_NUM_BSPC
-#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY  // ... but not for mod-taps!
-//#define IGNORE_MOD_TAP_INTERRUPT  // obsolete
-#define PERMISSIVE_HOLD  // I don't think this works for me, hence I rolled my own implementation.
+//----------------------------------------------------------------------------
+// home row mods
+//----------------------------------------------------------------------------
+// https://sunaku.github.io/home-row-mods.html
+// https://github.com/manna-harbour/qmk_firmware/pull/56
+// https://github.com/manna-harbour/qmk_firmware/issues/29
+
+/* QMK */
+#define TAPPING_TERM 200
+
+/* Miryoku */
+#define BILATERAL_COMBINATIONS
+#define BILATERAL_COMBINATIONS_LIMIT_CHORD_TO_N_KEYS 4 /* GUI, Alt, Ctrl, Shift */
+#define BILATERAL_COMBINATIONS_DELAY_MODS_THAT_MATCH MOD_MASK_GUI
+#define BILATERAL_COMBINATIONS_DELAY_MATCHED_MODS_BY 120  /* ms */
+#define BILATERAL_COMBINATIONS_ALLOW_CROSSOVER_AFTER 80  /* ms */
+#define BILATERAL_COMBINATIONS_ALLOW_SAMESIDED_AFTER 3000 /* ms */
+#define BILATERAL_COMBINATIONS_TYPING_STREAK_TIMEOUT 160 /* ms */
+#define BILATERAL_COMBINATIONS_TYPING_STREAK_MODMASK (~MOD_MASK_SHIFT)
 
 
 // Auto Shift
@@ -46,17 +54,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
 // #define NO_ACTION_ONESHOT
-
-//#define TAPPING_TERM_PER_KEY
-
-// https://precondition.github.io/home-row-mods
-// Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
-//#define TAPPING_FORCE_HOLD  // make tap-then-hold _not_ do key auto repeat
-//#define TAPPING_FORCE_HOLD_PER_KEY  // ... but do it for some!
-
-//#define HOLD_ON_OTHER_KEY_PRESS  // obsolete my LT_NUM_BSPC
-//#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY  // ... but not for mod-taps!
-
 
 // source: https://jasoncarloscox.com/blog/combo-mods/
 // #define COMBO_TERM 25        // how quickly all combo keys must be pressed in succession to trigger
@@ -92,45 +89,45 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     /* Disable the animations you don&#39;t want/need.  You will need to disable a good number of these    *
      * because they take up a lot of space.  Disable until you can successfully compile your firmware. */
     #define ENABLE_RGB_MATRIX_ALPHAS_MODS
-    #undef ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
+    #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
     #define ENABLE_RGB_MATRIX_BREATHING
-    #undef ENABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
+    #define ENABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
     #undef ENABLE_RGB_MATRIX_BAND_PINWHEEL_VAL
     #undef ENABLE_RGB_MATRIX_BAND_SAT
-    #undef ENABLE_RGB_MATRIX_BAND_SPIRAL_SAT
+    #define ENABLE_RGB_MATRIX_BAND_SPIRAL_SAT
     #undef ENABLE_RGB_MATRIX_BAND_SPIRAL_VAL
     #undef ENABLE_RGB_MATRIX_BAND_VAL
     #define ENABLE_RGB_MATRIX_CYCLE_ALL
     #undef ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
     #undef ENABLE_RGB_MATRIX_CYCLE_OUT_IN
-    #undef ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
+    #define ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
     #undef ENABLE_RGB_MATRIX_CYCLE_PINWHEEL
     #undef ENABLE_RGB_MATRIX_CYCLE_SPIRAL
-    #undef ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
+    #define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
     #undef ENABLE_RGB_MATRIX_DUAL_BEACON
     #undef ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
-    #undef ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
+    #define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
     #undef ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS
-    #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE
+    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
-    #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
+    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-    #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
+    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
-    #undef ENABLE_RGB_MATRIX_SOLID_SPLASH
+    #define ENABLE_RGB_MATRIX_SOLID_SPLASH
     #undef ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
     #undef ENABLE_RGB_MATRIX_SOLID_SPLASH
     #undef ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
     #undef ENABLE_RGB_MATRIX_SPLASH
-    #undef ENABLE_RGB_MATRIX_MULTISPLASH
+    #define ENABLE_RGB_MATRIX_MULTISPLASH
     #undef ENABLE_RGB_MATRIX_SPLASH
     #undef ENABLE_RGB_MATRIX_MULTISPLASH
 #endif
