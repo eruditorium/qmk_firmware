@@ -37,7 +37,8 @@ enum totem_layers {
 // └─────────────────────────────────────────────────┘
 
 enum custom_keycodes {
-    QWERTY = SAFE_RANGE,
+    MC_QUOT = SAFE_RANGE,
+    QWERTY,
     LOWER,
     RAISE,
     ADJUST,
@@ -70,7 +71,7 @@ enum custom_keycodes {
 // HOME ROW MODS QWERTY ├──────────────────
 #define ALT_DEL RALT_T(KC_DEL)
 
-#define LOWER LT(_LOWER, KC_ESC)
+#define LOWER LT(_LOWER, KC_ENTER)
 #define RAISE LT(_RAISE, KC_TAB)
 #define ADJUST MO(_ADJUST)
 
@@ -90,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              ├─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┤
              │    A    │    S    │    D    │  F/SFT  │    G    ││    H    │  J/SFT  │    K    │    L    │    ;    │
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
-   │  -/CTRL │  Z/CTL  │  X/GUI  │  C/ALT  │    V    │    B    ││    N    │    M    │ , / ALT │  ./GUI  │ / / CTL │ '/CTRL  │
+   │  -/CTRL │  Z/CTL  │  X/GUI  │  C/ALT  │    V    │    B    ││    N    │    M    │ , / ALT │  ./GUI  │ //CTRL  │ MC_QUOT │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
                                  │   BSPC  │RAISE/TAB│ ENTR/SFT││  SPACE  │LOWER/ENT│DEL/AltGr│
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘*/
@@ -99,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
               KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,      KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,
               KC_A,     KC_S,     KC_D,     SHT_F,    KC_G,      KC_H,     SHT_J,    KC_K,     KC_L,     KC_SCLN,
-    CTL_MINS, CTL_Z,    GUI_X,    ALT_C,    KC_V,     KC_B,      KC_N,     KC_M,     ALT_COMM,  GUI_DOT,  CTL_SLSH,  CTL_QUOT,
+    CTL_MINS, CTL_Z,    GUI_X,    ALT_C,    KC_V,     KC_B,      KC_N,     KC_M,     ALT_COMM,  GUI_DOT,  CTL_SLSH,  MC_QUOT,
                                   KC_BACKSPACE, RAISE,SHT_ENTER, KC_SPACE,  LOWER,    ALT_DEL
  ),
 
@@ -113,19 +114,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              ┌─────────┬─────────┬─────────┬─────────┬──────╨──┐┌──╨──────┬─────────┬─────────┬─────────┬─────────┐
      ╌┄┈┈───═╡   ESC   │  HOME   |    ↑    │   PG↑   │   NUM   ││    /    │    7    │    8    │    9    │    +    │
              ├─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┤
-             │ WWW Back│    ←    │    ↓    │    →    │ WWW For ││    *    │    4    │    5    │    6    │    -    │
+             │   TAB   │    ←    │    ↓    │    →    │ WWW For ││    *    │    4    │    5    │    6    │    -    │
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
-   │         │ WWW Refr│   END   │         │   PG↓   │   INS   ││    ,    │    1    │    2    │    3    │    *    │    =    │
+   │    ▼    │ WWW Refr│   END   │         │   PG↓   │   INS   ││    ,    │    1    │    2    │    3    │    *    │    =    │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
-                                 │    ▼    │ ADJUST  │    ▼    ││    ▼    │    ▼    │    0    │
+                                 │ WWWBACK │ ADJUST  │    ▼    ││    ▼    │    ▼    │    0    │
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘ */
 
    [_LOWER] = LAYOUT(
  //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
               KC_ESC,   KC_HOME,   KC_UP,    KC_PGUP,  KC_NUM,    KC_PSLS,  KC_7,     KC_8,     KC_9,     KC_PPLS,
-              KC_WBAK,  KC_LEFT,   KC_DOWN,  KC_RGHT,  KC_WFWD,   KC_PAST,  KC_4,     KC_5,     KC_6,     KC_MINS,
+              KC_TAB,   KC_LEFT,   KC_DOWN,  KC_RGHT,  KC_WFWD,   KC_PAST,  KC_4,     KC_5,     KC_6,     KC_MINS,
     _______,  KC_WREF,  KC_END,    XXXXXXX,  KC_PGDN,  KC_INS,    KC_COMM,  KC_1,     KC_2,     KC_3,     KC_DOT,  KC_EQL,
-                                   _______,  ADJUST,   _______,   _______,  _______,  KC_0
+                                   KC_WBAK,  ADJUST,   _______,   _______,  _______,  KC_0
  ),
 
 
@@ -217,6 +218,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   switch (keycode) {
 
+// ┌─────────────────────────────────────────────────┐
+// │ d e a d   k e y s                               │
+// └─────────────────────────────────────────────────┘
+
+    case MC_QUOT:
+      if (record->event.pressed) {
+        SEND_STRING(SS_TAP(X_QUOT) SS_TAP(X_SPC));
+      }
+      return false;
+      
 // ┌─────────────────────────────────────────────────┐
 // │ l a y e r                                       │
 // └─────────────────────────────────────────────────┘
