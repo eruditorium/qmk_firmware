@@ -42,27 +42,14 @@ enum crkbd_layers {
 // │ d e f i n e   k e y c o d e s                   │
 // └─────────────────────────────────────────────────┘
 enum custom_keycodes {
-    QWERTY = SAFE_RANGE,
+    MC_QUOT = SAFE_RANGE,
+    QWERTY,
     LOWER,
     RAISE,
     ADJUST,
     SNAP,
     SELWORD,
 };
-
-// ┌─────────────────────────────────────────────────┐
-// │ d e f i n e   c o m b o   n a m e s             │
-// └─────────────────────────────────────────────────┘
-
-// enum combos {
-//     COMBO_HOME,
-//     COMBO_ENDE,
-//     COMBO_WORDBSPC,
-//     COMBO_WORDDEL,
-//     COMBO_LENGTH // nifty trick to avoid manually specifying how many combos you have
-// };
-
-// uint16_t COMBO_LEN = COMBO_LENGTH; // nifty trick continued
 
 // ┌─────────────────────────────────────────────────┐
 // │ d e f i n e   m a c r o n a m e s               │
@@ -77,13 +64,13 @@ enum custom_keycodes {
 
 // RIGHT HAND HOME ROW MODS QWERTY ├─────────────────┐
 #define SHT_J RSFT_T(KC_J)
-//#define ALT_COMM RALT_T(KC_COMM)
+#define ALT_COMM RALT_T(KC_COMM)
 #define GUI_DOT RGUI_T(KC_DOT)
 #define CTL_SLSH RCTL_T(KC_SLSH)
 
 #define ALT_DEL RALT_T(KC_DEL)
-#define RAISE LT(_RAISE, KC_PGUP)
-#define LOWER LT(_LOWER, KC_PGDN)
+#define RAISE MO(_RAISE)
+#define LOWER MO(_LOWER)
 #define ADJUST MO(_ADJUST)
 
 // ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -91,10 +78,21 @@ enum custom_keycodes {
 // └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 // ▝▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▘
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
+// QWERTY
+//  ,-----------------------------------------------------.                    ,-----------------------------------------------------.
+//  |Tab/LGui|   Q    |   W    |   E    |   R    |   T    |                    |   Y    |   U    |   I    |   O    |   P    | Bksp   |
+//  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+//  | CtrlSc |   A    |   S    |   D    |   F    |   G    |                    |   H    |   J    |   K    |   L    | ;/Mous | '/Rctl |
+//  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+//  | Shift  |   Z    |   X    |   C    |   V    |   B    |                    |   N    |   M    |   ,    |   .    |   /    | SftEnT |
+//  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
+//                                      |  LALT  | LOWER  |Spc/FUN |  | Spc/NAV| RAISE  |ACCENTS |
+//                                      `--------------------------'  `--------------------------'    
   [_QWERTY] = LAYOUT_split_3x6_3(
     KC_ESC,    KC_Q,    KC_W,    KC_E,   KC_R,      KC_T,                        KC_Y,    KC_U,    KC_I,     KC_O,    KC_P,     KC_DEL,
-    KC_TAB,    KC_A,    KC_S,    KC_D,   SHT_F,     KC_G,                        KC_H,    SHT_J,   KC_K,     KC_L,    KC_SCLN,  KC_QUOT,
-    KC_LCTL,   CTL_Z,   GUI_X,   ALT_C,  KC_V,      KC_B,                        KC_N,    KC_M,    KC_COMM,  GUI_DOT, CTL_SLSH, KC_ENTER,
+    KC_TAB,    KC_A,    KC_S,    KC_D,   SHT_F,     KC_G,                        KC_H,    SHT_J,   KC_K,     KC_L,    KC_SCLN,  MC_QUOT,
+    KC_LCTL,   CTL_Z,   GUI_X,   ALT_C,  KC_V,      KC_B,                        KC_N,    KC_M,    ALT_COMM, GUI_DOT, CTL_SLSH, KC_ENTER,
                                           KC_BSPC,  RAISE,   SHT_ENTER,  KC_SPACE,LOWER, ALT_DEL
   ),
 
@@ -105,6 +103,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    │ l o w e r                                       │
    └─────────────────────────────────────────────────┘
 */
+// Functions and keypad
+//  ,-----------------------------------------------------.                    ,-----------------------------------------------------.
+//  |        |   F1   |   F2   |   F2   |   F4   |        |                    |        |   7    |   8    |   9    |        |        |
+//  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+//  |        |   F5   |   F6   |   F7   |   F8   |        |                    |        |   4    |   5    |   6    |   -    |   /    |
+//  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+//  |        |   F9   |   F10  |   F11  |   F12  |        |                    |        |   1    |   2    |   3    |   +    |   *    |
+//  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
+//                                      |        |        |        |  |   =    |   0    |   .    |
+//                                      `--------------------------'  `--------------------------'
   [_LOWER] = LAYOUT_split_3x6_3(
     _______, KC_MUTE, KC_HOME, KC_UP,   KC_PGUP,  KC_MNXT,                   KC_PSLS,   KC_7,   KC_8,   KC_9,   KC_PPLS,  SELWORD,
     _______, KC_VOLU, KC_LEFT, KC_DOWN, KC_RGHT,  KC_MPRV,                   KC_PAST,   KC_4,   KC_5,   KC_6,   KC_MINS,  KC_EQL,
@@ -118,7 +126,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    ┌─────────────────────────────────────────────────┐
    │ r a i s e                                       │
    └─────────────────────────────────────────────────┘
-   */
+*/
+// Lower
+//  ,-----------------------------------------------------.                    ,-----------------------------------------------------.
+//  |   ~    |   !    |   @    |   #    |   $    |   %    |                    |   ^    |   &    |   *    |   (    |   )    |  Del   |
+//  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+//  |        | SC_F1  | SC_F2  | SC_F3  | SC_F4  |        |                    |        |   _    |   +    |   {    |   }    |   |    |
+//  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+//  |        | Gaming |        |  Vol-  |  Vol+  |  Mute  |                    |        |        |        |        |        |        |
+//  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
+//                                      |        |        |        |  |        |        |        |
+//                                      `--------------------------'  `--------------------------'
   [_RAISE] = LAYOUT_split_3x6_3(
     _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_LCBR,                   KC_RCBR, KC_F7,   KC_F8,   KC_F9,   KC_F12,  SELWORD,
     _______, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LBRC,                   KC_RBRC, KC_F4,   KC_F5,   KC_F6,   KC_F11,  KC_BSLS,
@@ -134,6 +152,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    │ a d j u s t                                     │
    └─────────────────────────────────────────────────┘
    */
+// Adjust
+//  ,-----------------------------------------------------.                    ,-----------------------------------------------------.
+//  |  Reset |        |        |        |        | Print  |                    | Num    | Caps   | Scroll |        |        |        |
+//  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+//  | On/Off | Hue ↑  | Sat ↑  | Brght ↑|        |        |                    |        |        |        |        |        |        |
+//  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+//  | Cycle  | Hue ↓  | Sat ↓  | Brght ↓|        |        |                    |        |        |        |        |        |        |
+//  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
+//                                      |        |        |        |  |        |        |        |
+//                                      `--------------------------'  `--------------------------'
   [_ADJUST] = LAYOUT_split_3x6_3(
     QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
     RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -149,13 +177,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 // ▝▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▘
 
-
-// layer_state_t layer_state_set_user(layer_state_t state) {
-//     state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
-//     return state;
-// }
-
-
 // ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 // │ H O M E  R O W  M O D S                                                                                                │
 // └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
@@ -167,7 +188,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         case GUI_X:
         case GUI_DOT:
         case ALT_C:
-        // case ALT_COMM:
+        case ALT_COMM:
         case ALT_DEL:
             return TAPPING_TERM + 50;
         case CTL_Z:
@@ -183,31 +204,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 }       
 #endif  
 
-
-// ┌─────────────────────────────────────────────────┐
-// │ c o m b o s                                     │
-// └─────────────────────────────────────────────────┘
-// define keys that make up combos
-// const uint16_t PROGMEM qa_combo[] = {KC_Q, KC_A, COMBO_END};
-// const uint16_t PROGMEM ps_combo[] = {KC_P, KC_SCLN, COMBO_END};
-// const uint16_t PROGMEM jk_combo[] = {KC_K, KC_L, COMBO_END};
-// const uint16_t PROGMEM fd_combo[] = {KC_S, KC_D, COMBO_END};
-
-
-// // map combo names to their keys and the key they trigger
-// combo_t key_combos[] = {
-//     [COMBO_HOME] = COMBO(qa_combo, KC_HOME),
-//     [COMBO_ENDE] = COMBO(ps_combo, KC_END),
-//     [COMBO_WORDDEL] = COMBO(fd_combo, LCTL(KC_BSPC)),
-//     [COMBO_WORDBSPC] = COMBO(jk_combo, LCTL(KC_DEL)),
-// };
-
 /*
   ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸*/
 
 // ┌─────────────────────────────────────────────────┐
 // │ o l e d                                         │
 // └─────────────────────────────────────────────────┘
+// ▝▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▘
 // this part is from pichfl's great animation for the aurora lily58
 // https://github.com/pichfl/qmk_firmware/tree/lily58-mission-control
 #ifdef OLED_ENABLE
@@ -481,7 +484,7 @@ void fp_render_modifier_state(void) {
 
 #define FRAME_TIME 350
 
-uint8_t         current_frame     = -1;
+uint8_t current_frame = -1; 
 static uint32_t frame_timer       = 0;
 static uint32_t animation_timeout = 0;
 
@@ -504,6 +507,7 @@ static void render_animation(const char** frames, size_t frame_size, const uint8
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+
     if (record->event.pressed) {
         animation_timeout = timer_read32();
         frame_timer       = timer_read32();
@@ -511,7 +515,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     }
 
     if (!process_select_word(keycode, record, SELWORD)) { return false; }
+    
+    switch (keycode) {
 
+        // ┌─────────────────────────────────────────────────┐
+        // │ d e a d   k e y s                               │
+        // └─────────────────────────────────────────────────┘
+        case MC_QUOT:
+            if (record->event.pressed) {
+                SEND_STRING(SS_TAP(X_QUOT) SS_TAP(X_SPC));
+            }
+            return false;
+    }
     return true;
 }
 
