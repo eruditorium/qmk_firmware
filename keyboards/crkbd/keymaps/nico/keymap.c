@@ -111,13 +111,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 //  |        | VolDwn |  End   |        |  PgDwn |  Stop  |                    |    ,   |   1    |   2    |   3    |   .    |        |
 //  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
-//                                      |        | Adjust |        |  |        |        |   0    |
+//                                      |        | Adjust |   -    |  |        |        |   0    |
 //                                      `--------------------------'  `--------------------------'
   [_LOWER] = LAYOUT_split_3x6_3(
-    UC(0x00B0), KC_MUTE, KC_HOME, KC_UP,   KC_PGUP,  KC_MNXT,                   KC_PSLS,   KC_7,   KC_8,   KC_9,   KC_PPLS,  SELWORD,
-    UC(0x2615), KC_VOLU, KC_LEFT, KC_DOWN, KC_RGHT,  KC_MPRV,                   KC_PAST,   KC_4,   KC_5,   KC_6,   KC_MINS,  KC_EQL,
-    UC(0x269D), KC_VOLD, KC_END,  XXXXXXX, KC_PGDN,  KC_MSTP,                   KC_COMM,   KC_1,   KC_2,   KC_3,   KC_DOT,   _______,
-                                           _______,  ADJUST, _______,  _______, _______,   KC_0
+    _______, KC_MUTE, KC_HOME, KC_UP,   KC_PGUP,  KC_MNXT,                   KC_PSLS,   KC_7,   KC_8,   KC_9,   KC_PPLS,  SELWORD,
+    _______, KC_VOLU, KC_LEFT, KC_DOWN, KC_RGHT,  KC_MPRV,                   KC_PAST,   KC_4,   KC_5,   KC_6,   KC_MINS,  KC_EQL,
+    _______, KC_VOLD, KC_END,  XXXXXXX, KC_PGDN,  KC_MSTP,                   KC_COMM,   KC_1,   KC_2,   KC_3,   KC_DOT,   _______,
+                                           _______,  ADJUST, KC_MINS,  _______, _______,   KC_0
   ),
 
 /*
