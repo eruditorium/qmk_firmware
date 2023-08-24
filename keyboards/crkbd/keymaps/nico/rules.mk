@@ -11,6 +11,7 @@ CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 MIDI_ENABLE = no            # MIDI controls
 AUDIO_ENABLE = no           # Audio output on port C6
+UNICODE_ENABLE = yes
 
 RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
 RGB_MATRIX_ENABLE = yes
