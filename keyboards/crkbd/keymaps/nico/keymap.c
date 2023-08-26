@@ -193,7 +193,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             return TAPPING_TERM + 50;
         case CTL_Z:
         case CTL_SLSH:
-            return TAPPING_TERM - 50;
+            return TAPPING_TERM - 80;
         case SHT_F:
         case SHT_J:
         case SHT_ENTER:
