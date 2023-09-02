@@ -62,6 +62,7 @@ enum custom_keycodes {
 #define CTL_SLSH RCTL_T(KC_SLSH)
 #define ALT_COMM RALT_T(KC_COMM)
 #define GUI_DOT RGUI_T(KC_DOT)
+#define ALT_DEL RALT_T(KC_DEL)
 
 // HOME ROW MODS QWERTY ├──────────────────
 #define LOWER LT(_LOWER, KC_TAB)
@@ -85,9 +86,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              ├─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┤
              │    A    │    S    │    D    │  F/SFT  │    G    ││    H    │  J/SFT  │    K    │    L    │    ;    │
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
-   │ SELWORD │  Z/CTL  │  X/GUI  │  C/ALT  │    V    │    B    ││    N    │    M    │ ,/ALTGr │  ./GUI  │ //CTRL  │ MC_QUOT │
+   │ SELWORD │  Z/CTL  │  X/GUI  │  C/ALT  │    V    │    B    ││    N    │    M    │ ,/AltGr │  ./GUI  │ //CTRL  │ MC_QUOT │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
-                                 │   BSPC  │RAISE/ESC│ ENTR/SFT││  SPACE  │LOWER/TAB│   DEL   │
+                                 │   BSPC  │RAISE/ESC│ ENTR/SFT││  SPACE  │LOWER/TAB│ RAlt/DEL│
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘*/
 
    [_QWERTY] = LAYOUT(
@@ -95,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
               KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,      KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,
               KC_A,     KC_S,     KC_D,     SHT_F,    KC_G,      KC_H,     SHT_J,    KC_K,     KC_L,     KC_SCLN,
     SELWORD,  CTL_Z,    GUI_X,    ALT_C,    KC_V,     KC_B,      KC_N,     KC_M,     ALT_COMM,  GUI_DOT,  CTL_SLSH,  MC_QUOT,
-                                  KC_BACKSPACE, RAISE,SHT_ENTER, KC_SPACE,  LOWER,   KC_DEL
+                                  KC_BACKSPACE, RAISE,SHT_ENTER, KC_SPACE,  LOWER,   ALT_DEL
  ),
 
 
@@ -106,20 +107,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    │ l o w e r                                       │      ╭╮╭╮╭╮╭╮
    └─────────────────────────────────────────────────┘      │╰╯╰╯╰╯│
              ┌─────────┬─────────┬─────────┬─────────┬──────╨──┐┌──╨──────┬─────────┬─────────┬─────────┬─────────┐
-     ╌┄┈┈───═╡   ESC   │  HOME   |    ↑    │   PG↑   │   NUM   ││    /    │    7    │    8    │    9    │    +    │
+     ╌┄┈┈───═╡   ESC   │  HOME   |    ↑    │   PG↑   │         ││    /    │    7    │    8    │    9    │    +    │
              ├─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┤
              │   TAB   │    ←    │    ↓    │    →    │ WWW For ││    *    │    4    │    5    │    6    │    -    │
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
-   │    ▼    │ WWW Refr│   END   │         │   PG↓   │   INS   ││    ,    │    1    │    2    │    3    │    *    │    =    │
+   │    ▼    │ WWW Refr│   END   │         │   PG↓   │         ││    ,    │    1    │    2    │    3    │    *    │    =    │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
                                  │ WWWBACK │ ADJUST  │    ▼    ││    ▼    │    ▼    │    0    │
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘ */
 
    [_LOWER] = LAYOUT(
  //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
-              KC_ESC,   KC_HOME,   KC_UP,    KC_PGUP,  KC_NUM,    KC_PSLS,  KC_7,     KC_8,     KC_9,     KC_PPLS,
+              KC_ESC,   KC_HOME,   KC_UP,    KC_PGUP,  XXXXXXX,    KC_PSLS,  KC_7,     KC_8,     KC_9,     KC_PPLS,
               KC_TAB,   KC_LEFT,   KC_DOWN,  KC_RGHT,  KC_WFWD,   KC_PAST,  KC_4,     KC_5,     KC_6,     KC_MINS,
-    _______,  KC_WREF,  KC_END,    XXXXXXX,  KC_PGDN,  KC_INS,    KC_COMM,  KC_1,     KC_2,     KC_3,     KC_DOT,  KC_EQL,
+    _______,  KC_WREF,  KC_END,    XXXXXXX,  KC_PGDN,  XXXXXXX,    KC_COMM,  KC_1,     KC_2,     KC_3,     KC_DOT,  KC_EQL,
                                    KC_WBAK,  ADJUST,   _______,   _______,  _______,  KC_0
  ),
 
@@ -135,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              ├─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┤
              │    %    │    ^    │    &    │    *    │    [    ││    ]    │   F4    │   F5    │   F6    │   F11   │
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
-   │ SELWORD │    -    │    _    │    '    │         │    (    ││    )    │   F1    │   F2    │   F3    │   F10   │    \    │
+   │ SELWORD │    -    │    _    │    '    │    ~    │    (    ││    )    │   F1    │   F2    │   F3    │   F10   │    \    │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
                                  │    ▼    │    ▼    │    ▼    ││    ▼    │ ADJUST  │    ▼    │
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘ */
@@ -156,20 +157,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    │ a d j u s t                                     │      ╭╮╭╮╭╮╭╮
    └─────────────────────────────────────────────────┘      │╰╯╰╯╰╯│
              ┌─────────┬─────────┬─────────┬─────────┬──────╨──┐┌──╨──────┬─────────┬─────────┬─────────┬─────────┐
-     ╌┄┈┈───═╡  RESET  │         │         │         │         ││         │         │         │         │         │
+     ╌┄┈┈───═╡  RESET  │         │         │         │  Print  ││   Num   |  Caps   | Scroll  │         │         │ 
              ├─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┤
-             │  VOL↑   │         │         │         │         ││         │         │         │         │         │
+             │  VOL↑   │  Next   │         │         │         ││   Ins   │         │         │         │         │
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
-   │         │  VOL↓   │         │         │         │         ││         │         │         │         │         │         │
+   │         │  VOL↓   │  Prv    │   Stp   │         │         ││ DT Print|  DT UP  | DT DOWN |         │         │         │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
                                  │    ▼    │    ▼    │    ▼    ││    ▼    │    ▼    │    ▼    │
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘ */
 
    [_ADJUST] = LAYOUT(
  //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
-              QK_BOOT,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-              KC_VOLU,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    _______,  KC_VOLD,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   _______,
+              QK_BOOT,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   KC_NUM,   KC_LCAP,  KC_LSCR,  XXXXXXX,  XXXXXXX,
+              KC_VOLU,  KC_MNXT,  XXXXXXX,  XXXXXXX,  XXXXXXX,   KC_INS,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    _______,  KC_VOLD,  KC_MPRV,  KC_MSTP,  XXXXXXX,  XXXXXXX,   DT_PRNT,  DT_UP,    DT_DOWN,  XXXXXXX,  XXXXXXX,   XXXXXXX,
                                   _______,  _______,  _______,   _______,  _______,  _______
  )
 /*
