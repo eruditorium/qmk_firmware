@@ -51,6 +51,7 @@ enum custom_keycodes {
     SELWORD,
 };
 
+
 // ┌─────────────────────────────────────────────────┐
 // │ d e f i n e   m a c r o n a m e s               │
 // └─────────────────────────────────────────────────┘
@@ -72,6 +73,7 @@ enum custom_keycodes {
 #define RAISE MO(_RAISE)
 #define LOWER MO(_LOWER)
 #define ADJUST MO(_ADJUST)
+
 
 // ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 // │ K E Y M A P S                                                                                                          │
@@ -158,14 +160,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 //  | On/Off | Hue ↑  | Sat ↑  | Brght ↑|        |        |                    |        |        |        |        |        |        |
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-//  | Cycle  | Hue ↓  | Sat ↓  | Brght ↓|        |        |                    |        |        |        |        |        |        |
+//  | Cycle  | Hue ↓  | Sat ↓  | Brght ↓|        |        |                    |DT Print|  DT UP |DT DOWN |        |        |        |
 //  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
 //                                      |        |        |        |  |        |        |        |
 //                                      `--------------------------'  `--------------------------'
   [_ADJUST] = LAYOUT_split_3x6_3(
     QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PSCR,                   KC_NUM,  KC_LCAP, KC_LSCR, XXXXXXX, XXXXXXX, _______,
     RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+    RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX,                   DT_PRNT, DT_UP,   DT_DOWN, XXXXXXX, XXXXXXX, _______,
                                         _______, _______, _______, _______, _______, _______
   )
 };
@@ -193,11 +195,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             return TAPPING_TERM + 50;
         case CTL_Z:
         case CTL_SLSH:
-            return TAPPING_TERM - 80;
+            return TAPPING_TERM - 30;
         case SHT_F:
         case SHT_J:
         case SHT_ENTER:
-            return TAPPING_TERM - 80;
+            return TAPPING_TERM + 50;
         default:
             return TAPPING_TERM;
     }   
@@ -525,7 +527,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
             if (record->event.pressed) {
                 SEND_STRING(SS_TAP(X_QUOT) SS_TAP(X_SPC));
             }
-            return false;
+            break;
     }
     return true;
 }
