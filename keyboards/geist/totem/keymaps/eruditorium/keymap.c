@@ -113,15 +113,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
    │    ▼    │ WWW Refr│   END   │         │   PG↓   │         ││    ,    │    1    │    2    │    3    │    *    │    =    │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
-                                 │ WWWBACK │ ADJUST  │    ▼    ││    ▼    │    ▼    │    0    │
+                                 │ WWWBACK │ ADJUST  │    -    ││    ▼    │    ▼    │    0    │
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘ */
 
    [_LOWER] = LAYOUT(
  //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
               KC_ESC,   KC_HOME,   KC_UP,    KC_PGUP,  XXXXXXX,    KC_PSLS,  KC_7,     KC_8,     KC_9,     KC_PPLS,
-              KC_TAB,   KC_LEFT,   KC_DOWN,  KC_RGHT,  KC_WFWD,   KC_PAST,  KC_4,     KC_5,     KC_6,     KC_MINS,
+              KC_TAB,   KC_LEFT,   KC_DOWN,  KC_RGHT,  KC_WFWD,    KC_PAST,  KC_4,     KC_5,     KC_6,     KC_MINS,
     _______,  KC_WREF,  KC_END,    XXXXXXX,  KC_PGDN,  XXXXXXX,    KC_COMM,  KC_1,     KC_2,     KC_3,     KC_DOT,  KC_EQL,
-                                   KC_WBAK,  ADJUST,   _______,   _______,  _______,  KC_0
+                                   KC_WBAK,  ADJUST,   KC_MINS,    _______,  _______,  KC_0
  ),
 
 
@@ -138,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
    │ SELWORD │    -    │    _    │    '    │    ~    │    (    ││    )    │   F1    │   F2    │   F3    │   F10   │    \    │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
-                                 │    ▼    │    ▼    │    ▼    ││    ▼    │ ADJUST  │    ▼    │
+                                 │    ▼    │    ▼    │    ▼    ││    _    │ ADJUST  │    ▼    │
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘ */
 
    [_RAISE] = LAYOUT(
@@ -146,7 +146,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
               KC_EXLM, KC_AT,    KC_HASH,  KC_DLR,   KC_LCBR,   KC_RCBR,  KC_F7,    KC_F8,    KC_F9,    KC_F12,
               KC_PERC, KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LBRC,   KC_RBRC,  KC_F4,    KC_F5,    KC_F6,    KC_F11,
     SELWORD,  KC_MINS, KC_UNDS,  KC_GRV,   KC_TILD,  KC_LPRN,   KC_RPRN,  KC_F1,    KC_F2,    KC_F3,    KC_F10,   KC_BSLS,
-                                 _______,  _______,  _______,  _______,  ADJUST,   _______
+                                 _______,  _______,  _______,   KC_UNDS,  ADJUST,   _______
  ),
 
 
@@ -161,7 +161,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              ├─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┤
              │  VOL↑   │  Next   │         │         │         ││   Ins   │         │         │         │         │
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
-   │         │  VOL↓   │  Prv    │   Stp   │         │         ││ DT Print|  DT UP  | DT DOWN |         │         │         │
+   │         │  VOL↓   │  Prv    │   Stp   │         │         ││         |         |         |         │         │         │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
                                  │    ▼    │    ▼    │    ▼    ││    ▼    │    ▼    │    ▼    │
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘ */
@@ -170,7 +170,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
               QK_BOOT,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   KC_NUM,   KC_LCAP,  KC_LSCR,  XXXXXXX,  XXXXXXX,
               KC_VOLU,  KC_MNXT,  XXXXXXX,  XXXXXXX,  XXXXXXX,   KC_INS,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    _______,  KC_VOLD,  KC_MPRV,  KC_MSTP,  XXXXXXX,  XXXXXXX,   DT_PRNT,  DT_UP,    DT_DOWN,  XXXXXXX,  XXXXXXX,   XXXXXXX,
+    _______,  KC_VOLD,  KC_MPRV,  KC_MSTP,  XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,
                                   _______,  _______,  _______,   _______,  _______,  _______
  )
 /*
@@ -251,26 +251,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // │ t a p p i n g t e r m                           │
 // └─────────────────────────────────────────────────┘
 
-#ifdef TAPPING_TERM_PER_KEY
-uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case GUI_X:
-        case GUI_DOT:
-        case ALT_C:
-        case ALT_COMM:
-            return TAPPING_TERM + 50;
-        case CTL_Z:
-        case CTL_SLSH:
-            return TAPPING_TERM - 50;
-        case SHT_F:
-        case SHT_J:
-        case SHT_ENTER: 
-            return TAPPING_TERM - 80;
-        default:
-            return TAPPING_TERM;
-    }
-}
-#endif
+// #ifdef TAPPING_TERM_PER_KEY
+// uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+//     switch (keycode) {
+//         case GUI_X:
+//         case GUI_DOT:
+//         case ALT_C:
+//         case ALT_COMM:
+//             return TAPPING_TERM + 50;
+//         case CTL_Z:
+//         case CTL_SLSH:
+//             return TAPPING_TERM - 50;
+//         case SHT_F:
+//         case SHT_J:
+//         case SHT_ENTER: 
+//             return TAPPING_TERM - 80;
+//         default:
+//             return TAPPING_TERM;
+//     }
+// }
+// #endif
 
 /*
   ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
