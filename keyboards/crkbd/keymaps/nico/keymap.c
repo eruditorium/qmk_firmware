@@ -160,14 +160,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 //  | On/Off | Hue ↑  | Sat ↑  | Brght ↑|        |        |                    |        |        |        |        |        |        |
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-//  | Cycle  | Hue ↓  | Sat ↓  | Brght ↓|        |        |                    |DT Print|  DT UP |DT DOWN |        |        |        |
+//  | Cycle  | Hue ↓  | Sat ↓  | Brght ↓|        |        |                    |        |        |        |        |        |        |
 //  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
 //                                      |        |        |        |  |        |        |        |
 //                                      `--------------------------'  `--------------------------'
   [_ADJUST] = LAYOUT_split_3x6_3(
     QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PSCR,                   KC_NUM,  KC_LCAP, KC_LSCR, XXXXXXX, XXXXXXX, _______,
     RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX,                   DT_PRNT, DT_UP,   DT_DOWN, XXXXXXX, XXXXXXX, _______,
+    RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
                                         _______, _______, _______, _______, _______, _______
   )
 };
@@ -184,27 +184,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 // ▝▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▘
 
-#ifdef TAPPING_TERM_PER_KEY                                                                                                                                                              
-    uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case GUI_X:
-        case GUI_DOT:
-        case ALT_C:
-        case ALT_COMM:
-        case ALT_DEL:
-            return TAPPING_TERM + 50;
-        case CTL_Z:
-        case CTL_SLSH:
-            return TAPPING_TERM - 30;
-        case SHT_F:
-        case SHT_J:
-        case SHT_ENTER:
-            return TAPPING_TERM + 50;
-        default:
-            return TAPPING_TERM;
-    }   
-}       
-#endif  
+// #ifdef TAPPING_TERM_PER_KEY                                                                                                                                                              
+//     uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+//     switch (keycode) {
+//         case GUI_X:
+//         case GUI_DOT:
+//         case ALT_C:
+//         case ALT_COMM:
+//         case ALT_DEL:
+//             return TAPPING_TERM + 50;
+//         case CTL_Z:
+//         case CTL_SLSH:
+//             return TAPPING_TERM - 30;
+//         case SHT_F:
+//         case SHT_J:
+//         case SHT_ENTER:
+//             return TAPPING_TERM + 50;
+//         default:
+//             return TAPPING_TERM;
+//     }   
+// }       
+// #endif  
 
 /*
   ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸*/
