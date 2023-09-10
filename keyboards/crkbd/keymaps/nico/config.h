@@ -33,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // https://github.com/manna-harbour/qmk_firmware/issues/29
 
 /* QMK */
-#define TAPPING_TERM 170
+#define TAPPING_TERM 180
 // #define QUICK_TAP_TERM 0
 // #define TAPPING_TERM_PER_KEY
 // #define DYNAMIC_TAPPING_TERM_INCREMENT 10
@@ -43,9 +43,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BILATERAL_COMBINATIONS_LIMIT_CHORD_TO_N_KEYS 4 /* GUI, Alt, Ctrl, Shift */
 #define BILATERAL_COMBINATIONS_DELAY_MODS_THAT_MATCH MOD_MASK_GUI
 #define BILATERAL_COMBINATIONS_DELAY_MATCHED_MODS_BY 120  /* ms */
-#define BILATERAL_COMBINATIONS_ALLOW_CROSSOVER_AFTER 80  /* ms */
-#define BILATERAL_COMBINATIONS_ALLOW_SAMESIDED_AFTER 1000 /* ms */
-#define BILATERAL_COMBINATIONS_TYPING_STREAK_TIMEOUT 160 /* ms */
+#define BILATERAL_COMBINATIONS_ALLOW_CROSSOVER_AFTER 80   /* ms */
+#define BILATERAL_COMBINATIONS_ALLOW_SAMESIDED_AFTER 500 /* ms */
+#define BILATERAL_COMBINATIONS_TYPING_STREAK_TIMEOUT 160  /* ms */
 #define BILATERAL_COMBINATIONS_TYPING_STREAK_MODMASK (~MOD_MASK_SHIFT)
 
 

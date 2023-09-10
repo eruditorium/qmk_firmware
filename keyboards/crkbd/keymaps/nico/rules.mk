@@ -12,8 +12,8 @@ COMMAND_ENABLE = no         # Commands for debug and configuration
 MIDI_ENABLE = no            # MIDI controls
 AUDIO_ENABLE = no           # Audio output on port C6
 
-RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
-RGB_MATRIX_ENABLE = yes
+RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
+RGB_MATRIX_ENABLE = no
 
 # to reduce size of firmware
 # https://thomasbaart.nl/2018/12/01/reducing-firmware-size-in-qmk/
