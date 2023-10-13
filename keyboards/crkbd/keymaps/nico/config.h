@@ -77,7 +77,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-    //#   define RGB_MATRIX_KEYPRESSES // reacts to keypresses
+    #   define RGB_MATRIX_KEYPRESSES // reacts to keypresses
     // #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
     #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
     #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
@@ -91,10 +91,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     /* Disable the animations you don&#39;t want/need.  You will need to disable a good number of these    *
      * because they take up a lot of space.  Disable until you can successfully compile your firmware. */
-    #define ENABLE_RGB_MATRIX_ALPHAS_MODS
-    #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
+    #undef ENABLE_RGB_MATRIX_ALPHAS_MODS
+    #undef ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
     #define ENABLE_RGB_MATRIX_BREATHING
-    #define ENABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
+    #undef ENABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
     #undef ENABLE_RGB_MATRIX_BAND_PINWHEEL_VAL
     #undef ENABLE_RGB_MATRIX_BAND_SAT
     #undef ENABLE_RGB_MATRIX_BAND_SPIRAL_SAT
@@ -108,7 +108,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #undef ENABLE_RGB_MATRIX_CYCLE_SPIRAL
     #undef ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
     #undef ENABLE_RGB_MATRIX_DUAL_BEACON
-    #undef ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
+    #define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
     #undef ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
     #undef ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE

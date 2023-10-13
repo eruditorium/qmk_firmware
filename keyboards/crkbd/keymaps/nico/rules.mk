@@ -1,10 +1,8 @@
-
 # Build Options
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
 
 MOUSEKEY_ENABLE = no        # Mouse keys
 CONSOLE_ENABLE = no         # Console for debug
