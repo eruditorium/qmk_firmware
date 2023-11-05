@@ -73,6 +73,8 @@ enum custom_keycodes {
 #define RAISE LT(_RAISE, KC_ESC)
 #define ADJUST MO(_ADJUST)
 
+#define Celsius RALT(LSFT(KC_0))
+
 
 // ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 // │ K E Y M A P S                                                                                                          │
@@ -140,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              ├─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┤
              │    %    │    ^    │    &    │    *    │    [    ││    ]    │   F4    │   F5    │   F6    │   F11   │
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
-   │ SELWORD │    -    │    _    │    '    │    ~    │    (    ││    )    │   F1    │   F2    │   F3    │   F10   │    \    │
+   │ SELWORD │    ˚    │    |    │    '    │    ~    │    (    ││    )    │   F1    │   F2    │   F3    │   F10   │    \    │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
                                  │    ▼    │    ▼    │    ▼    ││    _    │ ADJUST  │    ▼    │
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘ */
@@ -149,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
               KC_EXLM, KC_AT,    KC_HASH,  KC_DLR,   KC_LCBR,   KC_RCBR,  KC_F7,    KC_F8,    KC_F9,    KC_F12,
               KC_PERC, KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LBRC,   KC_RBRC,  KC_F4,    KC_F5,    KC_F6,    KC_F11,
-    SELWORD,  KC_MINS, KC_UNDS,  KC_GRV,   KC_TILD,  KC_LPRN,   KC_RPRN,  KC_F1,    KC_F2,    KC_F3,    KC_F10,   KC_BSLS,
+    SELWORD,  Celsius, KC_PIPE,  KC_GRV,   KC_TILD,  KC_LPRN,   KC_RPRN,  KC_F1,    KC_F2,    KC_F3,    KC_F10,   KC_BSLS,
                                  _______,  _______,  _______,   KC_UNDS,  ADJUST,   _______
  ),
 

@@ -5,8 +5,8 @@ see https://docs.qmk.fm/#/feature_split_keyboard?id=setting-handedness
 for more options.
 */
 
-//#define MASTER_LEFT
-#define MASTER_RIGHT
+#define MASTER_LEFT
+//#define MASTER_RIGHT
 
 //----------------------------------------------------------------------------
 // home row mods
@@ -16,7 +16,7 @@ for more options.
 // https://github.com/manna-harbour/qmk_firmware/issues/29
 
 /* QMK */
-#define TAPPING_TERM 180
+#define TAPPING_TERM 150
 // #define QUICK_TAP_TERM 0
 // #define TAPPING_TERM_PER_KEY
 // #define DYNAMIC_TAPPING_TERM_INCREMENT 10
