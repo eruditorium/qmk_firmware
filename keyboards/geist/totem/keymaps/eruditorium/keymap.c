@@ -11,6 +11,10 @@
 ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
 */
 
+// qmk compile -j 0 -kb geist/totem -km eruditorium
+// qmk c2json -o ~/totem-nico.json -km eruditorium -kb geist/totem keymap.c --no-cpp
+//
+
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 #include "totem.h"
@@ -86,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              ├─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┤
              │    A    │    S    │    D    │  F/SFT  │    G    ││    H    │  J/SFT  │    K    │    L    │    ;    │
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
-   │ SELWORD │  Z/CTL  │  X/GUI  │  C/ALT  │    V    │    B    ││    N    │    M    │ ,/AltGr │  ./GUI  │ //CTRL  │ MC_QUOT │
+   │    -    │  Z/CTL  │  X/GUI  │  C/ALT  │    V    │    B    ││    N    │    M    │ ,/AltGr │  ./GUI  │ //CTRL  │ MC_QUOT │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
                                  │   BSPC  │RAISE/ESC│ ENTR/SFT││  SPACE  │LOWER/TAB│ RAlt/DEL│
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘*/
@@ -95,8 +99,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
               KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,      KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,
               KC_A,     KC_S,     KC_D,     SHT_F,    KC_G,      KC_H,     SHT_J,    KC_K,     KC_L,     KC_SCLN,
-    SELWORD,  CTL_Z,    GUI_X,    ALT_C,    KC_V,     KC_B,      KC_N,     KC_M,     ALT_COMM,  GUI_DOT,  CTL_SLSH,  MC_QUOT,
-                                  KC_BACKSPACE, RAISE,SHT_ENTER, KC_SPACE,  LOWER,   ALT_DEL
+    KC_MINS,  CTL_Z,    GUI_X,    ALT_C,    KC_V,     KC_B,      KC_N,     KC_M,     ALT_COMM, GUI_DOT,  CTL_SLSH,  MC_QUOT,
+                                  KC_BACKSPACE, RAISE,KC_ENTER,  KC_SPACE, LOWER,   ALT_DEL
  ),
 
 
@@ -111,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              ├─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┤
              │   TAB   │    ←    │    ↓    │    →    │ WWW For ││    *    │    4    │    5    │    6    │    -    │
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
-   │    ▼    │ WWW Refr│   END   │         │   PG↓   │         ││    ,    │    1    │    2    │    3    │    *    │    =    │
+   │    _    │ WWW Refr│   END   │         │   PG↓   │         ││    ,    │    1    │    2    │    3    │    *    │    =    │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
                                  │ WWWBACK │ ADJUST  │    -    ││    ▼    │    ▼    │    0    │
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘ */
@@ -120,7 +124,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
               KC_ESC,   KC_HOME,   KC_UP,    KC_PGUP,  XXXXXXX,    KC_PSLS,  KC_7,     KC_8,     KC_9,     KC_PPLS,
               KC_TAB,   KC_LEFT,   KC_DOWN,  KC_RGHT,  KC_WFWD,    KC_PAST,  KC_4,     KC_5,     KC_6,     KC_MINS,
-    _______,  KC_WREF,  KC_END,    XXXXXXX,  KC_PGDN,  XXXXXXX,    KC_COMM,  KC_1,     KC_2,     KC_3,     KC_DOT,  KC_EQL,
+    KC_UNDS,  KC_WREF,  KC_END,    XXXXXXX,  KC_PGDN,  XXXXXXX,    KC_COMM,  KC_1,     KC_2,     KC_3,     KC_DOT,  KC_EQL,
                                    KC_WBAK,  ADJUST,   KC_MINS,    _______,  _______,  KC_0
  ),
 
