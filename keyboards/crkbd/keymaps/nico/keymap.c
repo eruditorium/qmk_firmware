@@ -16,6 +16,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+// qmk compile -j 0 -kb crkbd -km nico
+// qmk flash -j 0 -kb crkbd -km nico
+// qmk c2json -o ~/crkbd-nico.json -km nico -kb crkbd keymap.c --no-cpp
+
 #include QMK_KEYBOARD_H
 #include "features/select_word.h"
 
@@ -62,6 +66,7 @@ enum custom_keycodes {
 
 // LEFT HAND HOME ROW MODS QWERTY ├──────────────────
 #define CTL_Z LCTL_T(KC_Z)
+#define CTL_MNS LCTL_T(KC_MINS)
 #define GUI_X LGUI_T(KC_X)
 #define ALT_C LALT_T(KC_C)
 #define SHT_F LSFT_T(KC_F)
@@ -69,6 +74,7 @@ enum custom_keycodes {
 
 // RIGHT HAND HOME ROW MODS QWERTY ├─────────────────┐
 #define SHT_J RSFT_T(KC_J)
+#define SHT__ RSFT_T(KC_UNDS)
 #define ALT_COMM RALT_T(KC_COMM)
 #define GUI_DOT RGUI_T(KC_DOT)
 #define CTL_SLSH RCTL_T(KC_SLSH)
@@ -91,14 +97,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 //  |   Tab  |   A    |   S    |   D    | F/Shft |   G    |                    |   H    | J/Shft |   K    |   L    |   ;/:  |  '/"   |
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-//  |  Ctrl  | Z/Ctrl | X/Gui  |  C/Alt |   V    |   B    |                    |   N    |   M    | ,/RAlt | ./Gui  | //Ctrl |  Shift |
+//  | Ctrl/- | Z/Ctrl | X/Gui  |  C/Alt |   V    |   B    |                    |   N    |   M    | ,/RAlt | ./Gui  | //Ctrl | Shift/_|
 //  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
 //                                      |  BSPC  | RS/ESC | ENTER  |  |  Space | LWR/TAB|RAlt/Del|
 //                                      `--------------------------'  `--------------------------'    
   [_QWERTY] = LAYOUT_split_3x6_3(
     KC_ESC,    KC_Q,    KC_W,    KC_E,   KC_R,      KC_T,                        KC_Y,    KC_U,    KC_I,     KC_O,    KC_P,     KC_BSPC,
     KC_TAB,    KC_A,    KC_S,    KC_D,   SHT_F,     KC_G,                        KC_H,    SHT_J,   KC_K,     KC_L,    KC_SCLN,  MC_QUOT,
-    KC_LCTL,   CTL_Z,   GUI_X,   ALT_C,  KC_V,      KC_B,                        KC_N,    KC_M,    ALT_COMM, GUI_DOT, CTL_SLSH, KC_RSFT,
+    CTL_MNS,     CTL_Z,   GUI_X,   ALT_C,  KC_V,      KC_B,                        KC_N,    KC_M,    ALT_COMM, GUI_DOT, CTL_SLSH, SHT__,
                                          KC_BSPC,   RAISE,  KC_ENTER,  KC_SPACE, LOWER,   ALT_DEL
   ),
 
@@ -122,8 +128,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LOWER] = LAYOUT_split_3x6_3(
     _______, KC_MUTE, KC_HOME, KC_UP,   KC_PGUP,  KC_MNXT,                   KC_PSLS,   KC_7,   KC_8,   KC_9,   KC_PPLS,  KC_DEL,
     _______, KC_VOLU, KC_LEFT, KC_DOWN, KC_RGHT,  KC_MPRV,                   KC_PAST,   KC_4,   KC_5,   KC_6,   KC_MINS,  KC_EQL,
-    _______, KC_VOLD, KC_END,  XXXXXXX, KC_PGDN,  KC_MSTP,                   KC_COMM,   KC_1,   KC_2,   KC_3,   KC_DOT,   SELWORD,
-                                        _______,  ADJUST, KC_MINS,  _______, _______,   KC_0
+    _______, KC_VOLD, KC_END,  XXXXXXX, KC_PGDN,  KC_MSTP,                   KC_COMM,   KC_1,   KC_2,   KC_3,   KC_DOT,   KC_UNDS,
+                                        _______,  ADJUST, _______,  _______, _______,   KC_0
   ),
 
 /*
@@ -139,15 +145,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 //  |        |    %   |   ^    |   &    |   *    |   [    |                    |    ]   |   F4   |   F5   |   F6   |  F11   |   \    |
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-//  |        |    -   |   _    |    `   |    ~   |   (    |                    |    )   |   F1   |   F2   |   F3   |  F10   |        |
+//  |        |    -   |   _    |    `   |    ~   |   (    |                    |    )   |   F1   |   F2   |   F3   |  F10   |   |    |
 //  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
 //                                      |        |        |        |  |    _   | Adjust |        |
 //                                      `--------------------------'  `--------------------------'
   [_RAISE] = LAYOUT_split_3x6_3(
-    _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_LCBR,                   KC_RCBR, KC_F7,   KC_F8,   KC_F9,   KC_F12,  KC_DEL,
-    _______, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LBRC,                   KC_RBRC, KC_F4,   KC_F5,   KC_F6,   KC_F11,  KC_BSLS,
-    _______, KC_MINS, KC_UNDS, KC_GRV,  KC_TILD, KC_LPRN,                   KC_RPRN, KC_F1,   KC_F2,   KC_F3,   KC_F10,  SELWORD,
-                                        _______, _______, FUNCTION, KC_UNDS, ADJUST,  _______
+    KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_LCBR,                   KC_RCBR, KC_F7,   KC_F8,   KC_F9,   KC_F12,  KC_DEL,
+    KC_CIRC, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LBRC,                   KC_RBRC, KC_F4,   KC_F5,   KC_F6,   KC_F11,  KC_BSLS,
+    _______, KC_MINS, KC_UNDS, KC_GRV,  KC_TILD, KC_LPRN,                   KC_RPRN, KC_F1,   KC_F2,   KC_F3,   KC_F10,  KC_PIPE,
+                                        _______, _______, FUNCTION, _______,ADJUST,  _______
   ),
 
 
@@ -564,7 +570,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         oled_on();
     }
 
-    if (!process_select_word(keycode, record, SELWORD)) { return false; }
+    //if (!process_select_word(keycode, record, SELWORD)) { return false; }
     
     switch (keycode) {
 

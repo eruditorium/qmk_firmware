@@ -33,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // https://github.com/manna-harbour/qmk_firmware/issues/29
 
 /* QMK */
-#define TAPPING_TERM 180
+#define TAPPING_TERM 150
 // #define QUICK_TAP_TERM 0
 // #define TAPPING_TERM_PER_KEY
 // #define DYNAMIC_TAPPING_TERM_INCREMENT 10
@@ -117,7 +117,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #undef ENABLE_RGB_MATRIX_DUAL_BEACON
     #define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
     #undef ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
-    #undef ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS
+    #define ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
@@ -130,7 +130,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
-    #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
+    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
     #undef ENABLE_RGB_MATRIX_SOLID_SPLASH
     #undef ENABLE_RGB_MATRIX_SOLID_MULTISPLASH

@@ -40,7 +40,7 @@ CAPS_WORD_ENABLE = yes
 # SRC += features/achordion.c
 # SRC += features/autocorrection.c
 # SRC += features/custom_shift_keys.c
-SRC += features/select_word.c
+# SRC += features/select_word.c
 
 
 #-----------------------------------------------------------------------------
