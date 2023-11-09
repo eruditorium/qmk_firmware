@@ -33,6 +33,7 @@ enum totem_layers {
     _QWERTY,
     _LOWER,
     _RAISE,
+    _FUNCTION,
     _ADJUST,
 };
 
@@ -45,6 +46,7 @@ enum custom_keycodes {
     QWERTY,
     LOWER,
     RAISE,
+    FUNCTION,
     ADJUST,
     SNAP,
     SELWORD,
@@ -69,9 +71,10 @@ enum custom_keycodes {
 #define ALT_DEL RALT_T(KC_DEL)
 
 // HOME ROW MODS QWERTY ├──────────────────
-#define LOWER LT(_LOWER, KC_TAB)
-#define RAISE LT(_RAISE, KC_ESC)
+#define LOWER LT(_LOWER, KC_ESC)
+#define RAISE LT(_RAISE, KC_TAB)
 #define ADJUST MO(_ADJUST)
+#define FUNCTION MO(_FUNCTION)
 
 #define Celsius RALT(LSFT(KC_0))
 
@@ -94,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
    │    -    │  Z/CTL  │  X/GUI  │  C/ALT  │    V    │    B    ││    N    │    M    │ ,/AltGr │  ./GUI  │ //CTRL  │ MC_QUOT │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
-                                 │   BSPC  │RAISE/ESC│ ENTR/SFT││  SPACE  │LOWER/TAB│ RAlt/DEL│
+                                 │   BSPC  │ LWR/ESC │ ENTR/SFT││  SPACE  │  RS/TAB │ RAlt/DEL│
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘*/
 
    [_QWERTY] = LAYOUT(
@@ -119,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
    │    _    │ WWW Refr│   END   │         │   PG↓   │         ││    ,    │    1    │    2    │    3    │    *    │    =    │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
-                                 │ WWWBACK │ ADJUST  │    -    ││    ▼    │    ▼    │    0    │
+                                 │ WWWBACK │    ▼    │ FUNCTION││    _    │ ADJUST  │    0    │
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘ */
 
    [_LOWER] = LAYOUT(
@@ -127,9 +130,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
               KC_ESC,   KC_HOME,   KC_UP,    KC_PGUP,  XXXXXXX,    KC_PSLS,  KC_7,     KC_8,     KC_9,     KC_PPLS,
               KC_TAB,   KC_LEFT,   KC_DOWN,  KC_RGHT,  KC_WFWD,    KC_PAST,  KC_4,     KC_5,     KC_6,     KC_MINS,
     KC_UNDS,  KC_WREF,  KC_END,    XXXXXXX,  KC_PGDN,  XXXXXXX,    KC_COMM,  KC_1,     KC_2,     KC_3,     KC_DOT,  KC_EQL,
-                                   KC_WBAK,  ADJUST,   KC_MINS,    _______,  _______,  KC_0
+                                   KC_WBAK,  _______,  FUNCTION,   KC_UNDS,  ADJUST,   KC_0
  ),
-
 
  /*
    ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
@@ -138,24 +140,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    │ r a i s e                                       │      ╭╮╭╮╭╮╭╮
    └─────────────────────────────────────────────────┘      │╰╯╰╯╰╯│
              ┌─────────┬─────────┬─────────┬─────────┬──────╨──┐┌──╨──────┬─────────┬─────────┬─────────┬─────────┐
-     ╌┄┈┈───═╡    !    │    @    │    #    │    $    │    {    ││    }    │   F7    │   F8    │   F9    │   F12   │
+     ╌┄┈┈───═╡    !    │    @    │    #    │    $    │    {    ││    }    │         │   End   │   Home  │         │
              ├─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┤
-             │    %    │    ^    │    &    │    *    │    [    ││    ]    │   F4    │   F5    │   F6    │   F11   │
+             │    %    │    ^    │    &    │    *    │    [    ││    ]    │  Left   │  Down   │   Up    │  Right  │
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
-   │ SELWORD │    ˚    │    |    │    '    │    ~    │    (    ││    )    │   F1    │   F2    │   F3    │   F10   │    \    │
+   │ SELWORD │    ˚    │    |    │    '    │    ~    │    (    ││    )    │         │  PgDwn  │   PgUp  │         │    \    │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
-                                 │    ▼    │    ▼    │    ▼    ││    _    │ ADJUST  │    ▼    │
+                                 │    ▼    │ ADJUST  │    _    ││         │         │    ▼    │
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘ */
 
    [_RAISE] = LAYOUT(
 //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
-              KC_EXLM, KC_AT,    KC_HASH,  KC_DLR,   KC_LCBR,   KC_RCBR,  KC_F7,    KC_F8,    KC_F9,    KC_F12,
-              KC_PERC, KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LBRC,   KC_RBRC,  KC_F4,    KC_F5,    KC_F6,    KC_F11,
-    SELWORD,  Celsius, KC_PIPE,  KC_GRV,   KC_TILD,  KC_LPRN,   KC_RPRN,  KC_F1,    KC_F2,    KC_F3,    KC_F10,   KC_BSLS,
-                                 _______,  _______,  _______,   KC_UNDS,  ADJUST,   _______
+              KC_EXLM, KC_AT,    KC_HASH,  KC_DLR,   KC_LCBR,   KC_RCBR,  XXXXXXX,  KC_END,   KC_HOME,  XXXXXXX,
+              KC_PERC, KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LBRC,   KC_RBRC,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT,
+    SELWORD,  Celsius, KC_PIPE,  KC_GRV,   KC_TILD,  KC_LPRN,   KC_RPRN,  XXXXXXX,  KC_PGDN,  KC_PGUP,  XXXXXXX,   KC_BSLS,
+                                 _______,  ADJUST,   KC_MINS,   FUNCTION,  _______,   _______
  ),
 
+/*
+   ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 
+   ┌─────────────────────────────────────────────────┐
+   │ f u n c t i o n                                 │      ╭╮╭╮╭╮╭╮
+   └─────────────────────────────────────────────────┘      │╰╯╰╯╰╯│
+             ┌─────────┬─────────┬─────────┬─────────┬──────╨──┐┌──╨──────┬─────────┬─────────┬─────────┬─────────┐
+     ╌┄┈┈───═╡         │         │         │         │         ││         │   F7    │   F8    │   F9    │   F11   │
+             ├─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┤
+             │         │         │         │         │         ││         │   F4    │   F5    │   F6    │   F12   │
+   ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
+   │         │         │         │         │         │         ││         │   F1    │   F2    │   F3    │         │         │
+   └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
+                                 │         │         │         ││         │         │   F10   │
+                                 └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘*/
+
+   [_FUNCTION] = LAYOUT(
+ //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
+              XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  KC_F7,    KC_F8,    KC_F9,    KC_F11,
+              XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  KC_F4,    KC_F5,    KC_F6,    KC_F12,
+    _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  KC_F1,    KC_F2,    KC_F3,    XXXXXXX, XXXXXXX,
+                                  _______,  _______,   _______,  _______,  _______,  KC_F10
+ ),
  /*
    ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 
