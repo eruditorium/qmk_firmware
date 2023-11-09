@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
  * |LCtrl |Z/Ctrl|X/GUI |C/Alt |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |RShift|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | LGUI | BSPC |RAISE | /Space  /       \Enter \  |LOWER |  Del | AltGr|
+ *                   | LGUI | BSPC |RAISE | /Enter  /       \Space \  |LOWER |  Del | AltGr|
  *                   |      |      |ESC   |/       /         \      \ |Tab   |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_PIPE,
   KC_LSFT,  KC_A,   KC_S,    KC_D,    SHT_F,   KC_G,                     KC_H,    SHT_J,   KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   KC_LCTL,  CTL_Z,  GUI_X,   ALT_C,   KC_V,    KC_B,  KC_LBRC,  KC_RBRC, KC_N,    KC_M,    ALT_COMM,GUI_DOT, CTL_SLSH,KC_RSFT,
-                             KC_LGUI, KC_BSPC, RAISE, KC_SPC,   KC_ENT,  LOWER,   KC_DEL,  KC_RALT
+                             KC_LGUI, KC_BSPC, RAISE, KC_ENT,   KC_SPC,  LOWER,   KC_DEL,  KC_RALT
 ),
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
  * |      | Mute | End  |      | PgDn |      |-------|    |-------|      |      | PgDn | PgUp |      |      |      
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | RGUI | BSPC |RAISE | /Space  /       \Enter \  |LOWER |  Del | AltGr|
+ *                   | RGUI | BSPC |RAISE | /       /       \      \  |LOWER |  Del | AltGr|
  *                   |      |      |ESC   |/       /         \      \ |Tab   |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
@@ -99,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
  * |      | Mute | End  |      | PgDn |      |-------|    |-------|      |      | PgDn | PgUp |      |      |      
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | RGUI | BSPC |RAISE | /Space  /       \Enter \  |LOWER |  Del | AltGr|
+ *                   | RGUI | BSPC |RAISE | /       /       \      \  |LOWER |  Del | AltGr|
  *                   |      |      |ESC   |/       /         \      \ |Tab   |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
  * |      |      |      |      |      |      |-------|    |-------|      |      | MODE | HUE- | SAT- | VAL- |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | RGUI | BSPC |RAISE | /Space  /       \Enter \  |LOWER |  Del | AltGr|
+ *                   | RGUI | BSPC |RAISE | /       /       \      \  |LOWER |  Del | AltGr|
  *                   |      |      |ESC   |/       /         \      \ |Tab   |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
