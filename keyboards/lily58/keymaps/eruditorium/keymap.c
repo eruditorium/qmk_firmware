@@ -4,7 +4,6 @@
 
 #include QMK_KEYBOARD_H
 #include "features/select_word.h"
-#include "features/achordion.h"
 
 enum layer_number {
   _QWERTY = 0,
@@ -57,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
  * |LCtrl |Z/Ctrl|X/GUI |C/Alt |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |RShift|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | LGUI | BSPC |RAISE | /Enter  /       \Space \  |LOWER |  Del | AltGr|
+ *                   | LGUI | BSPC |RAISE | /Space  /       \Enter \  |LOWER |  Del | AltGr|
  *                   |      |      |ESC   |/       /         \      \ |Tab   |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
@@ -67,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_PIPE,
   KC_LSFT,  KC_A,   KC_S,    KC_D,    SHT_F,   KC_G,                     KC_H,    SHT_J,   KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   KC_LCTL,  CTL_Z,  GUI_X,   ALT_C,   KC_V,    KC_B,  KC_LBRC,  KC_RBRC, KC_N,    KC_M,    ALT_COMM,GUI_DOT, CTL_SLSH,KC_RSFT,
-                             KC_LGUI, KC_BSPC, RAISE, KC_ENT,   KC_SPC,  LOWER,   KC_DEL,  KC_RALT
+                             KC_LGUI, KC_BSPC, RAISE, KC_SPC,   KC_ENT,  LOWER,   KC_DEL,  KC_RALT
 ),
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -79,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
  * |      | Mute | End  |      | PgDn |      |-------|    |-------|      |      | PgDn | PgUp |      |      |      
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | RGUI | BSPC |RAISE | /Enter  /       \Space \  |LOWER |  Del | AltGr|
+ *                   | RGUI | BSPC |RAISE | /Space  /       \Enter \  |LOWER |  Del | AltGr|
  *                   |      |      |ESC   |/       /         \      \ |Tab   |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
@@ -100,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
  * |      | Mute | End  |      | PgDn |      |-------|    |-------|      |      | PgDn | PgUp |      |      |      
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | RGUI | BSPC |RAISE | /Enter  /       \Space \  |LOWER |  Del | AltGr|
+ *                   | RGUI | BSPC |RAISE | /Space  /       \Enter \  |LOWER |  Del | AltGr|
  *                   |      |      |ESC   |/       /         \      \ |Tab   |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
@@ -121,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
  * |      |      |      |      |      |      |-------|    |-------|      |      | MODE | HUE- | SAT- | VAL- |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | RGUI | BSPC |RAISE | /Enter  /       \Space \  |LOWER |  Del | AltGr|
+ *                   | RGUI | BSPC |RAISE | /Space  /       \Enter \  |LOWER |  Del | AltGr|
  *                   |      |      |ESC   |/       /         \      \ |Tab   |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
@@ -145,29 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 // │ H O M E  R O W  M O D S                                                                                                │
 // └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-// ▝▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▘
-
-#ifdef TAPPING_TERM_PER_KEY                                                                                                                                                              
-    uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case GUI_X:
-        case GUI_DOT:
-        case ALT_C:
-        case ALT_COMM:
-        case ALT_DEL:
-            return TAPPING_TERM + 20;
-        case CTL_Z:
-        case CTL_SLSH:
-            return TAPPING_TERM - 20;
-        case SHT_F:
-        case SHT_J:
-        case SHT_ENTER:
-            return TAPPING_TERM - 50;
-        default:
-            return TAPPING_TERM;
-    }   
-}       
-#endif  
+// ▝▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▘  
 
 /*
   ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸*/
@@ -474,8 +451,6 @@ static void render_animation(const char** frames, size_t frame_size, const uint8
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-
-    if (!process_achordion(keycode, record)) { return false; }
     
     if (record->event.pressed) {
         animation_timeout = timer_read32();
@@ -516,75 +491,6 @@ bool should_process_keypress(void) {
     return true;
 }
 
-uint16_t get_tapping_term(uint16_t keycode, keyrecord_t* record) {
-  switch (keycode) {
-    // Increase the tapping term a little for slower ring and pinky fingers.
-    case CTL_Z:
-    case GUI_X:
-    case ALT_C:
-    case SHT_F:
-    case SHT_ENTER:
-    case SHT_J:
-    case ALT_COMM:
-    case GUI_DOT:
-    case CTL_SLSH:
-    case ALT_DEL:
-      return TAPPING_TERM + 15;
-
-    default:
-      return TAPPING_TERM;
-  }
-}
-
-uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t* record) {
-  // If you quickly hold a tap-hold key after tapping it, the tap action is
-  // repeated. Key repeating is useful e.g. for Vim navigation keys, but can
-  // lead to missed triggers in fast typing. Here, returning 0 means we
-  // instead want to "force hold" and disable key repeating.
-  switch (keycode) {
-    case CTL_Z:
-    case GUI_X:
-    case ALT_C:
-    case SHT_F:
-    case SHT_ENTER:
-    case ALT_COMM:
-    case GUI_DOT:
-    case CTL_SLSH:
-    case ALT_DEL:
-    // Repeating is useful for Vim navigation keys.
-    case SHT_J:
-      return QUICK_TAP_TERM;  // Enable key repeating.
-    default:
-      return 0;  // Otherwise, force hold and disable key repeating.
-  }
-}
-
-void matrix_scan_user(void) {
-  achordion_task();
-}
-
-bool achordion_chord(uint16_t tap_hold_keycode, keyrecord_t* tap_hold_record,
-                     uint16_t other_keycode, keyrecord_t* other_record) {
-  // Exceptionally consider the following chords as holds, even though they
-  // are on the same hand in Magic Sturdy.
-  switch (tap_hold_keycode) {
-   
-      break;
-  }
-
-  // Also allow same-hand holds when the other key is in the rows below the
-  // alphas. I need the `% (MATRIX_ROWS / 2)` because my keyboard is split.
-  if (other_record->event.key.row % (MATRIX_ROWS / 2) >= 4) {
-    return true;
-  }
-
-  // Otherwise, follow the opposite hands rule.
-  return achordion_opposite_hands(tap_hold_record, other_record);
-}
-
-uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
-  return 800;  // Use a timeout of 800 ms.
-}
 #endif
 /*
   ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸*/
