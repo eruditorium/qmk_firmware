@@ -1,4 +1,10 @@
+// qmk compile -j 0 -kb crkbd -km nico
+// qmk flash -j 0 -kb crkbd -km nico
+// qmk c2json -o ~/crkbd-nico.json -km nico -kb crkbd keymap.c --no-cpp
+
 #include QMK_KEYBOARD_H
+#include "features/select_word.h"
+#include "features/achordion.h"
 
 enum layer_number {
   _QWERTY = 0,
@@ -47,64 +53,63 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | Tab  |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |   P  |  -   |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |LCTRL |   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   ;  |  '   |
+ * |LShift|   A  |   S  |   D  |F/SFT |   G  |-------.    ,-------|   H  |J/SFT |K/AltG|L/GUI |;/Ctrl|  '   |
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
- * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |RShift|
+ * |LCtrl |Z/Ctrl|X/GUI |C/Alt |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |RShift|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | LAlt | LGUI |LOWER | /Enter  /       \Space \  |RAISE |BackSP| RGUI |
- *                   |      |      |      |/       /         \      \ |      |      |      |
+ *                   | RGUI | BSPC |RAISE | /Enter  /       \Space \  |LOWER |  Del | AltGr|
+ *                   |      |      |ESC   |/       /         \      \ |Tab   |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
 
  [_QWERTY] = LAYOUT(
   KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_GRV,
   KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS,
-  KC_LCTL,  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-  KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,  KC_LBRC,  KC_RBRC, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-                        KC_RGUI, KC_BSPC, MO(_LOWER), KC_ENT,   KC_SPC,  MO(_RAISE), KC_DEL, KC_RALT
+  KC_LSFT,  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+  KC_LCTL,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,  KC_LBRC,  KC_RBRC, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+                             KC_RGUI, KC_BSPC, RAISE, KC_ENT,   KC_SPC,  LOWER,   KC_DEL,  KC_RALT
 ),
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
+ * |  F11 |  F1  |  F2  |  F3  |  F4  |  F5  |                    |  F6  |  F7  |  F8  | F9   | F10  | F12  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |                    |  F7  |  F8  |  F9  | F10  | F11  | F12  |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |   `  |   !  |   @  |   #  |   $  |   %  |-------.    ,-------|   ^  |   &  |   *  |   (  |   )  |   -  |
+ * |      | Home |  Up  | PgUp |      |VolUp |                    |      |  End | Home |      |      |      |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------| 
+ * |      | Left | Down | Right|      |VolDwn|-------.    ,-------| Left | Down |  Up  |Right |      |      |
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
- * |      |      |      |      |      |      |-------|    |-------|      |   _  |   +  |   {  |   }  |   |  |
+ * |      | End  |      | PgDn |      | Mute |-------|    |-------|      | PgDn | PgUp |      |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | LAlt | LGUI |LOWER | /Enter  /       \Space \  |RAISE |BackSP| RGUI |
- *                   |      |      |      |/       /         \      \ |      |      |      |
+ *                   | RGUI | BSPC |RAISE | /Enter  /       \Space \  |LOWER |  Del | AltGr|
+ *                   |      |      |ESC   |/       /         \      \ |Tab   |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
 [_LOWER] = LAYOUT(
-  _______, _______, _______, _______, _______, _______,                   _______, _______, _______,_______, _______, _______,
-  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
-  KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_TILD,
-  _______, _______, _______, _______, _______, _______, _______, _______, XXXXXXX, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
-                             _______, _______, _______, _______, _______,  _______, _______, _______
+  KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12,
+  _______, KC_HOME, KC_UP,   KC_PGUP, XXXXXXX, KC_VOLU,                   XXXXXXX, KC_END,  KC_HOME, XXXXXXX, XXXXXXX, _______,
+  _______, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, KC_VOLD,                   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, _______,
+  _______, KC_END,  XXXXXXX, KC_PGDN, XXXXXXX, KC_MUTE, _______, _______, XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX, XXXXXXX, _______,
+                             _______, _______, _______, _______, _______, _______, _______, _______
 ),
 /* RAISE
- * ,-----------------------------------------.                    ,-----------------------------------------.
- * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
+* ,-----------------------------------------.                    ,-----------------------------------------.
+ * |  F11 |  F1  |  F2  |  F3  |  F4  |  F5  |                    |  F6  |  F7  |  F8  | F9   | F10  | F12  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |   `  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |      |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |-------.    ,-------|      | Left | Down |  Up  |Right |      |
+ * | VolUp| Home |  Up  | PgUp |      |VolUp |                    |      |  End | Home |      |      | VolUp|
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------| 
+ * | VolDn| Left | Down | Right|      |VolDwn|-------.    ,-------| Left | Down |  Up  |Right |      |      |
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
- * |  F7  |  F8  |  F9  | F10  | F11  | F12  |-------|    |-------|   +  |   -  |   =  |   [  |   ]  |   \  |
+ * |      | End  |      | PgDn |      | Mute |-------|    |-------|      | PgDn | PgUp |      |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | LAlt | LGUI |LOWER | /Enter  /       \Space \  |RAISE |BackSP| RGUI |
- *                   |      |      |      |/       /         \      \ |      |      |      |
+ *                   | RGUI | BSPC |RAISE | /Enter  /       \Space \  |LOWER |  Del | AltGr|
+ *                   |      |      |ESC   |/       /         \      \ |Tab   |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
-
 [_RAISE] = LAYOUT(
-  _______, _______, _______, _______, _______, _______,                     _______, _______, _______, _______, _______, _______,
-  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
-  KC_F1,  KC_F2,    KC_F3,   KC_F4,   KC_F5,   KC_F6,                       XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX,
-  KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,   _______, _______,  KC_PLUS, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
-                             _______, _______, _______,  _______, _______,  _______, _______, _______
+  KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12,
+  _______, KC_HOME, KC_UP,   KC_PGUP, XXXXXXX, KC_VOLU,                   XXXXXXX, KC_END,  KC_HOME, XXXXXXX, XXXXXXX, _______,
+  _______, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, KC_VOLD,                   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, _______,
+  _______, KC_END,  XXXXXXX, KC_PGDN, XXXXXXX, KC_MUTE, _______, _______, XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX, XXXXXXX, _______,
+                             _______, _______, _______, _______, _______, _______, _______, _______
 ),
 /* ADJUST
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -424,6 +429,8 @@ void fp_render_layer_state(void) {
     }
 }
 
+
+
 void fp_render_modifier_state(void) {
     uint8_t modifiers = get_mods() | get_oneshot_mods();
 
@@ -468,6 +475,8 @@ static void render_animation(const char** frames, size_t frame_size, const uint8
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
+    if (!process_achordion(keycode, record)) { return false; }
+    
     if (record->event.pressed) {
         animation_timeout = timer_read32();
         frame_timer       = timer_read32();
@@ -507,6 +516,75 @@ bool should_process_keypress(void) {
     return true;
 }
 
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t* record) {
+  switch (keycode) {
+    // Increase the tapping term a little for slower ring and pinky fingers.
+    case CTL_Z:
+    case GUI_X:
+    case ALT_C:
+    case SHT_F:
+    case SHT_ENTER:
+    case SHT_J:
+    case ALT_COMM:
+    case GUI_DOT:
+    case CTL_SLSH:
+    case ALT_DEL:
+      return TAPPING_TERM + 15;
+
+    default:
+      return TAPPING_TERM;
+  }
+}
+
+uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t* record) {
+  // If you quickly hold a tap-hold key after tapping it, the tap action is
+  // repeated. Key repeating is useful e.g. for Vim navigation keys, but can
+  // lead to missed triggers in fast typing. Here, returning 0 means we
+  // instead want to "force hold" and disable key repeating.
+  switch (keycode) {
+    case CTL_Z:
+    case GUI_X:
+    case ALT_C:
+    case SHT_F:
+    case SHT_ENTER:
+    case ALT_COMM:
+    case GUI_DOT:
+    case CTL_SLSH:
+    case ALT_DEL:
+    // Repeating is useful for Vim navigation keys.
+    case SHT_J:
+      return QUICK_TAP_TERM;  // Enable key repeating.
+    default:
+      return 0;  // Otherwise, force hold and disable key repeating.
+  }
+}
+
+void matrix_scan_user(void) {
+  achordion_task();
+}
+
+bool achordion_chord(uint16_t tap_hold_keycode, keyrecord_t* tap_hold_record,
+                     uint16_t other_keycode, keyrecord_t* other_record) {
+  // Exceptionally consider the following chords as holds, even though they
+  // are on the same hand in Magic Sturdy.
+  switch (tap_hold_keycode) {
+   
+      break;
+  }
+
+  // Also allow same-hand holds when the other key is in the rows below the
+  // alphas. I need the `% (MATRIX_ROWS / 2)` because my keyboard is split.
+  if (other_record->event.key.row % (MATRIX_ROWS / 2) >= 4) {
+    return true;
+  }
+
+  // Otherwise, follow the opposite hands rule.
+  return achordion_opposite_hands(tap_hold_record, other_record);
+}
+
+uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
+  return 800;  // Use a timeout of 800 ms.
+}
 #endif
 /*
   ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸*/

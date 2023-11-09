@@ -34,8 +34,6 @@ SRC +=  ./lib/rgb_state_reader.c \
 #   the appropriate keymap folder that will get included automatically
 #
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
-
 
 # to reduce size of firmware
 # https://thomasbaart.nl/2018/12/01/reducing-firmware-size-in-qmk/
@@ -55,11 +53,10 @@ CAPS_WORD_ENABLE = yes
 #-----------------------------------------------------------------------------
 # https://github.com/getreuer/qmk-keymap
 
-# SRC += features/achordion.c
+SRC += features/achordion.c
 # SRC += features/autocorrection.c
 # SRC += features/custom_shift_keys.c
 SRC += features/select_word.c
-
 
 #-----------------------------------------------------------------------------
 # sunaku
