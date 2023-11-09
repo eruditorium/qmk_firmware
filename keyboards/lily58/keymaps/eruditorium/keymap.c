@@ -41,43 +41,43 @@ enum custom_keycodes {
 #define CTL_SLSH RCTL_T(KC_SLSH)
 
 #define ALT_DEL RALT_T(KC_DEL)
-#define RAISE MO(_RAISE)
-#define LOWER MO(_LOWER)
+#define LOWER LT(_LOWER, KC_TAB)
+#define RAISE LT(_RAISE, KC_ESC)
 #define ADJUST MO(_ADJUST)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* QWERTY
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * | ESC  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |  `   |
+ * | ESC  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |  -   |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | Tab  |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |   P  |  -   |
+ * | Tab  |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |   P  |  |   |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |LShift|   A  |   S  |   D  |F/SFT |   G  |-------.    ,-------|   H  |J/SFT |K/AltG|L/GUI |;/Ctrl|  '   |
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
  * |LCtrl |Z/Ctrl|X/GUI |C/Alt |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |RShift|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | RGUI | BSPC |RAISE | /Enter  /       \Space \  |LOWER |  Del | AltGr|
+ *                   | LGUI | BSPC |RAISE | /Enter  /       \Space \  |LOWER |  Del | AltGr|
  *                   |      |      |ESC   |/       /         \      \ |Tab   |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
 
  [_QWERTY] = LAYOUT(
-  KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_GRV,
-  KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS,
-  KC_LSFT,  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-  KC_LCTL,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,  KC_LBRC,  KC_RBRC, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-                             KC_RGUI, KC_BSPC, RAISE, KC_ENT,   KC_SPC,  LOWER,   KC_DEL,  KC_RALT
+  KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
+  KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_PIPE,
+  KC_LSFT,  KC_A,   KC_S,    KC_D,    SHT_F,   KC_G,                     KC_H,    SHT_J,   KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+  KC_LCTL,  CTL_Z,  GUI_X,   ALT_C,   KC_V,    KC_B,  KC_LBRC,  KC_RBRC, KC_N,    KC_M,    ALT_COMM,GUI_DOT, CTL_SLSH,KC_RSFT,
+                             KC_LGUI, KC_BSPC, RAISE, KC_ENT,   KC_SPC,  LOWER,   KC_DEL,  KC_RALT
 ),
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |  F11 |  F1  |  F2  |  F3  |  F4  |  F5  |                    |  F6  |  F7  |  F8  | F9   | F10  | F12  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      | Home |  Up  | PgUp |      |VolUp |                    |      |  End | Home |      |      |      |
+ * |   `  | VolUp| Home |  Up  | PgUp |      |                    |      |      |  End | Home |      |      |      
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------| 
- * |      | Left | Down | Right|      |VolDwn|-------.    ,-------| Left | Down |  Up  |Right |      |      |
+ * |      |VolDwn| Left | Down | Right|      |-------.    ,-------|      | Left | Down |  Up  |Right |      |      
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
- * |      | End  |      | PgDn |      | Mute |-------|    |-------|      | PgDn | PgUp |      |      |      |
+ * |      | Mute | End  |      | PgDn |      |-------|    |-------|      |      | PgDn | PgUp |      |      |      
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   | RGUI | BSPC |RAISE | /Enter  /       \Space \  |LOWER |  Del | AltGr|
  *                   |      |      |ESC   |/       /         \      \ |Tab   |      |      |
@@ -85,20 +85,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_LOWER] = LAYOUT(
   KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12,
-  _______, KC_HOME, KC_UP,   KC_PGUP, XXXXXXX, KC_VOLU,                   XXXXXXX, KC_END,  KC_HOME, XXXXXXX, XXXXXXX, _______,
-  _______, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, KC_VOLD,                   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, _______,
-  _______, KC_END,  XXXXXXX, KC_PGDN, XXXXXXX, KC_MUTE, _______, _______, XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX, XXXXXXX, _______,
+  KC_GRV,  KC_VOLU, KC_HOME, KC_UP,   KC_PGUP, XXXXXXX,                   XXXXXXX, XXXXXXX, KC_END,  KC_HOME, XXXXXXX, _______,
+  _______, KC_VOLD, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX,                   XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______,
+  _______, KC_MUTE, KC_END,  XXXXXXX, KC_PGDN, XXXXXXX,  _______, _______,XXXXXXX, XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX, _______,
                              _______, _______, _______, _______, _______, _______, _______, _______
 ),
 /* RAISE
-* ,-----------------------------------------.                    ,-----------------------------------------.
+ * ,-----------------------------------------.                    ,-----------------------------------------.
  * |  F11 |  F1  |  F2  |  F3  |  F4  |  F5  |                    |  F6  |  F7  |  F8  | F9   | F10  | F12  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | VolUp| Home |  Up  | PgUp |      |VolUp |                    |      |  End | Home |      |      | VolUp|
+ * |   `  | VolUp| Home |  Up  | PgUp |      |                    |      |      |  End | Home |      |      |      
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------| 
- * | VolDn| Left | Down | Right|      |VolDwn|-------.    ,-------| Left | Down |  Up  |Right |      |      |
+ * |      |VolDwn| Left | Down | Right|      |-------.    ,-------|      | Left | Down |  Up  |Right |      |      
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
- * |      | End  |      | PgDn |      | Mute |-------|    |-------|      | PgDn | PgUp |      |      |      |
+ * |      | Mute | End  |      | PgDn |      |-------|    |-------|      |      | PgDn | PgUp |      |      |      
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   | RGUI | BSPC |RAISE | /Enter  /       \Space \  |LOWER |  Del | AltGr|
  *                   |      |      |ESC   |/       /         \      \ |Tab   |      |      |
@@ -106,9 +106,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_RAISE] = LAYOUT(
   KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12,
-  _______, KC_HOME, KC_UP,   KC_PGUP, XXXXXXX, KC_VOLU,                   XXXXXXX, KC_END,  KC_HOME, XXXXXXX, XXXXXXX, _______,
-  _______, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, KC_VOLD,                   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, _______,
-  _______, KC_END,  XXXXXXX, KC_PGDN, XXXXXXX, KC_MUTE, _______, _______, XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX, XXXXXXX, _______,
+  KC_GRV,  KC_VOLU, KC_HOME, KC_UP,   KC_PGUP, XXXXXXX,                   XXXXXXX, XXXXXXX, KC_END,  KC_HOME, XXXXXXX, _______,
+  _______, KC_VOLD, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX,                   XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______,
+  _______, KC_MUTE, KC_END,  XXXXXXX, KC_PGDN, XXXXXXX,  _______, _______,XXXXXXX, XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX, _______,
                              _______, _______, _______, _______, _______, _______, _______, _______
 ),
 /* ADJUST
@@ -121,8 +121,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
  * |      |      |      |      |      |      |-------|    |-------|      |      | MODE | HUE- | SAT- | VAL- |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | LAlt | LGUI |LOWER | /Enter  /       \Space \  |RAISE |BackSP| RGUI |
- *                   |      |      |      |/       /         \      \ |      |      |      |
+ *                   | RGUI | BSPC |RAISE | /Enter  /       \Space \  |LOWER |  Del | AltGr|
+ *                   |      |      |ESC   |/       /         \      \ |Tab   |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
   [_ADJUST] = LAYOUT(
@@ -155,14 +155,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         case ALT_C:
         case ALT_COMM:
         case ALT_DEL:
-            return TAPPING_TERM + 50;
+            return TAPPING_TERM + 20;
         case CTL_Z:
         case CTL_SLSH:
-            return TAPPING_TERM - 50;
+            return TAPPING_TERM - 20;
         case SHT_F:
         case SHT_J:
         case SHT_ENTER:
-            return TAPPING_TERM - 80;
+            return TAPPING_TERM - 50;
         default:
             return TAPPING_TERM;
     }   
