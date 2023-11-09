@@ -75,9 +75,10 @@ enum custom_keycodes {
 #define CTL_SLSH RCTL_T(KC_SLSH)
 
 #define ALT_DEL RALT_T(KC_DEL)
-#define LOWER LT(_LOWER, KC_TAB)
-#define RAISE LT(_RAISE, KC_ESC)
+#define LOWER LT(_LOWER, KC_ESC)
+#define RAISE LT(_RAISE, KC_TAB)
 #define ADJUST MO(_ADJUST)
+#define FUNCTION MO(_FUNCTION)
 
 
 // ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -94,13 +95,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 //  | Ctrl/- | Z/Ctrl | X/Gui  |  C/Alt |   V    |   B    |                    |   N    |   M    | ,/RAlt | ./Gui  | //Ctrl | Shift  |
 //  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
-//                                      |  BSPC  | RS/ESC | SPACE  |  |  ENTER | LWR/TAB|RAlt/Del|
+//                                      |  BSPC  | LW/ESC | SPACE  |  |  ENTER | RS/TAB |RAlt/Del|
 //                                      `--------------------------'  `--------------------------'    
   [_QWERTY] = LAYOUT_split_3x6_3(
     KC_ESC,    KC_Q,    KC_W,    KC_E,   KC_R,      KC_T,                        KC_Y,    KC_U,    KC_I,     KC_O,    KC_P,     KC_BSPC,
     KC_TAB,    KC_A,    KC_S,    KC_D,   SHT_F,     KC_G,                        KC_H,    SHT_J,   KC_K,     KC_L,    KC_SCLN,  MC_QUOT,
     CTL_MNS,   CTL_Z,   GUI_X,   ALT_C,  KC_V,      KC_B,                        KC_N,    KC_M,    ALT_COMM, GUI_DOT, CTL_SLSH, KC_RSFT,
-                                         KC_BSPC,   RAISE,  KC_SPACE,  KC_ENTER, LOWER,   ALT_DEL
+                                         KC_BSPC,   LOWER,  KC_SPACE,  KC_ENTER, RAISE,   ALT_DEL
   ),
 
 /*
