@@ -61,7 +61,6 @@ enum custom_keycodes {
 #define GUI_X LGUI_T(KC_X)
 #define ALT_C LALT_T(KC_C)
 #define SHT_F LSFT_T(KC_F)
-#define SHT_ENTER LSFT_T(KC_ENTER)
 
 // RIGHT HAND HOME ROW MODS ├───────────────────────────────────┐
 #define SHT_J RSFT_T(KC_J)
@@ -97,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
    │    -    │  Z/CTL  │  X/GUI  │  C/ALT  │    V    │    B    ││    N    │    M    │ ,/AltGr │  ./GUI  │ //CTRL  │ MC_QUOT │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
-                                 │   BSPC  │ LWR/ESC │ ENTR/SFT││  SPACE  │  RS/TAB │ RAlt/DEL│
+                                 │   BSPC  │ LWR/ESC │  ENTER  ││  SPACE  │  RS/TAB │ RAlt/DEL│
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘*/
 
    [_QWERTY] = LAYOUT(
