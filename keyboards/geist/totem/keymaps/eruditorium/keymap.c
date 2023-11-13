@@ -280,26 +280,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // │ t a p p i n g t e r m                           │
 // └─────────────────────────────────────────────────┘
 
-// #ifdef TAPPING_TERM_PER_KEY
-// uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-//     switch (keycode) {
-//         case GUI_X:
-//         case GUI_DOT:
-//         case ALT_C:
-//         case ALT_COMM:
-//             return TAPPING_TERM + 50;
-//         case CTL_Z:
-//         case CTL_SLSH:
-//             return TAPPING_TERM - 50;
-//         case SHT_F:
-//         case SHT_J:
-//         case SHT_ENTER: 
-//             return TAPPING_TERM - 80;
-//         default:
-//             return TAPPING_TERM;
-//     }
-// }
-// #endif
+#ifdef TAPPING_TERM_PER_KEY
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case GUI_X:
+        case GUI_DOT:
+        case ALT_C:
+        case ALT_COMM:
+            return TAPPING_TERM + 80;
+        case CTL_Z:
+        case CTL_SLSH:
+            return TAPPING_TERM - 50;
+        case SHT_F:
+        case SHT_J:
+            return TAPPING_TERM + 50;
+        default:
+            return TAPPING_TERM;
+    }
+}
+#endif
 
 /*
   ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
