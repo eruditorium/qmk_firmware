@@ -36,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 enum crkbd_layers {
-    _QWERTY,
+    _QWERTY = 0,
     _COLEMAK,
     _LOWER,
     _RAISE,
@@ -96,8 +96,6 @@ enum custom_keycodes {
 //#define CTL_SLSH MT(MOD_LCTL, KC_SLSH)
 //#define GUI_DOT MT(MOD_LGUI, KC_DOT)
 //#define ALT_COMM MT(MOD_LALT, KC_COMM)
-
-
 
 // ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 // │ K E Y M A P S                                                                                                          │
