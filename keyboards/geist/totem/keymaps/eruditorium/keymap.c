@@ -124,23 +124,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 
    ┌─────────────────────────────────────────────────┐
-   │ c o l e m a k                                   │      ╭╮╭╮╭╮╭╮
+   │ c o l e m a k  -  D H                           │      ╭╮╭╮╭╮╭╮
    └─────────────────────────────────────────────────┘      │╰╯╰╯╰╯│
              ┌─────────┬─────────┬─────────┬─────────┬──────╨──┐┌──╨──────┬─────────┬─────────┬─────────┬─────────┐
-     ╌┄┈┈───═╡    Q    │    W    │    F    │    P    │    G    ││    J    │    L    │    U    │    Y    │    ;    │   
+     ╌┄┈┈───═╡    Q    │    W    │    F    │    P    │    B    ││    J    │    L    │    U    │    Y    │    ;    │   
              ├─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┤
-             │    A    │    R    │    S    │  T/Sft  │    D    ││    H    │  N/Sft  │    E    │    I    │    O    │    
+             │    A    │    R    │    S    │  T/Sft  │    G    ││    M    │  N/Sft  │    E    │    I    │    O    │    
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
-   │    -    │  Z/Ctl  │  X/Gui  │  C/Alt  │    V    │    B    ││    K    │    M    │  ,/Alt  │  ./Gui  │  //Ctl  │    ¨    │
+   │    -    │  Z/Ctl  │  X/Gui  │  C/Alt  │    D    │    V    ││    K    │    H    │  ,/Alt  │  ./Gui  │  //Ctl  │    ¨    │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
                                  │   BSPC  │ LWR/ESC │  ENTER  ││  SPACE  │  RS/TAB │ RAlt/DEL│  
                                  └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘*/ 
 
    [_COLEMAK] = LAYOUT(
  //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
-              KC_Q,     KC_W,     KC_F,     KC_P,     KC_G,      KC_J,     KC_L,     KC_U,     KC_Y,     KC_SCLN,  
-              KC_A,     KC_R,     KC_S,     SHT_T,    KC_D,      KC_H,     SHT_N,    KC_E,     KC_I,     KC_O,  
-    KC_MINS,  CTL_Z,    GUI_X,    ALT_C,    KC_V,     KC_B,      KC_K,     KC_M,     ALT_COMM, GUI_DOT,  CTL_SLSH,  MC_QUOT,
+              KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,      KC_J,     KC_L,     KC_U,     KC_Y,     KC_SCLN,  
+              KC_A,     KC_R,     KC_S,     SHT_T,    KC_G,      KC_M,     SHT_N,    KC_E,     KC_I,     KC_O,  
+    KC_MINS,  CTL_Z,    GUI_X,    ALT_C,    KC_D,     KC_V,      KC_K,     KC_H,     ALT_COMM, GUI_DOT,  CTL_SLSH,  MC_QUOT,
                                   KC_BSPC,  LOWER,    KC_ENT,    KC_SPACE, RAISE,    ALT_DEL
  ),
 
