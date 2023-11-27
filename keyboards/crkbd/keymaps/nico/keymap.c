@@ -37,9 +37,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // entirely and just use numbers.
 enum crkbd_layers {
     _QWERTY,
+    _COLEMAK,
     _LOWER,
     _RAISE,
-    _FUNCTION,
     _ADJUST,
 };
 
@@ -47,12 +47,13 @@ enum crkbd_layers {
 // │ d e f i n e   k e y c o d e s                   │
 // └─────────────────────────────────────────────────┘
 enum custom_keycodes {
-    MC_QUOT = SAFE_RANGE,
-    QWERTY,
+    QWERTY = SAFE_RANGE,
+    COLEMAK,
     LOWER,
     RAISE,
     ADJUST,
-    FUNCTION,
+    MC_QUOT,
+    SNAP,
     SELWORD,
 };
 
@@ -63,7 +64,6 @@ enum custom_keycodes {
 
 // LEFT HAND HOME ROW MODS QWERTY ├──────────────────
 #define CTL_Z LCTL_T(KC_Z)
-#define CTL_MNS LCTL_T(KC_MINS)
 #define GUI_X LGUI_T(KC_X)
 #define ALT_C LALT_T(KC_C)
 #define SHT_F LSFT_T(KC_F)
@@ -74,11 +74,29 @@ enum custom_keycodes {
 #define GUI_DOT RGUI_T(KC_DOT)
 #define CTL_SLSH RCTL_T(KC_SLSH)
 
+
+// GENERAL ├─────────────────┐
+#define Celsius RALT(LSFT(KC_0))
+#define CTL_MNS LCTL_T(KC_MINS)
 #define ALT_DEL RALT_T(KC_DEL)
 #define LOWER LT(_LOWER, KC_ESC)
 #define RAISE LT(_RAISE, KC_TAB)
 #define ADJUST MO(_ADJUST)
-#define FUNCTION MO(_FUNCTION)
+#define COLEMAK DF(_COLEMAK)
+#define QWERTY DF(_QWERTY)
+
+// LEFT HAND HOME ROW MODS COLEMAK ├─────────────────┐
+//#define CTL_Z MT(MOD_LCTL, KC_Z)
+//#define GUI_X MT(MOD_LGUI, KC_X)
+//#define ALT_C MT(MOD_LALT, KC_C)
+#define SHT_T MT(MOD_LSFT, KC_T)
+
+// RIGHT HAND HOME ROW MODS COLEMAK ├────────────────┐
+#define SHT_N MT(MOD_RSFT, KC_N)
+//#define CTL_SLSH MT(MOD_LCTL, KC_SLSH)
+//#define GUI_DOT MT(MOD_LGUI, KC_DOT)
+//#define ALT_COMM MT(MOD_LALT, KC_COMM)
+
 
 
 // ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -87,16 +105,21 @@ enum custom_keycodes {
 // ▝▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▘
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-// QWERTY
-//  ,-----------------------------------------------------.                    ,-----------------------------------------------------.
-//  |   ESC  |   Q    |   W    |   E    |   R    |   T    |                    |   Y    |   U    |   I    |   O    |   P    |  BSPC  |
-//  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-//  |   Tab  |   A    |   S    |   D    | F/Shft |   G    |                    |   H    | J/Shft |   K    |   L    |   ;/:  |  '/"   |
-//  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-//  | Ctrl/- | Z/Ctrl | X/Gui  |  C/Alt |   V    |   B    |                    |   N    |   M    | ,/RAlt | ./Gui  | //Ctrl | Shift  |
-//  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
-//                                      |  BSPC  | LW/ESC | ENTER  |  |  SPACE | RS/TAB |RAlt/Del|
-//                                      `--------------------------'  `--------------------------'    
+/*
+   ┌─────────────────────────────────────────────────┐
+   │ q w e r t y                                     │      
+   └─────────────────────────────────────────────────┘
+
+  ,-----------------------------------------------------.                    ,-----------------------------------------------------.
+  |   ESC  |   Q    |   W    |   E    |   R    |   T    |                    |   Y    |   U    |   I    |   O    |   P    |  BSPC  |
+  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+  |   Tab  |   A    |   S    |   D    | F/Shft |   G    |                    |   H    | J/Shft |   K    |   L    |   ;/:  |  '/"   |
+  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+  | Ctrl/- | Z/Ctrl | X/Gui  |  C/Alt |   V    |   B    |                    |   N    |   M    | ,/RAlt | ./Gui  | //Ctrl | Shift  |
+  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
+                                      |  BSPC  | LW/ESC | ENTER  |  |  SPACE | RS/TAB |RAlt/Del|
+                                      `--------------------------'  `--------------------------'    
+*/                                      
   [_QWERTY] = LAYOUT_split_3x6_3(
     QK_GESC,   KC_Q,    KC_W,    KC_E,   KC_R,      KC_T,                        KC_Y,    KC_U,    KC_I,     KC_O,    KC_P,     KC_BSPC,
     KC_TAB,    KC_A,    KC_S,    KC_D,   SHT_F,     KC_G,                        KC_H,    SHT_J,   KC_K,     KC_L,    KC_SCLN,  MC_QUOT,
@@ -108,24 +131,49 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 
    ┌─────────────────────────────────────────────────┐
+   │ c o l e m a k  -  d h                           │      
+   └─────────────────────────────────────────────────┘
+
+  ,-----------------------------------------------------.                    ,-----------------------------------------------------.
+  |   ESC  |   Q    |   W    |   F    |   P    |   B    |                    |   J    |   L    |   U    |   Y    |  ;/:   |  BSPC  |
+  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+  |   Tab  |   A    |   R    |   S    | T/Shft |   G    |                    |   M    | N/Shft |   E    |   I    |   O    |  '/"   |
+  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+  | Ctrl/- | Z/Ctrl | X/Gui  |  C/Alt |   D    |   V    |                    |   K    |   H    | ,/RAlt | ./Gui  | //Ctrl | Shift  |
+  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
+                                      |  BSPC  | LW/ESC | ENTER  |  |  SPACE | RS/TAB |RAlt/Del|
+                                      `--------------------------'  `--------------------------'    
+*/
+  [_COLEMAK] = LAYOUT_split_3x6_3(
+    QK_GESC,   KC_Q,    KC_W,    KC_F,   KC_P,      KC_B,                        KC_J,    KC_L,    KC_U,     KC_Y,    KC_SCLN,  KC_BSPC,
+    KC_TAB,    KC_A,    KC_R,    KC_S,   SHT_T,     KC_G,                        KC_M,    SHT_N,   KC_E,     KC_I,    KC_O,     MC_QUOT,
+    CTL_MNS,   CTL_Z,   GUI_X,   ALT_C,  KC_D,      KC_V,                        KC_K,    KC_H,    ALT_COMM, GUI_DOT, CTL_SLSH, KC_RSFT,
+                                         KC_BSPC,   LOWER,  KC_ENTER,  KC_SPACE, RAISE,   ALT_DEL
+  ),
+
+/*
+   ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+
+   ┌─────────────────────────────────────────────────┐
    │ l o w e r                                       │
    └─────────────────────────────────────────────────┘
 */
 // Lower
 //  ,-----------------------------------------------------.                    ,-----------------------------------------------------.
-//  |        | Mute   |  Home  |   Up   |  PgUp  |  Next  |                    |    /   |   7    |   8    |   9    |   +    |   Del  |
+//  |    ▼   | CAPSLCK|  Home  |   ↑    |   Pg↑  |   {    |                    |    }   |   7    |   8    |   9    |   +    |  Del   |
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-//  |        | VolUp  |  Left  |  Down  | Right  |  Play  |                    |    *   |   4    |   5    |   6    |   -    |   =    |
+//  |    ▼   | NUMLCK |   ←    │   ↓    │    →   |   [    |                    |    ]   |   4    |   5    |   6    |   -    |   =    |
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-//  |        | VolDwn |  End   |        |  PgDwn |  Stop  |                    |    ,   |   1    |   2    |   3    |   .    |        |
+//  |    ▼   | SCRNSHT|  End   |  SAVE  |   Pg↓  |   (    |                    |    )   |   1    |   2    |   3    |   *    |   ▼    |
 //  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
-//                                      |        |        |Function|  |   -    | Adjust |   0    |
+//                                      |    ▼   |   ▼    |    ▼   |  |   -    | Adjust |   0    |
 //                                      `--------------------------'  `--------------------------'
   [_LOWER] = LAYOUT_split_3x6_3(
-    _______, KC_MUTE, KC_HOME, KC_UP,   KC_PGUP,  KC_MNXT,                   KC_PSLS,   KC_7,   KC_8,   KC_9,   KC_PPLS,  KC_DEL,
-    _______, KC_VOLU, KC_LEFT, KC_DOWN, KC_RGHT,  KC_MPLY,                   KC_PAST,   KC_4,   KC_5,   KC_6,   KC_MINS,  KC_EQL,
-    _______, KC_VOLD, KC_END,  XXXXXXX, KC_PGDN,  KC_MSTP,                   KC_COMM,   KC_1,   KC_2,   KC_3,   KC_DOT,   _______,
-                                        _______,  _______, FUNCTION, KC_MINS, ADJUST,   KC_0
+    _______, KC_CAPS, KC_HOME, KC_UP,   KC_PGUP,  KC_LCBR,                   KC_RCBR,   KC_7,   KC_8,   KC_9,   KC_PPLS,  KC_DEL,
+    _______, KC_QUOT, KC_LEFT, KC_DOWN, KC_RGHT,  KC_LBRC,                   KC_RBRC,   KC_4,   KC_5,   KC_6,   KC_MINS,  KC_EQL,
+    _______, SNAP,    KC_END,  C(KC_S), KC_PGDN,  KC_LPRN,                   KC_RPRN,   KC_1,   KC_2,   KC_3,   KC_PAST,  _______,
+                                        _______,  _______, _______, KC_UNDS, ADJUST,    KC_0
   ),
 
 /*
@@ -137,43 +185,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 // Raise
 //  ,-----------------------------------------------------.                    ,-----------------------------------------------------.
-//  |   ~    |    !   |   @    |   #    |   $    |   {    |                    |    }   |        |  End   |  Home  |        |   Del  |
+//  |   ~    |    !   |   @    |   #    |   $    |   %    |                    |    ^   │    &   │    Ü   │    °   │    /   │   Del  |
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-//  |        |    %   |   ^    |   &    |   *    |   [    |                    |    ]   |   Left |  Down  |   Up   |  Right |   \    |
+//  |        │    Ä   │    è   │   SZ   │   é    │    ç   │                    │    µ   │    £   │    €   │        │    Ö   │   \    |
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-//  |        |        |        |    `   |    ~   |   (    |                    |    )   |        |  PgDwn |  PgUp  |        |   |    |
+//  |        │    `   │    ~   │   CUE  │        │        │                    │    |   │        │    ²   │   ³    │        │        │
 //  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
-//                                      |        | Adjust |    _   |  |       |        |        |
+//                                      |        │ ADJUST │    -   │  │    ▼   │    ▼   │    ▼   │
 //                                      `--------------------------'  `--------------------------'
   [_RAISE] = LAYOUT_split_3x6_3(
-    KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_LCBR,                   KC_RCBR, XXXXXXX, KC_END,  KC_HOME, XXXXXXX,  KC_DEL,
-    _______, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LBRC,                   KC_RBRC, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, KC_BSLS,
-    _______, XXXXXXX, _______, KC_GRV,  KC_TILD, KC_LPRN,                   KC_RPRN, XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX,  KC_PIPE,
-                                        _______, ADJUST, KC_UNDS, _______,  _______,  _______
+    _______, KC_EXLM,      KC_AT,      KC_HASH,    KC_DLR,     KC_PERC,                    KC_CIRC,    KC_AMPR,          RALT(KC_Y), Celsius,    KC_BSLS,    KC_DEL,
+    _______, RALT(KC_Q),   RALT(KC_F), RALT(KC_S), RALT(KC_E), LSFT(RALT(KC_COMM)),        RALT(KC_M), LSFT(RALT(KC_4)), RALT(KC_5), RALT(KC_4), RALT(KC_P), KC_BSLS,
+    _______, LSFT(KC_GRV), KC_TILD,    RALT(KC_C), XXXXXXX,    XXXXXXX,                    KC_PIPE,    XXXXXXX,          RALT(KC_2), RALT(KC_3), XXXXXXX,    _______,
+                                                   _______,    ADJUST,  KC_UNDS,  _______, _______,    _______
   ),
-
-
-/* ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
-   ┌─────────────────────────────────────────────────┐
-   │ f u n c t i o n                                 │
-   └─────────────────────────────────────────────────┘
-*/
-// Function
-//  ,-----------------------------------------------------.                    ,-----------------------------------------------------.
-//  |        |        |        |        |        |        |                    |        |   F7   |   F8   |   F9   |  F12   |        |
-//  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-//  |        |        |        |        |        |        |                    |        |   F4   |   F5   |   F6   |  F11   |        |
-//  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-//  |        |        |        |        |        |        |                    |        |   F1   |   F2   |   F3   |  F10   |        |
-//  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
-//                                      |        |        |        |  |        |        |        |
-//                                      `--------------------------'  `--------------------------'
-  [_FUNCTION] = LAYOUT_split_3x6_3(
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_F7,   KC_F8,   KC_F9,   KC_F12,  _______,
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_F4,   KC_F5,   KC_F6,   KC_F11,  XXXXXXX,
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F10,  _______,
-                                        _______, _______, _______, _______, _______, _______
-  ),
+ 
 
 /*
    ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
@@ -184,18 +210,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 // Adjust
 //  ,-----------------------------------------------------.                    ,-----------------------------------------------------.
-//  | Reset  |        |        |        |        | Print  |                    |  Num   |CapsLock|Scrllock|        |        |        |
+//  | Reset  | On/Off | Cycle  | Brght ↓| Brght ↑| Print  |                    |  Hue ↑ |   F7   |   F8   |   F9   |  F12   |  Sat ↑ |
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-//  | On/Off | Hue ↑  | Sat ↑  | Brght ↑|        |        |                    |  Ins   |        |        |        |        |        |
+//  | Debug  | QWERTY |        |  Stop  | Next   |  VOL↑  |                    |  Hue ↓ |   F4   |   F5   |   F6   |  F11   |  Sat ↓ |
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-//  | Cycle  | Hue ↓  | Sat ↓  | Brght ↓|        |        |                    |        |        |        |        |        |        |
+//  |        |COLEMAK |        |  Play  |  Prv   |  VOL↓  |                    |        |   F1   |   F2   |   F3   |  F10   |        |
 //  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
-//                                      |        |        |        |  |        |        |        |
+//                                      │    ▼   │    ▼   │    ▼   │  │    ▼   │    ▼   │    ▼   │ 
 //                                      `--------------------------'  `--------------------------'
   [_ADJUST] = LAYOUT_split_3x6_3(
-    QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PSCR,                   KC_NUM,  KC_CAPS, KC_SCRL, XXXXXXX, XXXXXXX, _______,
-    RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX,                   KC_INS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+    QK_BOOT, RGB_TOG, RGB_MOD, RGB_VAI, RGB_VAD, KC_PSCR,                   RGB_HUI, KC_F7,   KC_F8,   KC_F9,   KC_F12,  RGB_SAI,
+    DB_TOGG, QWERTY,  XXXXXXX, KC_MSTP, KC_MNXT, KC_VOLU,                   RGB_HUD, KC_F4,   KC_F5,   KC_F6,   KC_F11,  RGB_SAD,
+    XXXXXXX, COLEMAK, XXXXXXX, KC_MPLY, KC_MPRV, KC_VOLD,                   XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F10,  _______,
                                         _______, _______, _______, _______, _______, _______
   )
 };
@@ -226,6 +252,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             return TAPPING_TERM - 20;
         case SHT_F:
         case SHT_J:
+        case SHT_T:
+        case SHT_N:
             return TAPPING_TERM + 40;
         default:
             return TAPPING_TERM;
@@ -468,8 +496,8 @@ static const char PROGMEM layer_adjust[] = {
     0, 224, 240, 224, 8, 28, 28, 28, 28, 28, 28, 8, 224, 240, 224, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 224, 240, 224, 0, 0, 199, 239, 199, 16, 56, 56, 56, 56, 56, 56, 16, 199, 239, 199, 0, 0, 192, 224, 192, 16, 56, 56, 56, 56, 56, 56, 16, 199, 239, 199, 0, 0, 15, 31, 15, 0, 0, 0, 0, 0, 0, 0, 0, 15, 31, 15, 0, 0, 15, 31, 15, 32, 112, 112, 112, 112, 112, 112, 32, 15, 31, 15, 0,
 };
 
-static const char PROGMEM layer_play[] = {
-    0, 224, 240, 224, 8, 28, 28, 28, 28, 28, 28, 8, 224, 240, 224, 0, 0, 224, 240, 224, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 199, 239, 199, 16, 56, 56, 56, 56, 56, 56, 16, 7, 15, 7, 0, 0, 199, 239, 199, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 31, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 31, 15, 32, 112, 112, 112, 112, 112, 112, 32, 0, 0, 0, 0,
+static const char PROGMEM layer_colemak[] = {
+    0,224,240,224,  8, 28, 28, 28, 28, 28, 28,  8,  0,  0,  0,  0,  0,224,240,224,  8, 28, 28, 28, 28, 28, 28,  8,224,240,224,  0,  0,199,239,199,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,199,239,199,  0,  0,  0,  0,  0,  0,  0,  0,199,239,199,  0,  0, 15, 31, 15, 32,112,112,112,112,112,112, 32,  0,  0,  0,  0,  0, 15, 31, 15, 32,112,112,112,112,112,112, 32, 15, 31, 15,  0,
 };
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -481,15 +509,20 @@ void fp_render_layer_state(void) {
     oled_set_cursor(0, 11);
 
     if (layer_state_is(_ADJUST)) {
-        oled_write_raw_P(layer_play, sizeof(layer_play));
-    } else if (layer_state_is(_ADJUST)) {
         oled_write_raw_P(layer_adjust, sizeof(layer_adjust));
     } else if (layer_state_is(_LOWER)) {
         oled_write_raw_P(layer_lower, sizeof(layer_lower));
     } else if (layer_state_is(_RAISE)) {
         oled_write_raw_P(layer_raise, sizeof(layer_raise));
     } else {
-        oled_write_raw_P(layer_default, sizeof(layer_default));
+        switch (biton32(default_layer_state)) {
+            case _COLEMAK:
+                oled_write_raw_P(layer_colemak, sizeof(layer_colemak));
+                break;
+            case _QWERTY:
+                oled_write_raw_P(layer_default, sizeof(layer_default));
+                break;
+        };  
     }
 }
 
@@ -555,6 +588,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                 SEND_STRING(SS_TAP(X_QUOT) SS_TAP(X_SPC));
             }
             break;
+
+        // ┌─────────────────────────────────────────────────┐
+        // │ p r o d u c t i v i t y                         │
+        // └─────────────────────────────────────────────────┘
+
+      case SNAP:
+          if (record->event.pressed) {
+            SEND_STRING(SS_LSFT(SS_LWIN("S")));           //WIN
+          }
+          break;
     }
     return true;
 }
