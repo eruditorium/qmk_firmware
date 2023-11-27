@@ -31,9 +31,9 @@
 
 enum totem_layers {
     _QWERTY,
+    _COLEMAK,
     _LOWER,
     _RAISE,
-    _FUNCTION,
     _ADJUST,
 };
 
@@ -44,9 +44,9 @@ enum totem_layers {
 enum custom_keycodes {
     MC_QUOT = SAFE_RANGE,
     QWERTY,
+    COLEMAK,
     LOWER,
     RAISE,
-    FUNCTION,
     ADJUST,
     SNAP,
     SELWORD,
@@ -67,16 +67,29 @@ enum custom_keycodes {
 #define CTL_SLSH RCTL_T(KC_SLSH)
 #define ALT_COMM RALT_T(KC_COMM)
 #define GUI_DOT RGUI_T(KC_DOT)
-#define ALT_DEL RALT_T(KC_DEL)
 
 // HOME ROW MODS QWERTY ├──────────────────
 #define LOWER LT(_LOWER, KC_ESC)
 #define RAISE LT(_RAISE, KC_TAB)
 #define ADJUST MO(_ADJUST)
-#define FUNCTION MO(_FUNCTION)
 
+#define ALT_DEL RALT_T(KC_DEL)
 #define Celsius RALT(LSFT(KC_0))
 
+
+// LEFT HAND HOME ROW MODS COLEMAK ├─────────────────┐
+
+//#define CTL_Z MT(MOD_LCTL, KC_Z)
+//#define GUI_X MT(MOD_LGUI, KC_X)
+//#define ALT_C MT(MOD_LALT, KC_C)
+#define SHT_T MT(MOD_LSFT, KC_T)
+
+// RIGHT HAND HOME ROW MODS COLEMAK ├────────────────┐
+
+#define SHT_N MT(MOD_RSFT, KC_N)
+//#define CTL_SLSH MT(MOD_LCTL, KC_SLSH)
+//#define GUI_DOT MT(MOD_LGUI, KC_DOT)
+//#define ALT_COMM MT(MOD_LALT, KC_COMM)
 
 // ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 // │ K E Y M A P S                                                                                                          │
@@ -106,102 +119,102 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_MINS,  CTL_Z,    GUI_X,    ALT_C,    KC_V,     KC_B,      KC_N,     KC_M,     ALT_COMM, GUI_DOT,  CTL_SLSH,  MC_QUOT,
                                   KC_BSPC,  LOWER,    KC_ENT,    KC_SPACE, RAISE,    ALT_DEL
  ),
+/*
 
-
- /*
    ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 
    ┌─────────────────────────────────────────────────┐
-   │ l o w e r                                       │      ╭╮╭╮╭╮╭╮
+   │ c o l e m a k                                   │      ╭╮╭╮╭╮╭╮
    └─────────────────────────────────────────────────┘      │╰╯╰╯╰╯│
              ┌─────────┬─────────┬─────────┬─────────┬──────╨──┐┌──╨──────┬─────────┬─────────┬─────────┬─────────┐
-     ╌┄┈┈───═╡   ESC   │  HOME   |    ↑    │   PG↑   │         ││    /    │    7    │    8    │    9    │    +    │
+     ╌┄┈┈───═╡    Q    │    W    │    F    │    P    │    G    ││    J    │    L    │    U    │    Y    │    ;    │   
              ├─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┤
-             │   TAB   │    ←    │    ↓    │    →    │ WWW For ││    *    │    4    │    5    │    6    │    -    │
+             │    A    │    R    │    S    │  T/Sft  │    D    ││    H    │  N/Sft  │    E    │    I    │    O    │    
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
-   │    _    │ WWW Refr│   END   │         │   PG↓   │         ││    ,    │    1    │    2    │    3    │    *    │    =    │
+   │    -    │  Z/Ctl  │  X/Gui  │  C/Alt  │    V    │    B    ││    K    │    M    │  ,/Alt  │  ./Gui  │  //Ctl  │    ¨    │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
-                                 │ WWWBACK │    ▼    │ FUNCTION││    _    │ ADJUST  │    0    │
-                                 └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘ */
+                                 │   BSPC  │ LWR/ESC │  ENTER  ││  SPACE  │  RS/TAB │ RAlt/DEL│  
+                                 └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘*/ 
 
-   [_LOWER] = LAYOUT(
+   [_COLEMAK] = LAYOUT(
  //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
-              KC_ESC,   KC_HOME,   KC_UP,    KC_PGUP,  XXXXXXX,    KC_PSLS,  KC_7,     KC_8,     KC_9,     KC_PPLS,
-              KC_TAB,   KC_LEFT,   KC_DOWN,  KC_RGHT,  KC_WFWD,    KC_PAST,  KC_4,     KC_5,     KC_6,     KC_MINS,
-    KC_UNDS,  KC_WREF,  KC_END,    XXXXXXX,  KC_PGDN,  XXXXXXX,    KC_COMM,  KC_1,     KC_2,     KC_3,     KC_DOT,  KC_EQL,
-                                   KC_WBAK,  _______,  FUNCTION,   KC_UNDS,  ADJUST,   KC_0
- ),
-
- /*
-   ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
-
-   ┌─────────────────────────────────────────────────┐
-   │ r a i s e                                       │      ╭╮╭╮╭╮╭╮
-   └─────────────────────────────────────────────────┘      │╰╯╰╯╰╯│
-             ┌─────────┬─────────┬─────────┬─────────┬──────╨──┐┌──╨──────┬─────────┬─────────┬─────────┬─────────┐
-     ╌┄┈┈───═╡    !    │    @    │    #    │    $    │    {    ││    }    │         │   End   │   Home  │         │
-             ├─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┤
-             │    %    │    ^    │    &    │    *    │    [    ││    ]    │  Left   │  Down   │   Up    │  Right  │
-   ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
-   │ SELWORD │    ˚    │    |    │    '    │    ~    │    (    ││    )    │         │  PgDwn  │   PgUp  │         │    \    │
-   └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
-                                 │    ▼    │ ADJUST  │    _    ││         │         │    ▼    │
-                                 └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘ */
-
-   [_RAISE] = LAYOUT(
-//╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
-              KC_EXLM, KC_AT,    KC_HASH,  KC_DLR,   KC_LCBR,   KC_RCBR,  XXXXXXX,  KC_END,   KC_HOME,  XXXXXXX,
-              KC_PERC, KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LBRC,   KC_RBRC,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT,
-    SELWORD,  Celsius, KC_PIPE,  KC_GRV,   KC_TILD,  KC_LPRN,   KC_RPRN,  XXXXXXX,  KC_PGDN,  KC_PGUP,  XXXXXXX,   KC_BSLS,
-                                 _______,  ADJUST,   KC_MINS,   FUNCTION,  _______,   _______
+              KC_Q,     KC_W,     KC_F,     KC_P,     KC_G,      KC_J,     KC_L,     KC_U,     KC_Y,     KC_SCLN,  
+              KC_A,     KC_R,     KC_S,     SHT_T,    KC_D,      KC_H,     SHT_N,    KC_E,     KC_I,     KC_O,  
+    KC_MINS,  CTL_Z,    GUI_X,    ALT_C,    KC_V,     KC_B,      KC_K,     KC_M,     ALT_COMM, GUI_DOT,  CTL_SLSH,  MC_QUOT,
+                                  KC_BSPC,  LOWER,    KC_ENT,    KC_SPACE, RAISE,    ALT_DEL
  ),
 
 /*
    ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
-
+   
    ┌─────────────────────────────────────────────────┐
-   │ f u n c t i o n                                 │      ╭╮╭╮╭╮╭╮
+   │ l o w e r                                       │      ╭╮╭╮╭╮╭╮
    └─────────────────────────────────────────────────┘      │╰╯╰╯╰╯│
              ┌─────────┬─────────┬─────────┬─────────┬──────╨──┐┌──╨──────┬─────────┬─────────┬─────────┬─────────┐
-     ╌┄┈┈───═╡         │         │         │         │         ││         │   F7    │   F8    │   F9    │   F11   │
+     ╌┄┈┈───═╡ CAPSLCK │  HOME   │    ↑    │   PG↑   │    {    ││    }    │    7    │    8    │    9    │    +    │   
              ├─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┤
-             │         │         │         │         │         ││         │   F4    │   F5    │   F6    │   F12   │
+             │ NUMLCK  │    ←    │    ↓    │    →    │    [    ││    ]    │    4    │    5    │    6    │    -    │    
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
-   │         │         │         │         │         │         ││         │   F1    │   F2    │   F3    │         │         │
+   │ SCRNSHT │         │   END   │  SAVE   │   PG↓   │    (    ││    )    │    1    │    2    │    3    │    *    │    =    │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
-                                 │         │         │         ││         │         │   F10   │
-                                 └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘*/
+                                 │    ▼    │    ▼    │    ▼    ││    _    │ ADJUST  │    0    │  
+                                 └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘ */ 
 
-   [_FUNCTION] = LAYOUT(
+   [_LOWER] = LAYOUT(
  //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
-              XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  KC_F7,    KC_F8,    KC_F9,    KC_F11,
-              XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  KC_F4,    KC_F5,    KC_F6,    KC_F12,
-    _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  KC_F1,    KC_F2,    KC_F3,    XXXXXXX, XXXXXXX,
-                                  _______,  _______,   _______,  _______,  _______,  KC_F10
+              KC_CAPS,  KC_NUM,   KC_UP,    KC_PGUP,  KC_LCBR,   KC_RCBR,  KC_P7,    KC_P8,    KC_P9,    KC_PPLS,
+              KC_QUOT,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_LBRC,   KC_RBRC,  KC_P4,    KC_P5,    KC_P6,    KC_MINS,  
+    SNAP,     XXXXXXX,  KC_END,   C(KC_S),  KC_PGDN,  KC_LPRN,   KC_RPRN,  KC_P1,    KC_P2,    KC_P3,    KC_PAST,  KC_EQL,
+                                  _______,  _______,  _______,   KC_UNDS,  ADJUST,   KC_P0
  ),
  /*
    ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+   
+   ┌─────────────────────────────────────────────────┐
+   │ r a i s e                                       │      ╭╮╭╮╭╮╭╮
+   └─────────────────────────────────────────────────┘      │╰╯╰╯╰╯│
+             ┌─────────┬─────────┬─────────┬─────────┬──────╨──┐┌──╨──────┬─────────┬─────────┬─────────┬─────────┐
+     ╌┄┈┈───═╡    !    │    @    │    #    │    $    │    %    ││    ^    │    &    │    Ü    │    °    │    /    │   
+             ├─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┤
+             │    Ä    │    è    │    SZ   │    é    │         ││    ˚    │    ¥    │    €    │    £    │    Ö    │
+   ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
+   │         │    `    │    ~    │   CUE   │         │         ││    |    │    \    │         │ DM REC1 │ DM STOP │ DM PLY1 │
+   └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
+                                 │  GIPHY  │ ADJUST  │    -    ││    ▼    │    ▼    │    ▼    │  
+                                 └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘ */ 
 
+   [_RAISE] = LAYOUT(
+ //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
+              KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,   KC_CIRC,  KC_AMPR,  RALT(KC_U),RALT(KC_3),KC_BSLS,
+            RALT(KC_A),RALT(KC_F),RALT(KC_S),RALT(KC_G),XXXXXXX, Celsius,  LSFT(RALT(KC_4)),RALT(KC_5),RALT(KC_4),RALT(KC_O), 
+    XXXXXXX, LSFT(KC_GRV),KC_TILD, RALT(KC_C),XXXXXXX,  XXXXXXX, KC_PIPE,  KC_BSLS,  XXXXXXX,  DM_REC1,  DM_RSTP,  DM_PLY1, 
+                                  _______,   ADJUST,   KC_MINS,  _______,  _______,  _______
+ ),
+
+ /*
+   ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+   
    ┌─────────────────────────────────────────────────┐
    │ a d j u s t                                     │      ╭╮╭╮╭╮╭╮
    └─────────────────────────────────────────────────┘      │╰╯╰╯╰╯│
              ┌─────────┬─────────┬─────────┬─────────┬──────╨──┐┌──╨──────┬─────────┬─────────┬─────────┬─────────┐
-     ╌┄┈┈───═╡  RESET  │         │         │         │  Print  ││   Num   |  Caps   | Scroll  │         │         │ 
+     ╌┄┈┈───═╡  RESET  │         │         │         │         ││         │   F7    │   F8    │   F9    │   F12   │   
              ├─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┤
-             │  VOL↑   │  Next   │         │         │         ││   Ins   │         │         │         │         │
+             │ DEBUG   │ QWERTY  │  Stop   │  Next   │   VOL↑  ││         │   F4    │   F5    │   F6    │   F11   │   
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
-   │         │  VOL↓   │  Prv    │   Stp   │         │         ││         |         |         |         │         │         │
+   │         │         │ COLEMAK │  Play   │  Prv    │   VOL↓  ││         │   F1    │   F2    │   F3    │   F10   │         │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┤├─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
-                                 │    ▼    │    ▼    │    ▼    ││    ▼    │    ▼    │    ▼    │
-                                 └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘ */
+                                 │    ▼    │    ▼    │    ▼    ││    ▼    │    ▼    │    ▼    │  
+                                 └─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┘ */ 
 
    [_ADJUST] = LAYOUT(
  //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
-              QK_BOOT,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   KC_NUM,   KC_LCAP,  KC_LSCR,  XXXXXXX,  XXXXXXX,
-              KC_VOLU,  KC_MNXT,  KC_MPLY,  XXXXXXX,  XXXXXXX,   KC_INS,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    _______,  KC_VOLD,  KC_MPRV,  KC_MSTP,  XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,
-                                  _______,  _______,  _______,   _______,  _______,  _______
+              QK_BOOT,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  KC_F7,    KC_F8,    KC_F9,    KC_F12,   
+              DB_TOGG,  QWERTY,   KC_MSTP,  KC_MNXT,  KC_VOLU,   XXXXXXX,  KC_F4,    KC_F5,    KC_F6,    KC_F11,
+    XXXXXXX,  XXXXXXX,  COLEMAK,  KC_MPLY,  KC_MPRV,  KC_VOLD,   XXXXXXX,  KC_F1,    KC_F2,    KC_F3,    KC_F10,   XXXXXXX,
+                                  _______,  _______,  _______,   _______,  _______,  _______  
  )
+ 
 /*
    ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 
@@ -256,11 +269,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // │ l a y e r                                       │
 // └─────────────────────────────────────────────────┘
 
+         case COLEMAK:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_COLEMAK);
+            }
+            return false;
         case QWERTY:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_QWERTY);
             }
-
             return false;
 
 // ┌─────────────────────────────────────────────────┐
